@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>雷达图自动轮播测试</title>
+    <style>
+        .analyse-echart{
+            height: 480px;
+            width:600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="analyse-echart" id="highOpinionChart">
+    </div>
+    <script src="https://cdn.bootcss.com/echarts/3.7.2/echarts.js"></script>
+    <script src="RadarAutoTipTemp.js"></script>
+    <script>
+        var option= {
+            tooltip: {
+                show:false
+            },
+            radar: {
+                shape: 'circle',
+                splitNumber: 4,
+                radius:150,
+                axisLine: {
+                    lineStyle: {
+                        color: '#003366',
+                        opacity:1
+                    }
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: '#003366',
+                        opacity:1
+                    }
+                },
+                splitArea:{
+                    areaStyle:{
+                        opacity:0
+                    }
+                },
+                indicator: [
+
+                    { text: '卫生', max:100 },
+                    { text: '服务', max:100 },
+                    { text: '饮食',max:100},
+                    { text: '风景',max:100 },
+                    { text: '设施',max:100},
+                    { text: '价格',max:100 },
+                    { text: '管理',max:100  },
+                    { text: '交通', max:100}
+                ]
+            },
+            name: {
+                formatter:function (val) {
+                    return val;
+                },
+                textStyle: {
+                    color:'#c6dff1',
+                    fontSize:14
+                }
+            },
+
+            series: [{
+                name: '指数',
+                type: 'radar',
+                data : [
+                    {
+                        value : [40, 70, 50, 70, 42,90,72,90],
+                        name : '指数',
+                        itemStyle:{
+                            normal:{
+                                borderColor:'#ff5757',
+                                opacity:1,
+                                borderWidth:2,
+                                borderType:'solid'
+                            }},
+                        lineStyle:{
+                            normal:{
+                                color:'#ff5757',
+                                type:'solid',
+                                width:2
+                            }},
+                        areaStyle: {
+                            normal: {
+                                opacity: 0.5,
+                                color:'#ff5757'
+                            }
+                        }
+                    }
+                ]
+            }]
+        };
+        var target = document.getElementById('highOpinionChart');
+        var radarAutoInfo = {hoverEnable: true, autoShow: true, time: 2000,intervalId:''};
+        myChart = echarts.init(target);
+        myChart.setOption(option);
+        new RadarAutoTip(target, option, radarAutoInfo );
+    </script>
+</body>
+</html>
