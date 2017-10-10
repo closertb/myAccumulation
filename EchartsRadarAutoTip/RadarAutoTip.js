@@ -1,5 +1,5 @@
 ;(function(){
-    var m =Math,radar ={} ; //控制hover与自动轮播冲突
+    var m =Math,radar ={};
     var style ={
         color:'#fff',
         border:'0px solid rgb(51,51,51)',
@@ -72,41 +72,52 @@
     function removeLabel(dom) {
         dom.style.display ='none';
     }
-    var RadarAutoTip =function(target,option,autoOption){
+
+    /**给初始化后的echarts对象绑定一个自动轮播的属性
+     * @parame chart ：初始化后的echarts对象
+     * @parame target ：echarts对象挂载的dom元素
+     * @parame option ： echarts对象的option配置
+     * @parame autoOption ：配置你自己的autoOption
+     */
+
+    var RadarAutoTip =function(chart,target,option,autoOption){
+        if(!chart.hasOwnProperty('radarAutoTip')){
+            chart.radarAutoTip = new addAutoTip(target,option,autoOption)
+        }else{
+            chart.radarAutoTip.reset(option);
+        }
+    };
+    var addAutoTip =function(target,option,autoOption){
         radar.target = target;
         radar.option = option;
         this.autoOption = autoOption;
         this.init();
+        autoOption.autoShow&&(this.autoStart());
     };
-    RadarAutoTip.prototype.init =function () {
-        var step =-1,hovering =false;
+    addAutoTip.prototype.init =function () {
+        radar.hovering =false;
+        radar.autoTipState =true;
         radar.center ={
             pointx:(option.radar.center&&Number(option.radar.center[0].substr(0,option.radar.center[0].length-1))/100)||0.5,
             pointy:(option.radar.center&&Number(option.radar.center[1].substr(0,option.radar.center[1].length-1))/100)||0.5
         };
         var x=target.offsetWidth*radar.center.pointx;
         var y=target.offsetHeight*radar.center.pointy;
-        var indicator = radar.option.radar.indicator;
-        var data = option.series[0].data[0].value;
+        radar.pointZero ={
+            x:x,
+            y:y
+        };
+        var indicator =radar.indicator = radar.option.radar.indicator;
+        var data =radar.data = option.series[0].data[0].value;
         var length = indicator.length;
         radar.radius= radar.option.radar.radius;
-        var pointData=[];
+        var pointData=radar.pointData=[];
         var single = 2*m.PI /length*(-1);
         for(var i = 0;i<length;i++){
             var ratio = data[i]/indicator[i].max;
             pointData.push([radar.radius*m.sin(i*single)*ratio,radar.radius*m.cos(i*single)*ratio]);
         }
         createLabel();
-        this.autoOption.autoShow&&(this.autoOption.intervalId=setInterval(function () {
-            step = (step+1)%length;
-            var showPoint={
-                x:pointData[step][0]+x,
-                y:y-pointData[step][1]
-            };
-            var tag =indicator[step];
-            var text = tag.text+':'+m.round(data[step]*100/tag.max)+"%";
-            (!hovering)&&hoverLabel(radar.hoverLabel,showPoint,text,style);
-        },this.autoOption.time||1000));
         /**hover相关设置*/
         this.autoOption.hoverEnable&&(radar.target.addEventListener('mousemove',function(event){
             var canvas= radar.target.querySelector('canvas');
@@ -124,37 +135,51 @@
                 }
             }
             if(index!==-1){
-                var tag =indicator[index]
+                var tag =indicator[index];
                 var text = tag.text+':'+m.round(data[index]*100/tag.max)+"%";
-                hovering =true;
+                radar.hovering =true;
                 hoverLabel(radar.hoverLabel,mouse,text,style);
             }else{
-                hovering =false;
+                radar.hovering =false;
                 removeLabel(radar.hoverLabel);
             }
         }))
     }
-    RadarAutoTip.prototype.reset=function () {
-        /**以下部分用于消除图表刷新重置数据后，销毁以前创建的label显示dom元素和定时器*/
-        if(this.target.getElementsByClassName('hoverLabel').length){  //图表刷新重置时
-            this.target.removeChild(target.getElementsByClassName('hoverLabel')[0]);
+    /**以下部分用于消除图表刷新重置数据后，销毁以前创建的label显示dom元素和定时器*/
+    addAutoTip.prototype.reset=function () {
+        radar.hovering =false;
+        radar.autoTipState =true;
+        if(radar.target.getElementsByClassName('hoverLabel').length){  //图表刷新重置时
+            radar.target.removeChild(radar.target.getElementsByClassName('hoverLabel')[0]);
         }
         this.autoOption.intervalId&&clearInterval(this.autoOption.intervalId);
+        createLabel();
+        this.autoStart();
     }
-    RadarAutoTip.prototype.stop=function () {
+    /**停止自动轮播*/
+    addAutoTip.prototype.stop=function () {
+        radar.autoTipState =false;
+    };
+    /**开启自动轮播*/
+    addAutoTip.prototype.start=function () {
         /**以下部分用于消除图表刷新重置数据后，销毁以前创建的label显示dom元素和定时器*/
-        if(this.target.getElementsByClassName('hoverLabel').length){  //图表刷新重置时
-            this.target.removeChild(target.getElementsByClassName('hoverLabel')[0]);
-        }
-        this.autoOption.intervalId&&clearInterval(this.autoOption.intervalId);
-    }
-    RadarAutoTip.prototype.start=function () {
-        /**以下部分用于消除图表刷新重置数据后，销毁以前创建的label显示dom元素和定时器*/
-        if(this.target.getElementsByClassName('hoverLabel').length){  //图表刷新重置时
-            this.target.removeChild(target.getElementsByClassName('hoverLabel')[0]);
-        }
-        this.autoOption.intervalId&&clearInterval(this.autoOption.intervalId);
-    }
+        radar.autoTipState =true;
+    };
+    /**手动开启自动轮播*/
+    addAutoTip.prototype.autoStart=function () {
+        var step=-1;
+        var length = radar.indicator.length;
+        this.autoOption.intervalId=setInterval(function () {
+            step = (step+1)%length;
+            var showPoint={
+                x:radar.pointData[step][0]+ radar.pointZero.x,
+                y:radar.pointZero.y-radar.pointData[step][1]
+            };
+            var tag =radar.indicator[step];
+            var text = tag.text+':'+m.round(radar.data[step]*100/tag.max)+"%";
+            radar.autoTipState&&(!radar.hovering)&&hoverLabel(radar.hoverLabel,showPoint,text,style);
+        },this.autoOption.time||1000)
+    };
     if (typeof module !== 'undefined' && typeof exports === 'object') {
         module.exports = RadarAutoTip;
     } else if (typeof define === 'function' && define.amd) {

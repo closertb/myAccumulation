@@ -5,16 +5,18 @@
     <title>雷达图自动轮播测试</title>
     <style>
         .analyse-echart{
-            height: 480px;
-            width:600px;
+            height: 680px;
+            width:800px;
         }
     </style>
 </head>
 <body>
     <div class="analyse-echart" id="highOpinionChart">
     </div>
+    <button id="reset">停止</button>
+    <button id="rereset">重置</button>
     <script src="https://cdn.bootcss.com/echarts/3.7.2/echarts.js"></script>
-    <script src="RadarAutoTipTemp.js"></script>
+    <script src="RadarAutoTip.js"></script>
     <script>
         var option= {
             tooltip: {
@@ -97,7 +99,21 @@
         var radarAutoInfo = {hoverEnable: true, autoShow: true, time: 2000,intervalId:''};
         myChart = echarts.init(target);
         myChart.setOption(option);
-        new RadarAutoTip(target, option, radarAutoInfo );
+        RadarAutoTip(myChart,target, option, radarAutoInfo);
+        document.querySelector('#reset').addEventListener('click',function (e) {
+           console.log(e);
+           if(e.target.innerText === '停止'){
+               e.target.innerText ='开始'
+               myChart.radarAutoTip.stop();
+           }else{
+               e.target.innerText  = '停止';
+               myChart.radarAutoTip.start();
+           }
+        });
+        document.querySelector('#rereset').addEventListener('click',function (e) {
+            myChart.radarAutoTip.reset();
+        });
+
     </script>
 </body>
 </html>
