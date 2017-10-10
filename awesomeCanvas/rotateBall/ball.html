@@ -1,0 +1,59 @@
+<!Doctype html>
+<html>
+<head>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-image:url(./back.jpg) ;
+            text-align: center;
+        }
+        .back{
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+<h5 class="hello">this is demo</h5>
+<div class='back' id="back"></div>
+<script src="./RotateBall.js"></script>
+<script>
+    /*    function inheritPrototype(subType, superType){
+            var prototype = Object.create(superType.prototype); //创建对象
+            prototype.constructor = subType; //增强对象
+            subType.prototype = prototype; //指定对象
+        }
+
+        function SuperType(name){
+            this.name = name;
+            this.colors = ["red", "blue", "green"];
+        }
+        SuperType.prototype.sayName = function(){
+            alert(this.name);
+        };
+        function SubType(name, age){
+            SuperType.call(this, name);
+            this.age = age;
+        }
+        inheritPrototype(SubType, SuperType);
+        SubType.prototype.sayAge = function(){
+            console.log(this.age);
+        };
+        var subTemp = new SubType('t','18');
+        subTemp.colors.push('yellow');
+        console.log(subTemp);
+
+        var superTemp = new SuperType('z');
+        console.log(superTemp);*/
+       var rotate = new RotateBall(document.getElementById('back'),15,18,900);
+        rotate.start();
+</script>
+</body>
+</html>
