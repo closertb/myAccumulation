@@ -6,6 +6,20 @@
         borderRadius:'4px',
         backgroundColor:'rgba(0,0,0,0.8)'
     };
+    /**给初始化后的echarts对象绑定一个自动轮播的属性
+     * @parame chart ：初始化后的echarts对象
+     * @parame target ：echarts对象挂载的dom元素
+     * @parame option ： echarts对象的option配置
+     * @parame autoOption ：配置你自己的autoOption
+     */
+    var RadarAutoTip =function(chart,target,option,autoOption){
+        if(!chart.hasOwnProperty('radarAutoTip')){
+            chart.radarAutoTip = new addAutoTip(target,option,autoOption)
+        }else{
+            chart.radarAutoTip.reset(option);
+        }
+    };
+
     /**获取鼠标在canvas画布上的位置(**不是浏览器窗口的鼠标位置)
      * clientX获取的相对浏览器窗口左上角的位置，适用于所有浏览器
      * 在chrome浏览器中，有一个zrX属性，是相对于元素本身的相对位置
@@ -44,7 +58,7 @@
     function hoverLabel(label,point,text,style){
         label.style.display ='none';
         label.style.top=(point.y-37)+'px';
-        label.style.left=(point.x-36)+'px';
+        label.style.left=point.x+'px';
         label.style.border=style.border;
         label.style.font ='normal 14px 微软雅黑';
         label.style.boxSizing='border-box';
@@ -53,6 +67,7 @@
         label.style.borderRadius=style.borderRadius;
         label.style.backgroundColor = style.backgroundColor;
         label.style.transition ='left 0.4s cubic-bezier(0.23,1,0.32,1),top 0.4s cubic-bezier(0.23,1,0.32,1)';
+        label.style.transform='translate(-50%, 0)';
         label.style.zIndex = 999;
         label.innerHTML =text;
         label.style.display ='inline-block';
@@ -73,24 +88,14 @@
         dom.style.display ='none';
     }
 
-    /**给初始化后的echarts对象绑定一个自动轮播的属性
-     * @parame chart ：初始化后的echarts对象
-     * @parame target ：echarts对象挂载的dom元素
-     * @parame option ： echarts对象的option配置
-     * @parame autoOption ：配置你自己的autoOption
-     */
-
-    var RadarAutoTip =function(chart,target,option,autoOption){
-        if(!chart.hasOwnProperty('radarAutoTip')){
-            chart.radarAutoTip = new addAutoTip(target,option,autoOption)
-        }else{
-            chart.radarAutoTip.reset(option);
-        }
-    };
     var addAutoTip =function(target,option,autoOption){
         radar.target = target;
         radar.option = option;
+        radar.formatter =autoOption.formatter || function (v) {
+            return v.text+':'+v.value;
+        };
         this.autoOption = autoOption;
+        this.autoOption.intervalId = undefined;
         this.init();
         autoOption.autoShow&&(this.autoStart());
     };
@@ -108,7 +113,11 @@
             y:y
         };
         var indicator =radar.indicator = radar.option.radar.indicator;
-        var data =radar.data = option.series[0].data[0].value;
+        var data = option.series[0].data[0].value;
+        indicator = indicator.map(function (t,index) {
+            t.value = data[index];
+            return t;
+        });
         var length = indicator.length;
         radar.radius= radar.option.radar.radius;
         var pointData=radar.pointData=[];
@@ -136,7 +145,7 @@
             }
             if(index!==-1){
                 var tag =indicator[index];
-                var text = tag.text+':'+m.round(data[index]*100/tag.max)+"%";
+                var text =radar.formatter(tag);    //tag.text+':'+m.round(tag.value*100/tag.max)+"%";
                 radar.hovering =true;
                 hoverLabel(radar.hoverLabel,mouse,text,style);
             }else{
@@ -176,7 +185,7 @@
                 y:radar.pointZero.y-radar.pointData[step][1]
             };
             var tag =radar.indicator[step];
-            var text = tag.text+':'+m.round(radar.data[step]*100/tag.max)+"%";
+            var text =radar.formatter(tag);   //tag.text+':'+m.round(tag.value*100/tag.max)+"%";
             radar.autoTipState&&(!radar.hovering)&&hoverLabel(radar.hoverLabel,showPoint,text,style);
         },this.autoOption.time||1000)
     };

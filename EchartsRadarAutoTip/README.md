@@ -8,5 +8,5 @@
      hoverEnable: true, //是否开启hover效果
      autoShow: true,  //是否开启自动轮播
      time: 2000,  //自动轮播间隔，默认1000ms
-     intervalId:''  //自动轮播的定时器id记录，用于手动清空定时器；
+     formatter:''  //hover或则自动轮播显示数据的格式，formatter(v)，v中包含一个维度的text,max和value值；
  }

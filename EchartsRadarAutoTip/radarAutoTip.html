@@ -44,13 +44,12 @@
                     }
                 },
                 indicator: [
-
                     { text: '卫生', max:100 },
-                    { text: '服务', max:100 },
+                    { text: '服务', max:120 },
                     { text: '饮食',max:100},
-                    { text: '风景',max:100 },
+                    { text: '风景',max:140 },
                     { text: '设施',max:100},
-                    { text: '价格',max:100 },
+                    { text: '价格',max:150 },
                     { text: '管理',max:100  },
                     { text: '交通', max:100}
                 ]
@@ -96,7 +95,9 @@
             }]
         };
         var target = document.getElementById('highOpinionChart');
-        var radarAutoInfo = {hoverEnable: true, autoShow: true, time: 2000,intervalId:''};
+        var radarAutoInfo = {hoverEnable: true, autoShow: true, time: 2000, formatter:function(v){
+            return v.text + ':' + (v.value*100/v.max).toFixed(2)+'%';
+        }};
         myChart = echarts.init(target);
         myChart.setOption(option);
         RadarAutoTip(myChart,target, option, radarAutoInfo);
