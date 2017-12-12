@@ -1,5 +1,5 @@
 ;(function(){
-    var m =Math,radar ={};
+    var m =Math,config ={};
     var style ={
         color:'#fff',
         border:'0px solid rgb(51,51,51)',
@@ -45,8 +45,8 @@
         label.setAttribute('class','hoverLabel');
         label.style.position='absolute';
         label.style.display='none';
-        radar.target.appendChild(label);
-        radar.hoverLabel = label;
+        config.target.appendChild(label);
+        config.hoverLabel = label;
     }
     /**动态设置单轴显示标签的样式和数据
      * @param：参数
@@ -89,10 +89,11 @@
     }
 
     var addAutoTip =function(target,option,autoOption){
-        radar.target = target;
-        radar.option = option;
-        radar.formatter =autoOption.formatter || function (v) {
-            return v.text+':'+v.value;
+        config.target = target;
+        config.option = option;
+        config.formatter =autoOption.formatter || function (v) {
+            var tag = v.name?'name':'text';
+            return v[tag]+':'+v.value;
         };
         this.autoOption = autoOption;
         this.autoOption.intervalId = undefined;
@@ -100,36 +101,36 @@
         autoOption.autoShow&&(this.autoStart());
     };
     addAutoTip.prototype.init =function () {
-        radar.hovering =false;
-        radar.autoTipState =true;
-        radar.center ={
-            pointx:(option.radar.center&&Number(option.radar.center[0].substr(0,option.radar.center[0].length-1))/100)||0.5,
-            pointy:(option.radar.center&&Number(option.radar.center[1].substr(0,option.radar.center[1].length-1))/100)||0.5
+        config.hovering =false;
+        config.autoTipState =true;
+        config.center ={
+            pointx:(config.option.radar.center&&Number(config.option.radar.center[0].substr(0,config.option.radar.center[0].length-1))/100)||0.5,
+            pointy:(config.option.radar.center&&Number(config.option.radar.center[1].substr(0,config.option.radar.center[1].length-1))/100)||0.5
         };
-        var x=target.offsetWidth*radar.center.pointx;
-        var y=target.offsetHeight*radar.center.pointy;
-        radar.pointZero ={
+        var x=config.target.offsetWidth*config.center.pointx;
+        var y=config.target.offsetHeight*config.center.pointy;
+        config.pointZero ={
             x:x,
             y:y
         };
-        var indicator =radar.indicator = radar.option.radar.indicator;
-        var data = option.series[0].data[0].value;
+        var indicator =config.indicator = config.option.radar.indicator;
+        var data = config.option.series[0].data[0].value;
         indicator = indicator.map(function (t,index) {
             t.value = data[index];
             return t;
         });
         var length = indicator.length;
-        radar.radius= radar.option.radar.radius;
-        var pointData=radar.pointData=[];
+        config.radius= config.option.radar.radius;
+        var pointData=config.pointData=[];
         var single = 2*m.PI /length*(-1);
         for(var i = 0;i<length;i++){
             var ratio = data[i]/indicator[i].max;
-            pointData.push([radar.radius*m.sin(i*single)*ratio,radar.radius*m.cos(i*single)*ratio]);
+            pointData.push([config.radius*m.sin(i*single)*ratio,config.radius*m.cos(i*single)*ratio]);
         }
         createLabel();
         /**hover相关设置*/
-        this.autoOption.hoverEnable&&(radar.target.addEventListener('mousemove',function(event){
-            var canvas= radar.target.querySelector('canvas');
+        this.autoOption.hoverEnable&&(config.target.addEventListener('mousemove',function(event){
+            var canvas= config.target.querySelector('canvas');
             var mouse = getMousePos(canvas, event);
             var point={};
             var index =-1;
@@ -145,21 +146,21 @@
             }
             if(index!==-1){
                 var tag =indicator[index];
-                var text =radar.formatter(tag);    //tag.text+':'+m.round(tag.value*100/tag.max)+"%";
-                radar.hovering =true;
-                hoverLabel(radar.hoverLabel,mouse,text,style);
+                var text =config.formatter(tag);    //tag.text+':'+m.round(tag.value*100/tag.max)+"%";
+                config.hovering =true;
+                hoverLabel(config.hoverLabel,mouse,text,style);
             }else{
-                radar.hovering =false;
-                removeLabel(radar.hoverLabel);
+                config.hovering =false;
+                removeLabel(config.hoverLabel);
             }
         }))
     }
     /**以下部分用于消除图表刷新重置数据后，销毁以前创建的label显示dom元素和定时器*/
     addAutoTip.prototype.reset=function () {
-        radar.hovering =false;
-        radar.autoTipState =true;
-        if(radar.target.getElementsByClassName('hoverLabel').length){  //图表刷新重置时
-            radar.target.removeChild(radar.target.getElementsByClassName('hoverLabel')[0]);
+        config.hovering =false;
+        config.autoTipState =true;
+        if(config.target.getElementsByClassName('hoverLabel').length){  //图表刷新重置时
+            config.target.removeChild(config.target.getElementsByClassName('hoverLabel')[0]);
         }
         this.autoOption.intervalId&&clearInterval(this.autoOption.intervalId);
         createLabel();
@@ -167,26 +168,26 @@
     }
     /**停止自动轮播*/
     addAutoTip.prototype.stop=function () {
-        radar.autoTipState =false;
+        config.autoTipState =false;
     };
     /**开启自动轮播*/
     addAutoTip.prototype.start=function () {
         /**以下部分用于消除图表刷新重置数据后，销毁以前创建的label显示dom元素和定时器*/
-        radar.autoTipState =true;
+        config.autoTipState =true;
     };
     /**手动开启自动轮播*/
     addAutoTip.prototype.autoStart=function () {
         var step=-1;
-        var length = radar.indicator.length;
+        var length = config.indicator.length;
         this.autoOption.intervalId=setInterval(function () {
             step = (step+1)%length;
             var showPoint={
-                x:radar.pointData[step][0]+ radar.pointZero.x,
-                y:radar.pointZero.y-radar.pointData[step][1]
+                x:config.pointData[step][0]+ config.pointZero.x,
+                y:config.pointZero.y-config.pointData[step][1]
             };
-            var tag =radar.indicator[step];
-            var text =radar.formatter(tag);   //tag.text+':'+m.round(tag.value*100/tag.max)+"%";
-            radar.autoTipState&&(!radar.hovering)&&hoverLabel(radar.hoverLabel,showPoint,text,style);
+            var tag =config.indicator[step];
+            var text =config.formatter(tag);   //tag.text+':'+m.round(tag.value*100/tag.max)+"%";
+            config.autoTipState&&(!config.hovering)&&hoverLabel(config.hoverLabel,showPoint,text,style);
         },this.autoOption.time||1000)
     };
     if (typeof module !== 'undefined' && typeof exports === 'object') {
