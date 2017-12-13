@@ -100,7 +100,7 @@
         }};
         myChart = echarts.init(target);
         myChart.setOption(option);
-        RadarAutoTip(myChart,target, option, radarAutoInfo);
+        RadarAutoTip.create(myChart,target, option, radarAutoInfo);
         document.querySelector('#reset').addEventListener('click',function (e) {
            console.log(e);
            if(e.target.innerText === '停止'){
