@@ -1,71 +1,20 @@
 /**
  * Title:
  * @author Mr Denzel
- * @create Date 2017-12-09 11:32
+ * @create Date 2017-12-14 17:06
  * @version 1.0
  * Description:
  */
-var PI = Math.PI, sin = Math.sin, cos = Math.cos, tan = Math.tan, random = Math.random;
-
-function cac(r, len) {
-    var arr = [], single = 2 * PI / len;
-    for (var i = 0; i < len; i++) {
-        arr.push({x: r * sin(single * i), y: -1 * r * cos(single * i)});
-    }
-    return arr;
-}
-
-/*function draw() {
-    var ctx = document.getElementById('canvas').getContext('2d');
-    ctx.translate(325,325);
-    ctx.beginPath();
-    ctx.strokeStyle= 'white';
-    ctx.arc(0,0,325,0,2*PI,false);
-    var res = cac(325,10);
-    ctx.moveTo(0,-325);
-    res.forEach(function (t) {
-        ctx.lineTo(t.x,t.y);
-    })
-    ctx.lineTo(res[0].x,res[0].y);
-    ctx.stroke();
-    console.log(res);
-}*/
-//draw()
-var  stars = [], mets = [],
-    option = {
-        starCount:50,
-        starColor:0.8,
-        starMinSize:3,
-        starMaxSize:6,
-        meteorCount:3,
-        meteorColor:0.7,
-        meteorAngle:45,
-        meteorSize:1.5,
-        meterTime:1000,
-        width:1920,
-        height:1080,
-        count:0
-    };
-
-
+var PI = Math.PI, sin = Math.sin, cos = Math.cos, tan = Math.tan, random = Math.random,option = {}, stars = [], mets = [];
 /**
  * 背景绘制
  * */
-function drawBg(point,opt) {
+function drawBg(point, starCount, meteorCount) {
     this.count = 0;
     this.append = point;
-    var canvas = document.createElement('canvas')
-    if(!canvas||!canvas.getContext){
-        alert('浏览器版本太低');
-        return ;
-    }
-    opt&&Object.keys(opt).forEach(function (t) {
-        option[t]&&(option[t] = opt[t]) ;  // 遍历传进来的opt所有键值，只改变option中预设属性的对应值
-    });
-    if(!option.starCount || !option.meteorCount){
-        console.error('星星数量和流星属性不能同时为空');
-        return;
-    }
+    option.count = 0;
+    option.length = starCount;
+    option.meteorLength = meteorCount;
     option.width = point.offsetWidth;
     option.height = point.offsetHeight;
     this.init();
@@ -78,8 +27,8 @@ function drawBg(point,opt) {
  * starCount:星星个数
  * meteorCount:流星个数
  * */
-drawBg.create = function (point, option) {
-    return new drawBg(point, option);
+drawBg.create = function (point, starCount, meteorCount) {
+    return new drawBg(point, starCount, meteorCount);
 }
 drawBg.prototype = {
     init: function () {
@@ -87,45 +36,53 @@ drawBg.prototype = {
         canvas.width = option.width;
         canvas.height = option.height;
         option.ctx = canvas.getContext('2d');
-        for (var i = 0; i < option.starCount; i++) {
+        for (var i = 0; i < option.length; i++) {
             size = random() * 3 + 3;  //设置星星半径大小，最小半径，最大半径，这里为3~6
             var st = new Star(size, {x: random() * option.width, y: random() * option.height});
             stars.push(st);
             option.ctx.drawImage(st.canvas, st.position.x, st.position.y);
         }
-        for (i = 0; i < option.meteorCount; i++) {
+        for (i = 0; i < option.meteorLength; i++) {
             //设置流星起点的x坐标，如果超出屏幕，则取余
             var xpoint = 400 + 600 * i + 100 * random();
             xpoint = (xpoint > option.width) ? (xpoint % option.width) : xpoint;
             var met = new Meteor(random() * 0.5 + 0.7, {x: xpoint, y: 200 * random()}, PI / 4);
             mets.push(met);
         }
+        option.ctx.drawImage(mets[0].canvas, mets[0].position.x, mets[0].position.y);
+        mets[0].setStart = true;
         this.append.appendChild(canvas);
+/*        setTimeout(function () {
+            option.ctx.drawImage(mets[1].canvas, mets[1].position.x, mets[1].position.y);
+            mets[1].setStart = true;
+            setTimeout(function () {
+                option.ctx.drawImage(mets[2].canvas, mets[2].position.x, mets[2].position.y);
+                mets[2].setStart = true;
+            }, 1000);
+        }, 1000)*/
         var metiorCount = 0;
-        function addMeteor() {
+        function addMetior() {
             metiorCount++;
-            if(metiorCount>option.meteorCount){
+            if(metiorCount>option.meteorLength){
                 return ;
             }
             var met = mets[metiorCount-1]
             option.ctx.drawImage(met.canvas, met.position.x, met.position.y);
             met.setStart = true;
             setTimeout(function () {
-                addMeteor();
-            },option.meterTime)
+                addMetior();
+            },1000)
         }
-        addMeteor();
+
     }
 }
 
 function update() {
-    if(option.starCount){
-        option.count = (option.count + 1) % option.starCount;
-        var star = stars[option.count];
-        star.update();
-        option.ctx.clearRect(star.position.x, star.position.y, star.domSize, star.domSize)
-        option.ctx.drawImage(star.canvas, star.position.x, star.position.y);
-    }
+    option.count = (option.count + 1) % option.length;
+    var star = stars[option.count];
+    star.update();
+    option.ctx.clearRect(star.position.x, star.position.y, star.domSize, star.domSize)
+    option.ctx.drawImage(star.canvas, star.position.x, star.position.y);
     mets.forEach(function (t) {
         if (!t.setStart) {
             return;
@@ -230,15 +187,63 @@ Meteor.prototype = {
         this.draw(false);
     }
 }
-drawBg.create(document.getElementById('canvasPoint'), {starCount:50,meteorCount:3,meterTime:5000});
-/**
- * 加载导航栏时hover效果停止显示的动画；
- **/
-window.onload = function () {
-    setTimeout(function () {
-        var selectLists = document.querySelectorAll('.item-selected');
-        selectLists.forEach(function (t) {
-            t.classList.remove('item-selected');
-        })
-    }, 1800);
-};
+var mergeFn = {
+    ObjectisObject: function (value) {
+        return value !== null && Object.prototype.toString.call(value) === '[object Object]';
+    },
+    clone: function (source) {
+        if (Array.isArray(source)) {
+            return source.map(this.clone);
+        }
+        if (this.ObjectisObject(source)) {
+            var target = {};
+            var keys = Object.keys(source);
+            var klen = keys.length;
+            var k = 0;
+            for (; k < klen; ++k) {
+                target[keys[k]] = this.clone(source[keys[k]]);
+            }
+            return target;
+        }
+        return source;
+    },
+    /**
+     *target 合并后的新对象
+     *source 原始对象
+     *options 用户设定对象
+     * */
+    _merger: function (key, target, source, options) {
+        var tval = options[key];
+        var sval = source[key];
+
+        if (this.ObjectisObject(tval) && this.ObjectisObject(sval)) {
+            var res = {};
+            target[key] = this.merge(res, sval, tval);
+        } else {
+            target[key] = tval ? this.clone(tval) : this.clone(sval);
+        }
+    },
+    /*
+    *target 合并后的新对象
+    *source 原始对象
+    *options 用户设定对象
+    * */
+    merge: function (target, source, options) {
+        var sources = Array.isArray(source) ? source : [source];
+        var ilen = sources.length;
+        var i, keys, klen, k;
+        options = options || {};
+        for (i = 0; i < ilen; ++i) {
+            source = sources[i];
+            if (!this.ObjectisObject(source)) {
+                continue;
+            }
+            keys = Object.keys(source);
+            for (k = 0, klen = keys.length; k < klen; ++k) {
+                this._merger(keys[k], target, source, options);
+            }
+        }
+        return target;
+    }
+}
+drawBg.create(document.getElementById('canvasPoint'), 100, 4);

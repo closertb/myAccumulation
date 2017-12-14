@@ -6,6 +6,7 @@
         borderRadius: '4px',
         backgroundColor: 'rgba(0,0,0,0.8)'
     };
+
     var RadarAutoTip = function (target, option, autoOption) {
         this.config = {};
         this.config.target = target;

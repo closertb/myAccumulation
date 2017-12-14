@@ -1,259 +1,112 @@
-body, div, ul, li, p {
-  margin: 0;
-  padding: 0;
+body,div,ul,li{
+  margin:0;padding:0;top:0;left:0;
 }
-
-ul, li {
-  list-style: none;
+ul,li{list-style: none;}
+body{
+  background-color:rgba(0,0,0,.8);
 }
-
-body {
-  background: url(../image/bg.jpg);
-  overflow-y: hidden;
-}
-
-#canvasPoint {
+#canvasPoint{
   position: fixed;
-  z-index: 1;
-  top: 0;
+  z-index:1;
+  top:0;
   bottom: 0;
   left: 0;
-  right: 0;
+  right:0;
 }
-
-.logo-center {
+.nav-logo{
+  height: 260px;
+  width: 260px;
   position: relative;
-  width: 451px;
-  height: 451px;
-  z-index: 29;
+  z-index: 2;
+  background: url('./GSLT.jpeg') no-repeat;
+  transform: translate(590px,250px);
+  border: 1px solid red;
   border-radius: 50%;
-  transform: translate(736px, 290px);
-  .logo-animate{
-    position: relative;
-    line-height: 0;
-    transform:translate(55px,112px);
-    animation: move-float 8s ease-in 0s infinite;
-  }
-  @keyframes move-float {
-     0%{
-       transform:translate(55px,112px);
-     }
-    50%{
-      transform:translate(55px,100px);
-    }
-    100%{
-      transform:translate(55px,112px);
-    }
-  }
-  #canvas {
+  canvas{
     position: absolute;
-    z-index: 12;
-    top: 0;
-    left: 0;
-    height: 650px;
-    width: 650px;
-    // border: 1px solid red;
-    // border-radius: 50%;
-    top: -100px;
-    left: -100px;
+    height:302px;
+    width:302px;
+    top:-22px;
+    left:-22px;
   }
-  .nav-lists {
+}
+.items{
+  position: absolute;
+  z-index: 49;
+  left:130px;
+  top:130px;
+  width:2px;
+  height:2px;
+  background-color: red;
+  border-radius: 50%;
+  .item{
     position: absolute;
-    font-size:12px;
-    z-index: 49;
-    left: 225px;
-    top: 225px;
-    width: 1px;
-    height: 1px;
-  .nav-item {
-    position: absolute;
-    width: 180px;
-    height: 180px;
-    margin-top:-91px;
-    margin-left:-91px;
+    height:50px;
+    width: 50px;
+    margin: -25px 0 0 -25px;
+    background-color: yellowgreen;
     border-radius: 50%;
-    background: url('../image/sprite.png');
-    background-position-x: -10px;
-   // transition: all .3s ease-out;
     &:before{
       content: '';
-      display: none;
       top:0;
       left:0;
-      margin-top:0.045em;
-      margin-left: .205em;
+      margin-top:-6px;
+      margin-left: -6px;
       z-index: 59;
       position: absolute;
-      width: 178px;
-      height:178px;
+      width: 60px;
+      height:60px;
+      border: 1px solid red;
       border-radius: 50%;
-      background:url('../image/hover-outer.png') no-repeat;
     }
     &:after{
-      position: absolute;
-      display: none;
-      width: 158px;
-      height:158px;
       content: '';
       z-index: 59;
-      top:-1px;
+      top:0;
       left:0;
-      margin-top:1.00em;
-      margin-left: 1.08em;
-      background:url('../image/hover-inner.png') no-repeat;
+      margin-top:4px;
+      margin-left: 4px;
+      position: absolute;
+      width: 40px;
+      height:40px;
+      border: 1px solid bisque;
       border-radius: 50%;
     }
     &:hover{
       &:after{
-        display: block;
-        animation: keep-rotate 8s linear 0s infinite;
+        display: none;
       }
       &:before{
-        display: block;
-        animation: keep-rotate-s 8s linear 0s infinite;
-      }
-    }
-    &.item-selected{
-      &:after{
-        display: block;
-        animation: rotate-once 2s linear;
-      }
-      &:before{
-        display: block;
-        animation: rotate-once 2s linear;
+        display: none;
       }
     }
   }
 }
-}
-@keyframes keep-rotate {
-  from{ transform: rotate(0);}
-  to{transform: rotate(270deg);}
-}
-@keyframes keep-rotate-s {
-  from{ transform: rotate(0);}
-  to{transform: rotate(-270deg);}
-}
-
-@keyframes rotate-once {
-  0%{
-    transform: rotate(0);
-    opacity: 1;
-  }
-  70%{
-    opacity: 1;
-  }
-  100%{transform: rotate(90deg);
-    opacity: 0;
-  }
-}
-@keyframes rotate-once-s {
-  0%{
-    transform: rotate(0);
-    opacity: 1;
-  }
-  70%{
-    opacity: 1;
-  }
-  100%{transform: rotate(-90deg);
-    opacity: 0;
-  }
-}
-
-.logo-center .nav-item:nth-child(1) {
-  left: 0;
-  top: -325px;
-  background-position-y: -10px;
-}
-
-.logo-center .nav-item:nth-child(1):hover {
-  background-position-y: -210px;
-}
-
-.logo-center .nav-item:nth-child(2) {
-  left: 191px;
-  top: -262px;
-  background-position-y: -410px;
-}
-
-.logo-center .nav-item:nth-child(2):hover {
-  background-position-y: -610px;
-}
-
-.logo-center .nav-item:nth-child(3) {
-  left: 309px;
-  top: -100px;
-  background-position-y: -810px;
-}
-
-.logo-center .nav-item:nth-child(3):hover {
-  background-position-y: -1010px;
-}
-.logo-center .nav-item:nth-child(4) {
-  left: 309px;
-  top: 100px;
-  background-position-y: -1210px;
-}
-
-.logo-center .nav-item:nth-child(4):hover {
-  background-position-y: -1410px;
-}
-
-.logo-center .nav-item:nth-child(5) {
-  left: 191px;
-  top: 262px;
-  background-position-y: -1610px;
-}
-
-.logo-center .nav-item:nth-child(5):hover {
-  background-position-y: -1810px;
-}
-
-.logo-center .nav-item:nth-child(6) {
+.items .item:nth-child(1) {
+  top: -150px;
   left: 0px;
-  top: 325px;
-  background-position-y: -2010px;
 }
 
-.logo-center .nav-item:nth-child(6):hover {
-  background-position-y: -2210px;
+.items .item:nth-child(2) {
+  top: -75px;
+  left: 130px;
 }
 
-.logo-center .nav-item:nth-child(7) {
-  left: -191px;
-  top: 262px;
-  background-position-y: -2410px;
+.items .item:nth-child(3) {
+  top: 75px;
+  left: 130px;
+}
+.items .item:nth-child(4) {
+  top: 150px;
+  left: 1.8px;
 }
 
-.logo-center .nav-item:nth-child(7):hover {
-  background-position-y: -2610px;
+.items .item:nth-child(5) {
+  top: 75px;
+  left: -130px;
 }
 
-.logo-center .nav-item:nth-child(8) {
-  left: -309px;
-  top: 100px;
-  background-position-y: -2810px;
-}
-
-.logo-center .nav-item:nth-child(8):hover {
-  background-position-y: -3010px;
-}
-
-.logo-center .nav-item:nth-child(9) {
-  left: -309px;
-  top: -100px;
-  background-position-y: -3210px;
-}
-
-.logo-center .nav-item:nth-child(9):hover {
-  background-position-y: -3410px;
-}
-.logo-center .nav-item:nth-child(10) {
-  left: -191px;
-  top: -262px;
-  background-position-y: -3610px;
-}
-
-.logo-center .nav-item:nth-child(10):hover {
-  background-position-y: -3810px;
+.items .item:nth-child(6) {
+  top: -75px;
+  left: -130px;
 }

@@ -6,7 +6,7 @@ ul, li {
   list-style: none; }
 
 body {
-  background: url(../image/bg.jpg);
+  background: url(./image/bg.jpg);
   overflow-y: hidden; }
 
 #canvasPoint {
@@ -61,7 +61,7 @@ body {
       margin-top: -91px;
       margin-left: -91px;
       border-radius: 50%;
-      background: url("../image/sprite.png");
+      background: url("./image/sprite.png");
       background-position-x: -10px; }
       .logo-center .nav-lists .nav-item:before {
         content: '';
@@ -75,7 +75,7 @@ body {
         width: 178px;
         height: 178px;
         border-radius: 50%;
-        background: url("../image/hover-outer.png") no-repeat; }
+        background: url("./image/hover-outer.png") no-repeat; }
       .logo-center .nav-lists .nav-item:after {
         position: absolute;
         display: none;
@@ -87,7 +87,7 @@ body {
         left: 0;
         margin-top: 1.00em;
         margin-left: 1.08em;
-        background: url("../image/hover-inner.png") no-repeat;
+        background: url("./image/hover-inner.png") no-repeat;
         border-radius: 50%; }
       .logo-center .nav-lists .nav-item:hover:after {
         display: block;
