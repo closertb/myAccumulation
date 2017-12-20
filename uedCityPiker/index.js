@@ -45,6 +45,7 @@ if (typeof Array.prototype.some != "function") {
             },
             triggerLevel:'child'  //当选择哪一级时，触发回调函数
     };
+    var $wibget ='',selector;
     var mds ={
         state:{
             grand:'',
@@ -57,19 +58,19 @@ if (typeof Array.prototype.some != "function") {
         /*设定选择框初始值*/
         setDefault:function ($point,opt) {
             var str = '<div class="widget">' +
-                '        <div class="items item-grand">' +
+                '        <div class="items item-grand" data-level="grand">' +
                 '            <span class="selected-item">'+opt.grand.palaceHolder+'</span>' +
                 '            <i class="triangle"></i>' +
                 '            <ul class="drop-item">' +
                 '            </ul>' +
                 '        </div>' +
-                '        <div class="items item-parent item-disable">' +
+                '        <div class="items item-parent item-disable" data-level="parent">' +
                 '            <span class="selected-item">'+opt.parent.palaceHolder+'</span>' +
                 '            <i class="triangle"></i>' +
                 '            <ul  class="drop-item">' +
                 '            </ul>' +
                 '        </div>' +
-                '        <div class="items item-child item-disable">' +
+                '        <div class="items item-child item-disable" data-level="child">' +
                 '            <span class="selected-item">'+opt.child.palaceHolder+'</span>' +
                 '            <i class="triangle"></i>' +
                 '            <ul class="drop-item">' +
@@ -129,16 +130,16 @@ if (typeof Array.prototype.some != "function") {
         },
         /*设定选择框初始值*/
         setName:function (level,holderName,index) {
-            $('.item-'+level+' .selected-item').text(holderName).attr('data-index',index);
-            $('.item-'+level+' .drop-item li.curr').removeClass('curr');
-            $('.item-'+level+' .drop-item li:eq('+index+')').addClass('curr');
+            $(selector+' .item-'+level+' .selected-item').text(holderName).attr('data-index',index);
+            $(selector+' .item-'+level+' .drop-item li.curr').removeClass('curr');
+            $(selector+' .item-'+level+' .drop-item li:eq('+index+')').addClass('curr');
         },
         setDisable:function (level) {
-            $('.item-'+level).addClass('item-disable');
+            $(selector+' .item-'+level).addClass('item-disable');
             this.setName(level,opt[level].palaceHolder);
         },
         setEnable:function (level) {
-            $('.item-'+level).removeClass('item-disable');
+            $(selector+' .item-'+level).removeClass('item-disable');
         },
         /*设定下拉框选择值*/
         setOption:function (opt) {
@@ -184,22 +185,23 @@ if (typeof Array.prototype.some != "function") {
                 str = str + '<li data-level="'+level+'" data-index="'+i+'">'+ lists[i].name+'</li>';
             }
             this.setEnable(level);
-            $('.item-'+level+' .drop-item').html(str);
+            $(selector+' .item-'+level+' .drop-item').html(str);
             toDefault&&(this.setName(level,opt[level].palaceHolder));
         },
         event:function (callback) {
             var that = this;
-            $(document).on('click','.items:not(.item-disable)',function (e) {
-                var $item = $(this).find('.drop-item');
+            $(selector).on('click','.items:not(.item-disable)',function (e) {
+                var level = $(this).data('level');
+                var $item = $(selector+' .item-'+level+' .drop-item');
                 var isShow = $item.css('display');
                 if(isShow === 'none'){
-                    $('.drop-item').css({display:'none'});
+                    $(selector+' .drop-item').css({display:'none'});
                     $item.css({display:'block'});
                 }else{
                     $item.css({display:'none'});
                 }
             });
-            $('.items').on('click','.drop-item li',function (e) {
+            $(selector+' .items').on('click','.drop-item li',function (e) {
             //    e.stopPropagation();
                 var res = {};
                 var $this =  $(this);
@@ -229,9 +231,11 @@ if (typeof Array.prototype.some != "function") {
         }
     };
     $.fn.uedCityPiker = function (options,callback) {
-       opt = $.extend(opt,options);
-        mds.setDefault($(this),opt);
-        $(this).find('.widget').css({display:'block'});
+        $wibget = $(this);
+        selector = this.selector;
+        opt = $.extend(opt,options);
+        mds.setDefault($wibget,opt);
+        $(selector+' .widget').css({display:'block'});
         mds.event(callback);
     }
 })(jQuery,document);
