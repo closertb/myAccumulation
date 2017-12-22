@@ -4,9 +4,22 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="index.css">
+    <style>
+        body,ul,li,h3{padding: 0;margin: 0;}
+        .test-module{
+            display: inline-block;
+            vertical-align: top;
+            width:33%;
+            height:250px;
+        }
+        .nav-bar{
+            height: 50px;
+            background-color: #fff;
+        }
+    </style>
 </head>
 <body>
-<div class="nav-bar">
+<div class=" test-module nav-bar"><h3>无默认值，原始状态</h3>
 <!--    <div class="widget">
         <div class="items">
             <span class="selected-item">请选择</span>
@@ -32,19 +45,87 @@
     </div>-->
 </div>
 
-<div class="nav-bar2" style="margin-top:300px;"></div>
+<div class="test-module nav-bar2"><h3>无默认值，上级选中，下级显示状态</h3></div>
+<div class="test-module nav-bar3"><h3>省有默认值，切不接切换状态</h3></div>
+<div class="test-module nav-bar4"><h3>只能选择省</h3></div>
+<div class="test-module nav-bar5"><h3>省确定，只能选择市</h3></div>
+<div class="test-module nav-bar6"><h3>省市确定，只能选择区</h3></div>
+<div class="test-module nav-bar7"><h3>省确定，只能选择市区</h3></div>
+<div class="test-module nav-bar8"><h3>省确定并隐藏，只能选择市区</h3></div>
+<div class="test-module nav-bar9"><h3>省确定并隐藏，市确定但不能切换，只能选择区</h3></div>
+
 <script src="http://filealiyun.geeker.com.cn/ued/js/jquery-1.8.3.min.js"></script>
 <script src="index.js"></script>
 <script>
-    $('.nav-bar').uedCityPiker({
-        grand:{name:'四川省'},
-        parent:{name:'绵阳市'}},
+    $('.nav-bar').uedCityPiker({},
         function (res) {
         console.log('res:',res);
-    })
-    $('.nav-bar2').uedCityPiker({size:'normal'},function (res) {
+         //   alert(12);
+    });
+    $('.nav-bar2').uedCityPiker({parent:{loadingState:'hidden'},
+        child:{loadingState:'hidden'}},function (res) {
         console.log('result:',res);
-    })
+      //  alert(34);
+    });
+    $('.nav-bar3').uedCityPiker({
+            grand:{region:'510000',state:'disable'}},
+        function (res) {
+            console.log('res:',res);
+            //   alert(12);
+        });
+    $('.nav-bar4').uedCityPiker({
+            child:{state:'hidden'},
+            parent:{state:'hidden'}},
+        function (res) {
+            console.log('res:',res);
+            //   alert(12);
+        });
+    $('.nav-bar4').uedCityPiker({
+            child:{state:'hidden'},
+            parent:{state:'hidden'}},
+        function (res) {
+            console.log('res:',res);
+            //   alert(12);
+        });
+    $('.nav-bar5').uedCityPiker({ child:{state:'hidden'},
+        grand:{region:'530000',state:'hidden'}},function (res) {
+        console.log('result:',res);
+        //  alert(34);
+    });
+    $('.nav-bar6').uedCityPiker({
+            grand:{state:'hidden'},
+            parent:{region:"530100",state:'hidden'}},
+        function (res) {
+            console.log('res:',res);
+            //   alert(12);
+        });
+    $('.nav-bar7').uedCityPiker({
+            grand:{region:'530000',state:'disable'},
+            parent:{name:'绵阳市'}},
+        function (res) {
+            console.log('res:',res);
+            //   alert(12);
+        });
+    $('.nav-bar8').uedCityPiker({
+        grand:{name:'四川省',state:'hidden'},
+        parent:{name:'绵阳市'}},function (res) {
+        console.log('result:',res);
+        //  alert(34);
+    });
+/*    $('.nav-bar9').uedCityPiker({
+            grand:{name:'四川省',state:'hidden'},
+            parent:{name:'绵阳市',state:'disable'}}, //other.js
+        function (res) {
+            console.log('res:',res);
+            //   alert(12);
+        });*/
+    new uedCityPiker('.nav-bar9',{
+            grand:{name:'四川省',state:'hidden'},
+            parent:{name:'绵阳市',state:'disable'}}, //other.js
+        function (res) {
+            console.log('res:',res);
+            //   alert(12);
+        });
 </script>
 </body>
 </html>

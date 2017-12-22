@@ -13,12 +13,10 @@ $uiBg:              #fff;  //组件背景色
 
 
 body,ul,li{padding: 0;margin: 0;}
-.nav-bar{
-  height: 50px;
-  background-color: $uiBg;
-}
-.widget{
+
+.ued-cityPicker-widget{
   position: absolute;
+  background-color: $uiBg;
 }
 .items{
   position: relative;
@@ -30,6 +28,12 @@ body,ul,li{padding: 0;margin: 0;}
   border-radius: 5px;
   border: 1px solid $bodColor;
   .selected-item{
+    display: inline-block;
+    margin-right: 16px;
+  //  width:90%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     line-height: 32px;
   }
   .triangle{
@@ -83,6 +87,17 @@ body,ul,li{padding: 0;margin: 0;}
     }
   }
 }
+.item-loading-disable{
+  border-color: $bodDisColor;
+  background-color: $itemDisBg;
+  cursor: not-allowed;
+  &:hover{
+    border-color: $bodDisColor;
+    .triangle{
+      border-color: $tagColor transparent;
+    }
+  }
+}
 .item-disable{
   border-color: $bodDisColor;
   background-color: $itemDisBg;
@@ -93,4 +108,10 @@ body,ul,li{padding: 0;margin: 0;}
       border-color: $tagColor transparent;
     }
   }
+}
+.item-loading-hidden{   //用于控制该项永不显示；
+  display: none !important;
+}
+.item-hidden{
+  display: none;
 }
