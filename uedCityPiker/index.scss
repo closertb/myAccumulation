@@ -1,0 +1,117 @@
+/*颜色配置相关*/
+$bodColor:        #d2d8e3; //边框颜色
+$bodHovColor:  #a2aebf; //边框hover颜色
+$bodDisColor:  #dee3ed; //禁用时边框颜色
+
+$tagColor:           #b6c0cf;  //向下三角颜色
+$tagHovColor:     #8590a0;  //向下hover颜色
+
+$itemHovBg:       #dee3ed;  //下拉框组件被选中和被hover时的背景色
+$itemDisBg:       #f9fafc;  //下拉框组件被选中和被hover时的背景色
+
+$uiBg:              #fff;  //组件背景色
+
+
+body,ul,li{padding: 0;margin: 0;}
+
+.ued-cityPicker-widget{
+  position: absolute;
+  background-color: $uiBg;
+}
+.items{
+  position: relative;
+  float:left;
+  min-width:110px;
+  height:32px;
+  margin:10px 10px;
+  padding: 0 10px;
+  border-radius: 5px;
+  border: 1px solid $bodColor;
+  .selected-item{
+    display: inline-block;
+    margin-right: 16px;
+  //  width:90%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 32px;
+  }
+  .triangle{
+    position: absolute;
+    right:5px;
+    top:12px;
+    width: 0;
+    height:0;
+    border-color: $tagColor transparent;
+    border-style: solid;
+    border-width: 9px 9px 0 9px;
+  }
+  .drop-item{
+    position: absolute;
+    display: none;
+    top:36px;
+    left:-2px;
+    border: 1px solid $bodColor;
+    background-color: $uiBg;
+    width:100%;
+    box-sizing: border-box;
+    min-height:100px;
+    max-height:200px;
+    transition: all .3s;
+    overflow-x: hidden;
+    overflow-y: auto;
+    li{
+      line-height: 30px;
+      padding-left: 5px;
+      width:100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      &:hover,&.curr{
+        background-color: $itemHovBg;
+      }
+    }
+    &::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+      -webkit-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+      -webkit-border-radius: 2px;
+      border-radius: 2px
+    }
+  }
+  &:hover{
+    border-color: $bodHovColor;
+    .triangle{
+      border-color: $tagHovColor transparent;
+    }
+  }
+}
+.item-loading-disable{
+  border-color: $bodDisColor;
+  background-color: $itemDisBg;
+  cursor: not-allowed;
+  &:hover{
+    border-color: $bodDisColor;
+    .triangle{
+      border-color: $tagColor transparent;
+    }
+  }
+}
+.item-disable{
+  border-color: $bodDisColor;
+  background-color: $itemDisBg;
+  cursor: not-allowed;
+  &:hover{
+    border-color: $bodDisColor;
+    .triangle{
+      border-color: $tagColor transparent;
+    }
+  }
+}
+.item-loading-hidden{   //用于控制该项永不显示；
+  display: none !important;
+}
+.item-hidden{
+  display: none;
+}
