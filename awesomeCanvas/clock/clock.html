@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>canvas时钟</title>
+</head>
+<body>
+<script src="clock.js"></script>
+<script>
+    var clock = new Clock(400);
+    document.body.appendChild(clock.canvas);
+    function animation()
+    {
+        clock.update();
+        requestAnimationFrame(animation);
+
+    }
+    animation();
+</script>
+</body>
+</html>

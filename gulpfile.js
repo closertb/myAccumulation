@@ -12,7 +12,7 @@ var gulp = require('gulp'),
     minifyCss = require('gulp-minify-css');
 var browserSync = require("browser-sync").create();//创建服务
 
-var editPath = './awesomeCanvas/animateNav/';
+var editPath = './test/'; // './awesomeCanvas/animateNav/'
 gulp.task('revCss', function () {
     console.log('start');
     return gulp.src(editPath+'*.scss')
@@ -28,18 +28,16 @@ gulp.task('default', function () {
     browserSync.init({
         port: 80,
         server: {
-            baseDir: ['awesomeCanvas']
+            baseDir: [editPath]  //awesomeCanvas
         }
     });
     //监控文件变化，自动更新
     gulp.watch([editPath+'*.scss'], function () {
-        runSequence('revCss');
-        browserSync.reload
+        runSequence('revCss',browserSync.reload);
+
     });
     //监控文件变化，自动更新
     gulp.watch([editPath+'index.html',editPath+'*.js'], function () {
-        console.log('start compile');
-        browserSync.reload;
-        console.log('end compile');
+        runSequence('revCss',browserSync.reload);
     });
 })
