@@ -276,7 +276,7 @@ Meteor.prototype = {
         this.draw(false);
     }
 }
-drawBg.create(document.getElementById('canvasPoint'), {starCount:50,meteorCount:3,meterTime:1000});
+drawBg.create(document.getElementById('canvasPoint'), {starCount:200,meteorCount:3,meterTime:1000});
 /**
  * 加载导航栏时hover效果停止显示的动画；
  **/

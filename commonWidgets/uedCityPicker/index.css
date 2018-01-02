@@ -1,0 +1,115 @@
+@charset "UTF-8";
+/*颜色配置相关*/
+body, ul, li {
+  padding: 0;
+  margin: 0; }
+
+.ued-cityPicker-widget {
+  position: absolute;
+  background-color: #ffffff;
+  font: normal 14px 'Microsoft YaHei'; }
+  .ued-cityPicker-widget .picker-items {
+    position: relative;
+    float: left;
+    min-width: 110px;
+    height: 34px;
+    margin: 10px 10px;
+    padding: 0 10px;
+    border-radius: 4px;
+    color: #b6c0cf;
+    border: 1px solid #d2d8e3; }
+    .ued-cityPicker-widget .picker-items:hover {
+      border-color: #a2aebf;
+      color: #b6c0cf; }
+    .ued-cityPicker-widget .picker-items.curr {
+      border-color: #d2d8e3;
+      color: #373e4b; }
+    .ued-cityPicker-widget .picker-items.curr:hover {
+      border-color: #20a0ff; }
+  .ued-cityPicker-widget .item-loading-disable {
+    border-color: #dee3ed;
+    background-color: #f9fafc;
+    cursor: not-allowed; }
+    .ued-cityPicker-widget .item-loading-disable:hover {
+      border-color: #dee3ed; }
+      .ued-cityPicker-widget .item-loading-disable:hover .triangle {
+        border-color: #b6c0cf transparent; }
+  .ued-cityPicker-widget .item-disable {
+    border-color: #dee3ed;
+    background-color: #f9fafc;
+    cursor: not-allowed; }
+    .ued-cityPicker-widget .item-disable:hover {
+      border-color: #dee3ed; }
+      .ued-cityPicker-widget .item-disable:hover .triangle {
+        border-color: #b6c0cf transparent; }
+  .ued-cityPicker-widget .item-loading-hidden {
+    display: none !important; }
+  .ued-cityPicker-widget .item-hidden {
+    display: none; }
+
+.picker-items .selected-item {
+  display: inline-block;
+  margin-right: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 32px; }
+
+.picker-items .triangle {
+  position: absolute;
+  right: 5px;
+  top: 12px;
+  width: 0;
+  height: 0;
+  border-color: #b6c0cf transparent;
+  border-style: solid;
+  border-width: 10px 8px 0 8px;
+  border-radius: 4px;
+  transition: all .3s; }
+
+.picker-items .drop-item {
+  position: absolute;
+  display: none;
+  top: 36px;
+  left: 0;
+  border: 1px solid #d2d8e3;
+  background-color: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 100px;
+  max-height: 200px;
+  color: #4f5a69;
+  transition: all .3s;
+  overflow-x: hidden;
+  overflow-y: auto; }
+  .picker-items .drop-item li {
+    line-height: 30px;
+    padding-left: 5px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+    .picker-items .drop-item li:first-child {
+      padding-left: 10px; }
+    .picker-items .drop-item li:hover {
+      background-color: #eff2f7;
+      color: #4f5a69; }
+    .picker-items .drop-item li.curr {
+      background-color: #20a0ff;
+      color: #ffffff; }
+  .picker-items .drop-item::-webkit-scrollbar {
+    width: 6px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    -webkit-border-radius: 2px;
+    border-color: #b6c0cf; }
+  .picker-items .drop-item::-webkit-scrollbar-thumb {
+    height: 50px;
+    border-radius: 4px;
+    background: #b6c0cf;
+    cursor: pointer; }
+
+.picker-items:hover {
+  border-color: #a2aebf; }
+  .picker-items:hover .triangle {
+    border-color: #8590a0 transparent; }
