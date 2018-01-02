@@ -12,7 +12,7 @@ var gulp = require('gulp'),
     minifyCss = require('gulp-minify-css');
 var browserSync = require("browser-sync").create();//创建服务
 
-var editPath = './test/';  //./awesomeCanvas/animateNav/
+var editPath = './awesomeCanvas/weatherDrop/';  //./awesomeCanvas/animateNav/
 gulp.task('revCss', function () {
     console.log('start');
     return gulp.src(editPath+'*.scss')
