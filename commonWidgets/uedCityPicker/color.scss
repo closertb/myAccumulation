@@ -1,0 +1,34 @@
+/*颜色配置相关*/
+$bodColor:        #d2d8e3; //边框颜色
+$bodHovColor:  #a2aebf; //边框hover颜色
+$bodDisColor:  #dee3ed; //禁用时边框颜色
+
+$uiBg:          #ffffff;  //组件背景色
+$uiFont:        #4f5a69;  //文字颜色
+
+$uiBodNor:      #d2d8e3 ;//组件未选择状态边框色
+$uiFonNor:      #b6c0cf;//组件未选择状态边框色
+
+$uiBodHov:      #a2aebf ;//组件hover状态边框色
+$uiFonHov:      #b6c0cf ;//组件未选择状态文字色
+
+$uiBodCur:      #d2d8e3 ;//组件选中状态边框色
+$uiFonCur:      #373e4b ;//组件未选择状态文字色
+
+$uiBodMix:      #20a0ff ;//组件有选中项hover状态边框色
+
+$uiBodDis:      #f2f4f8 ;//组件禁选择状态边框色
+$uiFonDis:      #b6c0cf ;//组件禁选择状态文字色
+$uiBgDis:       #f9fafc;//组件禁选择状态背景色
+
+$tagColor:        #b6c0cf;  //向下三角颜色
+$tagHovColor:     #8590a0;  //向下hover颜色
+
+$itemHovBg:       #eff2f7;  //下拉框组件被hover时的背景色
+$itemHovFont:     #4f5a69;  //下拉框组件被hover时的体色
+
+$itemCurrBg:       #20a0ff;  //下拉框组件被选中时的背景色
+$itemCurrFont:     #ffffff;  //下拉框组件被选中时的字体色
+
+$itemDisBg:       #f9fafc;  //下拉框组件被禁用时的背景色
+$itemDisFont:     #fff;  //下拉框组件被禁用时的体色

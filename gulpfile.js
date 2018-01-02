@@ -1,4 +1,6 @@
 var gulp = require('gulp'),
+    babel = require('gulp-babel'),
+    es = require('babel-preset-es2015'),
     reqOptimize = require('gulp-requirejs-optimize'),
     rename = require("gulp-rename"),
     contact = require('gulp-concat'),
@@ -12,7 +14,6 @@ var gulp = require('gulp'),
     minifyCss = require('gulp-minify-css');
 var browserSync = require("browser-sync").create();//创建服务
 
-<<<<<<< HEAD
 var path ={
     awesomeCanvas:{  //炫酷canvas组件
         animateNav:{  //星星闪烁，流星飞逝组件
@@ -52,7 +53,7 @@ var path ={
     }
 }
 
-var editPath = path.awesomeCanvas.animateNav.path;
+var editPath = path.commonWidgets.uedCityPicker.path;  //要使用服务的组件路径
 /**
  * name:新建组件的文件夹名称
  * eg: 一级目录组件创建 gulp create --name dirName 依据指定的微件文件夹名称生成对应的微件
@@ -69,19 +70,19 @@ gulp.task('create', function () {
     return gulp.src(path.tempModule.path+'*')
         .pipe(gulp.dest( widgetName + '/'));
 });
-=======
-var editPath = './test/';  //./awesomeCanvas/animateNav/
->>>>>>> 2749fb1f6b64bf1781aa73ddc30a42c51ad8c596
 gulp.task('revCss', function () {
     console.log('start');
-    return gulp.src(editPath+'*.scss')
+    return gulp.src(editPath+'index.scss')
         .pipe(sass())//{compatibility: 'ie8'}minifyCss()
         .pipe(gulp.dest(editPath));
 
 });
 gulp.task('jsMin', function () {
     return gulp.src(editPath+'*.js')
-        .pipe(uglify())//{compatibility: 'ie8'}minifyCss()
+        .pipe(babel({       //es6语法编译
+            presets: [es]
+        }))
+        .pipe(uglify())//{compatibility: 'ie8'}
         .pipe(rename('index.min.js'))
         .pipe(gulp.dest(editPath));
 });
@@ -101,7 +102,11 @@ gulp.task('default', function () {
         runSequence('revCss',browserSync.reload);
     });
     //监控文件变化，自动更新
-    gulp.watch([editPath+'index.html',editPath+'*.js'], function () {
+    gulp.watch([editPath+'index.html'], function () {
         runSequence('revCss',browserSync.reload);
+    });
+    //监控文件变化，自动更新
+    gulp.watch([editPath+'*.js'], function () {
+        runSequence('jsMin',browserSync.reload);
     });
 });

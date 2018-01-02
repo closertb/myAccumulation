@@ -1,36 +1,65 @@
-/*颜色配置相关*/
-$bodColor:        #d2d8e3; //边框颜色
-$bodHovColor:  #a2aebf; //边框hover颜色
-$bodDisColor:  #dee3ed; //禁用时边框颜色
-
-$tagColor:           #b6c0cf;  //向下三角颜色
-$tagHovColor:     #8590a0;  //向下hover颜色
-
-$itemHovBg:       #dee3ed;  //下拉框组件被选中和被hover时的背景色
-$itemDisBg:       #f9fafc;  //下拉框组件被选中和被hover时的背景色
-
-$uiBg:              #fff;  //组件背景色
-
-
+@import "color.scss";
 body,ul,li{padding: 0;margin: 0;}
 
 .ued-cityPicker-widget{
   position: absolute;
   background-color: $uiBg;
+  font:normal 14px 'Microsoft YaHei';
+  .picker-items{
+    position: relative;
+    float:left;
+    min-width:110px;
+    height:34px;
+    margin:10px 10px;
+    padding: 0 10px;
+    border-radius: 4px;
+    color: $uiFonNor;
+    border: 1px solid $uiBodNor;
+    &:hover{
+      border-color: $uiBodHov;
+      color: $uiFonNor;
+    }
+    &.curr{
+      border-color: $uiBodCur;
+      color: $uiFonCur;
+    }
+    &.curr:hover{
+      border-color: $uiBodMix;
+    }
+  }
+  .item-loading-disable{
+    border-color: $bodDisColor;
+    background-color: $uiBgDis;
+    cursor: not-allowed;
+    &:hover{
+      border-color: $bodDisColor;
+      .triangle{
+        border-color: $tagColor transparent;
+      }
+    }
+  }
+  .item-disable{
+    border-color: $bodDisColor;
+    background-color: $uiBgDis;
+    cursor: not-allowed;
+    &:hover{
+      border-color: $bodDisColor;
+      .triangle{
+        border-color: $tagColor transparent;
+      }
+    }
+  }
+  .item-loading-hidden{   //用于控制该项永不显示；
+    display: none !important;
+  }
+  .item-hidden{
+    display: none;
+  }
 }
-.items{
-  position: relative;
-  float:left;
-  min-width:110px;
-  height:32px;
-  margin:10px 10px;
-  padding: 0 10px;
-  border-radius: 5px;
-  border: 1px solid $bodColor;
+.picker-items{
   .selected-item{
     display: inline-block;
     margin-right: 16px;
-  //  width:90%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -44,19 +73,22 @@ body,ul,li{padding: 0;margin: 0;}
     height:0;
     border-color: $tagColor transparent;
     border-style: solid;
-    border-width: 9px 9px 0 9px;
+    border-width: 10px 8px 0 8px;
+    border-radius: 4px;
+    transition: all .3s;
   }
   .drop-item{
     position: absolute;
     display: none;
     top:36px;
-    left:-2px;
+    left:0;
     border: 1px solid $bodColor;
     background-color: $uiBg;
     width:100%;
     box-sizing: border-box;
     min-height:100px;
     max-height:200px;
+    color: $uiFont;
     transition: all .3s;
     overflow-x: hidden;
     overflow-y: auto;
@@ -67,17 +99,30 @@ body,ul,li{padding: 0;margin: 0;}
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      &:hover,&.curr{
+      &:first-child{
+        padding-left: 10px;
+      }
+      &:hover{
         background-color: $itemHovBg;
+        color: $itemHovFont;
+      }
+      &.curr{
+        background-color: $itemCurrBg;
+        color: $itemCurrFont;
       }
     }
     &::-webkit-scrollbar {
-      height: 6px;
       width: 6px;
       -webkit-transition: all 0.3s ease-in-out;
       transition: all 0.3s ease-in-out;
       -webkit-border-radius: 2px;
-      border-radius: 2px
+      border-color: #b6c0cf;
+    }
+    &::-webkit-scrollbar-thumb{
+      height:50px;
+      border-radius: 4px;
+      background:#b6c0cf;
+      cursor:pointer;
     }
   }
   &:hover{
@@ -86,32 +131,4 @@ body,ul,li{padding: 0;margin: 0;}
       border-color: $tagHovColor transparent;
     }
   }
-}
-.item-loading-disable{
-  border-color: $bodDisColor;
-  background-color: $itemDisBg;
-  cursor: not-allowed;
-  &:hover{
-    border-color: $bodDisColor;
-    .triangle{
-      border-color: $tagColor transparent;
-    }
-  }
-}
-.item-disable{
-  border-color: $bodDisColor;
-  background-color: $itemDisBg;
-  cursor: not-allowed;
-  &:hover{
-    border-color: $bodDisColor;
-    .triangle{
-      border-color: $tagColor transparent;
-    }
-  }
-}
-.item-loading-hidden{   //用于控制该项永不显示；
-  display: none !important;
-}
-.item-hidden{
-  display: none;
 }

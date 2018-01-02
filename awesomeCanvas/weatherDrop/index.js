@@ -66,7 +66,7 @@
                 particles.push( new Particle(i, Math.floor(Math.random()*WIDTH+200), Math.floor(Math.random()*HEIGHT-30),true));
             }
         }else{
-            config.move_distance = 4;
+            config.move_distance = 6;
             for (var i = 0; i < config.initCount; i++) {
                 particles.push( new Rain(i, Math.floor(Math.random()*WIDTH+200), Math.floor(Math.random()*HEIGHT),true));
             }
@@ -103,7 +103,7 @@
             this.cacheCtx.width = 6 * this.r;
             this.cacheCtx.height = 6 * this.r;
             var alpha = ( Math.floor(Math.random() * 10) + 1) / config.alpha;
-            this.color = "rgba(255,255,255,.8)"; //"rgba(255,255,255," + alpha + ")"
+            this.color = "rgba(255,255,255,.9)"; //"rgba(255,255,255," + alpha + ")"
         },
         draw : function () {
             if (!this.useCache) {
@@ -128,10 +128,13 @@
             this.cacheCtx.fill();
             this.cacheCtx.restore();
         },
-        move : function () {
+        setPosition:function () {
             this.speed_y +=config.move_distance/30;
             this.x -= this.speed_x;
             this.y += this.speed_y;
+        },
+        move : function () {
+            this.setPosition();
             if (this.y >=HEIGHT + 1 || this.x < -10) {
                 this.reset();
             }

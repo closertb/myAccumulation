@@ -116,7 +116,7 @@
             this.setOption();
             this.setDefault($(this.selector),this.option);
             $(this.selector+' .ued-cityPicker-widget').css({display:'block'});
-            this.triggerLevel = $(this.selector+' .items:not(.item-hidden):last').data('level');
+            this.triggerLevel = $(this.selector+' .picker-items:not(.item-hidden):last').data('level');
             this.initEvent();
         },
         /**
@@ -274,19 +274,19 @@
         setDefault:function ($point,opt) {
             var opt = this.option,append =[];
             var str = '<div class="ued-cityPicker-widget">' +
-                '        <div class="items item-grand '+opt.grand.addClass+'" data-level="grand">' +
+                '        <div class="picker-items item-grand '+opt.grand.addClass+'" data-level="grand">' +
                 '            <span class="selected-item">'+opt.grand.palaceHolder+'</span>' +
                 '            <i class="triangle"></i>' +
                 '            <ul class="drop-item">' +
                 '            </ul>' +
                 '        </div>' +
-                '        <div class="items item-parent '+opt.parent.addClass+'" data-level="parent">' +
+                '        <div class="picker-items item-parent '+opt.parent.addClass+'" data-level="parent">' +
                 '            <span class="selected-item">'+opt.parent.palaceHolder+'</span>' +
                 '            <i class="triangle"></i>' +
                 '            <ul  class="drop-item">' +
                 '            </ul>' +
                 '        </div>' +
-                '        <div class="items item-child '+opt.child.addClass+'" data-level="child">' +
+                '        <div class="picker-items item-child '+opt.child.addClass+'" data-level="child">' +
                 '            <span class="selected-item">'+opt.child.palaceHolder+'</span>' +
                 '            <i class="triangle"></i>' +
                 '            <ul class="drop-item">' +
@@ -326,6 +326,11 @@
          * */
         setName:function (level,holderName,index) {
             $(this.selector+' .item-'+level+' .selected-item').text(holderName).attr('data-index',index);
+            if(index){
+                $(this.selector+' .item-'+level+':not(.item-disable)').addClass('curr');
+            }else{
+                $(this.selector+' .item-'+level).removeClass('curr');
+            }
             $(this.selector+' .item-'+level+' .drop-item li.curr').removeClass('curr');
             index&&$(this.selector+' .item-'+level+' .drop-item li:eq('+index+')').addClass('curr');
         },
@@ -423,23 +428,26 @@
              * 作用：下拉列表的显示与隐藏
              * */
             $(that.selector).off('click');
-            $(that.selector).on('click','.items:not(.item-disable,.item-loading-disable)',function (e) {
+            $(that.selector).on('click','.picker-items:not(.item-disable,.item-loading-disable)',function (e) {
                 var level = $(this).data('level');
                 var $item = $(that.selector+' .item-'+level+' .drop-item');
+                var $triangle = $(that.selector+' .item-'+level+' .triangle');
                 var isShow = $item.css('display');
                 if(isShow === 'none'){
                     $(that.selector+' .drop-item').css({display:'none'});
+                    $triangle.css({transform:'rotate(180deg)'});
                     $item.css({display:'block'});
                 }else{
                     $item.css({display:'none'});
+                    $triangle.css({transform:'rotate(0)'});
                 }
             });
             /**
              * 作用：列表值的选中与触发回调
              * 当选中值的列表框为程序初始化时判断的触发等级，就生成相应的结果，触发相应的回调函数
              * */
-            $(that.selector+' .items').off('click');
-            $(that.selector+' .items').on('click','.drop-item li',function (e) {
+            $(that.selector+' .picker-items').off('click');
+            $(that.selector+' .picker-items').on('click','.drop-item li',function (e) {
                 var $this =  $(this);
                 var level =  $this.data('level'),index =  $this.data('index'),name =  $this.text();
                 that.setState(level,index); //保存状态
