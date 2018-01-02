@@ -1,0 +1,163 @@
+@charset "UTF-8";
+/*主题色设置*/
+/*字体设置*/
+body, ul, li, h2, h3, h4 {
+  padding: 0;
+  margin: 0;
+  font-family: 'Microsoft YaHei'; }
+
+.top-bar {
+  padding: 20px 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4A90E2;
+  color: #fff; }
+  .top-bar .pro-name {
+    font: bold 16px "Microsoft YaHei";
+    line-height: 24px; }
+  .top-bar .pro-cancel, .top-bar .pro-save {
+    font: normal 14px "Microsoft YaHei";
+    line-height: 26px;
+    display: inline-block;
+    margin-right: 10px;
+    padding: 0 15px;
+    border-radius: 3px;
+    border: 1px solid transparent; }
+  .top-bar .pro-cancel:hover {
+    text-decoration: underline;
+    transition: all .3s; }
+  .top-bar .pro-save {
+    color: #4A90E2;
+    background-color: #fff; }
+    .top-bar .pro-save:hover {
+      color: #fff;
+      background-color: #4A90E2;
+      border-color: #fff; }
+
+.pro-main {
+  position: relative; }
+
+.main-content {
+  box-sizing: border-box;
+  padding-right: 300px; }
+  .main-content h2 {
+    width: 200px;
+    margin: 10px auto; }
+  .main-content .editor-graph-svg {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 800px;
+    padding-left: 30px; }
+
+.editor-graph-svg .pipeline {
+  stroke: #949393; }
+  .editor-graph-svg .pipeline.placeholder {
+    stroke: #eee; }
+
+.editor-graph-svg .edit-add-node {
+  fill: #fff;
+  stroke: #cbcbcb; }
+  .editor-graph-svg .edit-add-node .result-status-glyph {
+    stroke: none;
+    fill: #fff; }
+    .editor-graph-svg .edit-add-node .result-status-glyph polygon {
+      fill: #cbcbcb; }
+
+.editor-graph-svg .edit-node {
+  fill: #949393;
+  stroke: #949393; }
+  .editor-graph-svg .edit-node .node-inner {
+    fill: #fff;
+    stroke: #949393; }
+  .editor-graph-svg .edit-node .alerticon {
+    display: none; }
+  .editor-graph-svg .edit-node.error .alerticon {
+    display: inline-block; }
+  .editor-graph-svg .edit-node.holder {
+    fill: #fff;
+    stroke: #cbcbcb; }
+  .editor-graph-svg .edit-node.selected {
+    stroke: #4a90e2;
+    fill: #4a90e2; }
+    .editor-graph-svg .edit-node.selected .node-inner {
+      fill: #4a90e2;
+      stroke: #4a90e2; }
+    .editor-graph-svg .edit-node.selected .node-info {
+      fill: #4a90e2; }
+  .editor-graph-svg .edit-node .node-info {
+    stroke-width: 0;
+    fill: red;
+    font: normal 12px "Microsoft YaHei";
+    line-height: 15px; }
+
+.show-error .empty-node .alerticon {
+  display: inline-block; }
+
+.side-content {
+  position: absolute;
+  box-sizing: border-box;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 300px;
+  padding: 0 3px;
+  border-left: 1px solid #eee;
+  overflow: hidden; }
+  .side-content .side-title {
+    position: relative;
+    padding-left: 8px;
+    font: bold 16px "Microsoft YaHei";
+    line-height: 40px;
+    background-color: #4A90E2;
+    color: white; }
+    .side-content .side-title:before {
+      content: "";
+      position: absolute;
+      top: 12px;
+      left: 2px;
+      height: 16px;
+      width: 4px;
+      border-radius: 2px;
+      background-color: white; }
+    .side-content .side-title .del-node {
+      position: absolute;
+      right: 5px;
+      display: none;
+      font: normal 14px "Microsoft YaHei";
+      line-height: 40px; }
+      .side-content .side-title .del-node:hover {
+        text-decoration: underline;
+        color: red; }
+    .side-content .side-title.show-del-btn .del-node {
+      display: inline; }
+  .side-content h4 {
+    margin: 10px 0 2px; }
+  .side-content .alert-info {
+    display: none;
+    font: bold 14px "Microsoft YaHei";
+    line-height: 18px; }
+  .side-content.show-alert .alert-info {
+    display: inline-block;
+    color: red; }
+  .side-content input {
+    width: 100%;
+    border-radius: 2px;
+    font: normal 12px "Microsoft YaHei";
+    line-height: 26px; }
+  .side-content textarea {
+    width: 100%;
+    height: 8em;
+    border-radius: 2px;
+    font: normal 14px "Microsoft YaHei";
+    line-height: 22px; }
+  .side-content button {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin: 10px 20px 0;
+    background-color: #20a0ff;
+    color: white;
+    border: none; }
+    .side-content button:hover {
+      background-color: #58b7ff; }

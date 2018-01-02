@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>流程编辑器</title>
+    <link href="./index.css" rel="stylesheet" />
+</head>
+<body>
+<div class="top-bar">
+    <span class="pro-name">第一个示例</span>
+    <div>
+        <label class="pro-cancel" >重置</label>
+        <label class="pro-save">保存</label>
+    </div>
+</div>
+<div class="pro-main">
+    <div class="main-content">
+        <h2>流程编辑器</h2>
+        <div style="position: relative; overflow: visible; margin: 30px auto;">
+            <svg class="editor-graph-svg" width="420" height="295"><!--保留其width,height属性-->
+                <defs>
+                    <path d="M8.0197096,1.74273849 C8.56110904,0.780250597 9.44018119,0.782544345 9.9802904,1.74273849 L17.0197096,14.2572615 C17.561109,15.2197494 17.1073772,16 16.0049107,16 L1.99508929,16 C0.893231902,16 0.440181194,15.2174557 0.980290398,14.2572615 L8.0197096,1.74273849 Z" id="path-1"></path>
+                    <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="20" height="20"><rect x="0" y="0" width="20" height="20" fill="white"></rect>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-1" fill="black"></use></mask>
+                    <rect id="path-3" x="8" y="6" width="2" height="4"></rect><mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="2" height="4" fill="white">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-3"></use></mask>
+                    <rect id="path-5" x="8" y="12" width="2" height="2"></rect>
+                    <mask id="mask-6" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="2" height="2" fill="white">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-5"></use></mask>
+                </defs>
+                <line class="outer-group pipeline placeholder" stroke-width="3.2" x1="30" y1="60" x2="150" y2="60"></line>
+                <!--静态项-->
+                <g transform="translate(35,60)" class="editor-root-node" position="30,60">
+                    <circle r="7.5" class="start-node" stroke="none"></circle>
+                    <circle r="18.9" cursor="pointer" class="pipeline-node" fill-opacity="0" stroke="none"></circle>
+                </g>
+                <g transform="translate(150,60)" id="root-node" class="edit-add-node"  position="150,60" type="main">
+                    <circle  r="11" stroke-width="1.7"></circle>
+                    <g class="result-status-glyph" transform="rotate(45)">
+                        <polygon points="4.67 -3.73 3.73 -4.67 0 -0.94 -3.73 -4.67 -4.67 -3.73 -0.94 0 -4.67 3.73 -3.73 4.67 0 0.94 3.73 4.67 4.67 3.73 0.94 0"></polygon>
+                    </g>
+                </g>
+                <!--添加项 selected-->
+
+
+            </svg>
+            <div class="show-svg-info">
+
+            </div>
+        </div>
+    </div>
+
+<!--    <svg class="alerticon" width="20px" height="20px" viewBox="13 9 20 20">
+        <defs><path d="M8.0197096,1.74273849 C8.56110904,0.780250597 9.44018119,0.782544345 9.9802904,1.74273849 L17.0197096,14.2572615 C17.561109,15.2197494 17.1073772,16 16.0049107,16 L1.99508929,16 C0.893231902,16 0.440181194,15.2174557 0.980290398,14.2572615 L8.0197096,1.74273849 Z" id="path-1"></path><mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="20" height="20"><rect x="0" y="0" width="20" height="20" fill="white"></rect><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-1" fill="black"></use></mask><rect id="path-3" x="8" y="6" width="2" height="4"></rect><mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="2" height="4" fill="white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-3"></use></mask><rect id="path-5" x="8" y="12" width="2" height="2"></rect><mask id="mask-6" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="2" height="2" fill="white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-5"></use></mask>
+        </defs>
+        <g id="Group-10" stroke="none" stroke-width="1" fill="none" transform="translate(15, 9)">
+            <g id="Triangle-2">
+                <use fill="#CE373A" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-1">
+                </use>
+                <use stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="2" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-1"></use>
+            </g>
+            <use id="Rectangle-17" stroke="#FFFFFF" mask="url(#mask-4)" stroke-width="2" fill="#D8D8D8" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-3"></use>
+            <use id="Rectangle-17-Copy" stroke="#FFFFFF" mask="url(#mask-6)" stroke-width="2" fill="#D8D8D8" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-5">
+            </use>
+        </g>
+                        <!--<g transform="translate(150,60)" class="edit-node error" id="node0">
+                    <path class="pipeline placeholder" stroke-width="3.2" d="M -107 0 l 41 0 c 12 0 12 12 12 12 l 0 46 c 0 12 12 12 12 12 l 36 0" fill="none"></path>
+                    <line class="outer-group pipeline placeholder" stroke-width="3.2" x1="0" y1="0" x2="120" y2="0"></line>
+                    <line class="outer-group pipeline" stroke-width="3.2" x1="0" y1="0" x2="-107" y2="0"></line>
+                    <g transform="translate(120,0)" class="edit-add-node" position="270,60" type="main">
+                        <g>
+                            <circle r="11" stroke-width="1.7">
+                            </circle>
+                            <g class="result-status-glyph" transform="rotate(45)">
+                                <polygon points="4.67 -3.73 3.73 -4.67 0 -0.94 -3.73 -4.67 -4.67 -3.73 -0.94 0 -4.67 3.73 -3.73 4.67 0 0.94 3.73 4.67 4.67 3.73 0.94 0"></polygon>
+                            </g>
+                        </g>
+                        <circle r="18.9" cursor="pointer" class="pipeline-node-hittarget" fill-opacity="0" stroke="none"></circle>
+                    </g>
+                    <g transform="translate(0,70)" class="edit-add-node" position="150,130" type="tree">
+                        <g>
+                            <circle r="11" stroke-width="1.7">
+                            </circle>
+                            <g class="result-status-glyph" transform="rotate(45)">
+                                <polygon points="4.67 -3.73 3.73 -4.67 0 -0.94 -3.73 -4.67 -4.67 -3.73 -0.94 0 -4.67 3.73 -3.73 4.67 0 0.94 3.73 4.67 4.67 3.73 0.94 0"></polygon>
+                            </g>
+                        </g>
+                        <circle r="18.9" cursor="pointer" class="pipeline-node" fill-opacity="0" stroke="none"></circle>
+                    </g>
+                    <circle class="node-outer" r="12.5"> </circle>
+                    <circle class="node-inner" r="9.3"></circle>
+                    <svg class="alerticon" width="20px" height="20px" viewBox="13 9 20 20">
+                        <defs><path d="M8.0197096,1.74273849 C8.56110904,0.780250597 9.44018119,0.782544345 9.9802904,1.74273849 L17.0197096,14.2572615 C17.561109,15.2197494 17.1073772,16 16.0049107,16 L1.99508929,16 C0.893231902,16 0.440181194,15.2174557 0.980290398,14.2572615 L8.0197096,1.74273849 Z" id="path-1"></path><mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="20" height="20"><rect x="0" y="0" width="20" height="20" fill="white"></rect><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-1" fill="black"></use></mask><rect id="path-3" x="8" y="6" width="2" height="4"></rect><mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="2" height="4" fill="white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-3"></use></mask><rect id="path-5" x="8" y="12" width="2" height="2"></rect><mask id="mask-6" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="2" height="2" fill="white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-5"></use></mask>
+                        </defs>
+                        <g id="Group-10" stroke="none" stroke-width="1" fill="none" transform="translate(15, 9)">
+                            <g id="Triangle-2">
+                                <use fill="#CE373A" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-1">
+                                </use>
+                                <use stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="2" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-1"></use>
+                            </g>
+                            <use id="Rectangle-17" stroke="#FFFFFF" mask="url(#mask-4)" stroke-width="2" fill="#D8D8D8" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-3"></use>
+                            <use id="Rectangle-17-Copy" stroke="#FFFFFF" mask="url(#mask-6)" stroke-width="2" fill="#D8D8D8" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-5">
+                            </use>
+                        </g>
+                    </svg>
+                </g>-->
+    <!--                <g transform="translate(270,60)" class="edit-node empty-node error" id="node1">
+                        <path class="pipeline placeholder" stroke-width="3.2" d="M -107 0 l 41 0 c 12 0 12 12 12 12 l 0 46 c 0 12 12 12 12 12 l 36 0" fill="none"></path>
+                        <line class="outer-group pipeline placeholder" stroke-width="3.2" x1="0" y1="0" x2="120" y2="0"></line>
+                        <line class="outer-group pipeline" stroke-width="3.2" x1="0" y1="0" x2="-107" y2="0"></line>
+                        <g transform="translate(120,0)" class="edit-add-node" position="390,60" type="main">
+                            <g>
+                                <circle r="11" stroke-width="1.7">
+                                </circle>
+                                <g class="result-status-glyph" transform="rotate(45)">
+                                    <polygon points="4.67 -3.73 3.73 -4.67 0 -0.94 -3.73 -4.67 -4.67 -3.73 -0.94 0 -4.67 3.73 -3.73 4.67 0 0.94 3.73 4.67 4.67 3.73 0.94 0"></polygon>
+                                </g>
+                            </g>
+                            <circle r="18.9" cursor="pointer" class="pipeline-node-hittarget" fill-opacity="0" stroke="none"></circle>
+                        </g>
+                        <g transform="translate(0,70)" class="edit-add-node" position="270,130" type="tree">
+                            <g>
+                                <circle r="11" stroke-width="1.7">
+                                </circle>
+                                <g class="result-status-glyph" transform="rotate(45)">
+                                    <polygon points="4.67 -3.73 3.73 -4.67 0 -0.94 -3.73 -4.67 -4.67 -3.73 -0.94 0 -4.67 3.73 -3.73 4.67 0 0.94 3.73 4.67 4.67 3.73 0.94 0"></polygon>
+                                </g>
+                            </g>
+                            <circle r="18.9" cursor="pointer" class="pipeline-node" fill-opacity="0" stroke="none"></circle>
+                        </g>
+                        <circle class="node-outer" r="12.5"> </circle>
+                        <circle class="node-inner" r="9.3"></circle>
+                        <svg class="alerticon" width="20px" height="20px" viewBox="13 9 20 20">
+                            <defs><path d="M8.0197096,1.74273849 C8.56110904,0.780250597 9.44018119,0.782544345 9.9802904,1.74273849 L17.0197096,14.2572615 C17.561109,15.2197494 17.1073772,16 16.0049107,16 L1.99508929,16 C0.893231902,16 0.440181194,15.2174557 0.980290398,14.2572615 L8.0197096,1.74273849 Z" id="path-1"></path><mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="20" height="20"><rect x="0" y="0" width="20" height="20" fill="white"></rect><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-1" fill="black"></use></mask><rect id="path-3" x="8" y="6" width="2" height="4"></rect><mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="2" height="4" fill="white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-3"></use></mask><rect id="path-5" x="8" y="12" width="2" height="2"></rect><mask id="mask-6" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="2" height="2" fill="white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-5"></use></mask>
+                            </defs>
+                            <g id="Group-10" stroke="none" stroke-width="1" fill="none" transform="translate(15, 9)">
+                                <g id="Triangle-2">
+                                    <use fill="#CE373A" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-1">
+                                    </use>
+                                    <use stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="2" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-1"></use>
+                                </g>
+                                <use id="Rectangle-17" stroke="#FFFFFF" mask="url(#mask-4)" stroke-width="2" fill="#D8D8D8" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-3"></use>
+                                <use id="Rectangle-17-Copy" stroke="#FFFFFF" mask="url(#mask-6)" stroke-width="2" fill="#D8D8D8" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-5">
+                                </use>
+                            </g>
+                        </svg>                </g>-->
+    <!--<g transform="translate(390,60)" class="edit-node empty-node error" id="node2">
+        <path class="pipeline placeholder" stroke-width="3.2" d="M -107 0 l 41 0 c 12 0 12 12 12 12 l 0 46 c 0 12 12 12 12 12 l 36 0" fill="none"></path>
+        <line class="outer-group pipeline placeholder" stroke-width="3.2" x1="0" y1="0" x2="120" y2="0"></line>
+        <line class="outer-group pipeline" stroke-width="3.2" x1="0" y1="0" x2="-107" y2="0"></line>
+        <g transform="translate(120,0)" class="edit-add-node" position="510,60" type="main">
+            <g>
+                <circle r="11" stroke-width="1.7">
+                </circle>
+                <g class="result-status-glyph" transform="rotate(45)">
+                    <polygon points="4.67 -3.73 3.73 -4.67 0 -0.94 -3.73 -4.67 -4.67 -3.73 -0.94 0 -4.67 3.73 -3.73 4.67 0 0.94 3.73 4.67 4.67 3.73 0.94 0"></polygon>
+                </g>
+            </g>
+            <circle r="18.9" cursor="pointer" class="pipeline-node-hittarget" fill-opacity="0" stroke="none"></circle>
+        </g>
+        <g transform="translate(0,70)" class="edit-add-node" position="390,130" type="tree">
+            <g>
+                <circle r="11" stroke-width="1.7">
+                </circle>
+                <g class="result-status-glyph" transform="rotate(45)">
+                    <polygon points="4.67 -3.73 3.73 -4.67 0 -0.94 -3.73 -4.67 -4.67 -3.73 -0.94 0 -4.67 3.73 -3.73 4.67 0 0.94 3.73 4.67 4.67 3.73 0.94 0"></polygon>
+                </g>
+            </g>
+            <circle r="18.9" cursor="pointer" class="pipeline-node" fill-opacity="0" stroke="none"></circle>
+        </g>
+        <circle class="node-outer" r="12.5"> </circle>
+        <circle class="node-inner" r="9.3"></circle>
+        <svg class="alerticon" width="20px" height="20px" viewBox="13 9 20 20">
+            <defs><path d="M8.0197096,1.74273849 C8.56110904,0.780250597 9.44018119,0.782544345 9.9802904,1.74273849 L17.0197096,14.2572615 C17.561109,15.2197494 17.1073772,16 16.0049107,16 L1.99508929,16 C0.893231902,16 0.440181194,15.2174557 0.980290398,14.2572615 L8.0197096,1.74273849 Z" id="path-1"></path><mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="20" height="20"><rect x="0" y="0" width="20" height="20" fill="white"></rect><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-1" fill="black"></use></mask><rect id="path-3" x="8" y="6" width="2" height="4"></rect><mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="2" height="4" fill="white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-3"></use></mask><rect id="path-5" x="8" y="12" width="2" height="2"></rect><mask id="mask-6" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="2" height="2" fill="white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-5"></use></mask>
+            </defs>
+            <g id="Group-10" stroke="none" stroke-width="1" fill="none" transform="translate(15, 9)">
+                <g id="Triangle-2">
+                    <use fill="#CE373A" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-1">
+                    </use>
+                    <use stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="2" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-1"></use>
+                </g>
+                <use id="Rectangle-17" stroke="#FFFFFF" mask="url(#mask-4)" stroke-width="2" fill="#D8D8D8" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-3"></use>
+                <use id="Rectangle-17-Copy" stroke="#FFFFFF" mask="url(#mask-6)" stroke-width="2" fill="#D8D8D8" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-5">
+                </use>
+            </g>
+        </svg>
+    </g>-->
+    <!--   <g transform="translate(150,130)" class="edit-node empty-node" id="node3">
+           <path class="pipeline placeholder" stroke-width="3.2" d="M -107 -70 l 41 0 c 12 0 12 12 12 12 l 0 116 c 0 12 12 12 12 12 l 36 0" fill="none"></path>
+           <path class="pipeline" stroke-width="3.2" d="M -107 -70 l 41 0 c 12 0 12 12 12 12 l 0 46 c 0 12 12 12 12 12 l 36 0" fill="none"></path>
+           <path class="pipeline" stroke-width="3.2" d="M  0 0 l 41 0 c 12 0 12 -12 12 -12 l 0 -46 c 0 -12 12 -12 12 -12 l 45 0" fill="none"></path>
+           <g transform="translate(0,70)" class="edit-add-node" position="150,200" type="tree">
+               <g>
+                   <circle r="11" stroke-width="1.7">
+                   </circle>
+                   <g class="result-status-glyph" transform="rotate(45)">
+                       <polygon points="4.67 -3.73 3.73 -4.67 0 -0.94 -3.73 -4.67 -4.67 -3.73 -0.94 0 -4.67 3.73 -3.73 4.67 0 0.94 3.73 4.67 4.67 3.73 0.94 0"></polygon>
+                   </g>
+               </g>
+               <circle r="18.9" cursor="pointer" class="pipeline-node" fill-opacity="0" stroke="none"></circle>
+           </g>
+           <circle class="node-outer" r="12.5"> </circle>
+           <circle class="node-inner" r="9.3"></circle>
+           <svg class="alerticon" width="20px" height="20px" viewBox="13 9 20 20">
+               <defs><path d="M8.0197096,1.74273849 C8.56110904,0.780250597 9.44018119,0.782544345 9.9802904,1.74273849 L17.0197096,14.2572615 C17.561109,15.2197494 17.1073772,16 16.0049107,16 L1.99508929,16 C0.893231902,16 0.440181194,15.2174557 0.980290398,14.2572615 L8.0197096,1.74273849 Z" id="path-1"></path><mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="20" height="20"><rect x="0" y="0" width="20" height="20" fill="white"></rect><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-1" fill="black"></use></mask><rect id="path-3" x="8" y="6" width="2" height="4"></rect><mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="2" height="4" fill="white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-3"></use></mask><rect id="path-5" x="8" y="12" width="2" height="2"></rect><mask id="mask-6" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="2" height="2" fill="white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-5"></use></mask>
+               </defs>
+               <g id="Group-10" stroke="none" stroke-width="1" fill="none" transform="translate(15, 9)">
+                   <g id="Triangle-2">
+                       <use fill="#CE373A" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-1">
+                       </use>
+                       <use stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="2" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-1"></use>
+                   </g>
+                   <use id="Rectangle-17" stroke="#FFFFFF" mask="url(#mask-4)" stroke-width="2" fill="#D8D8D8" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-3"></use>
+                   <use id="Rectangle-17-Copy" stroke="#FFFFFF" mask="url(#mask-6)" stroke-width="2" fill="#D8D8D8" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-5">
+                   </use>
+               </g>
+           </svg>
+       </g>-->
+    <div class="side-content">
+        <div class="side-title edit-sequence-save" sequence="">节点编辑<label class="del-node">删除</label></div>
+        <h4>节点名称<span class="alert-info" >（请先选择节点）</span></h4>
+        <div ><input id="node-name-input" placeholder="输入节点名称"/></div>
+        <h4>节点描述</h4>
+        <div>
+            <textarea  id="node-desc-input" placeholder="输入节点描述"></textarea>
+        </div>
+        <button class="btn-sure">确认</button>
+        <button class="btn-cancel">重置</button>
+    </div>
+</div>
+<script src="http://filealiyun.geeker.com.cn/ued/js/jquery-1.8.3.min.js"></script>
+<script src="./index.js"></script>
+</body>
+</html>

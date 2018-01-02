@@ -23,7 +23,7 @@ body {
   width: 260px;
   position: relative;
   z-index: 2;
-  background: url("./GSLT.jpeg") no-repeat;
+  background: url("GSLT.jpeg") no-repeat;
   transform: translate(590px, 250px);
   border: 1px solid red;
   border-radius: 50%; }
