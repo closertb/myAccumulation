@@ -76,6 +76,8 @@
      * @param  {[string]}   options.parent.loadingState [当省没有选定时，省选择框的默认状态，disable：禁选  hidden:隐藏]
      * @param  {[object]}   options.child               [组件区级配置项]
      * @param  {[string]}   options.child.*             [上面市级配置项对区级仍然有效,且作用一致]
+     * @param  {[string]}   options.size                [组件尺寸设置：有max,normal,small,min，默认normal]
+     * @param  {[object]}   options.assignClass         [组件自定义肤色样式类名设置]
      * @param  {[string]}   options.url                 [外链数据配置]
      * @param  {[object]}   options.data                [外链数据直接配置]
      * */

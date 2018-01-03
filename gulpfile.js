@@ -56,7 +56,7 @@ var path ={
     }
 }
 
-var editPath = path.commonWidgets.uedCityPicker.path;  //要使用服务的组件路径
+var editPath = path.test.threeStart.path;  //要使用服务的组件路径
 /**
  * name:新建组件的文件夹名称
  * eg: 一级目录组件创建 gulp create --name dirName 依据指定的微件文件夹名称生成对应的微件
@@ -81,11 +81,11 @@ gulp.task('revCss', function () {
 
 });
 gulp.task('jsMin', function () {
-    return gulp.src(editPath+'*.js')
+    return gulp.src(editPath+'index.js')
    //     .pipe(babel({       //es6语法编译
     //        presets: [es]
       //  }))
-     //   .pipe(uglify())//{compatibility: 'ie8'}
+        .pipe(uglify())//{compatibility: 'ie8'}
         .pipe(rename('index.min.js'))
         .pipe(gulp.dest(editPath));
 });
@@ -109,7 +109,7 @@ gulp.task('default', function () {
         runSequence('revCss',browserSync.reload);
     });
     //监控文件变化，自动更新
-    gulp.watch([editPath+'*.js'], function () {
+    gulp.watch([editPath+'index.js'], function () {
         runSequence('jsMin',browserSync.reload);
     });
 });
