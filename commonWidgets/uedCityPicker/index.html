@@ -16,6 +16,9 @@
             height: 50px;
             background-color: #fff;
         }
+        .freeStyle .picker-items{
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -68,27 +71,20 @@
       //  alert(34);
     });
     $('.nav-bar3').uedCityPiker({
-            grand:{region:'510000',state:'disable'}},
+            grand:{region:'510000',state:'disable'},size:'small',assignClass:'freeStyle'},
         function (res) {
             console.log('res:',res);
             //   alert(12);
         });
     $('.nav-bar4').uedCityPiker({
             child:{state:'hidden'},
-            parent:{state:'hidden'}},
-        function (res) {
-            console.log('res:',res);
-            //   alert(12);
-        });
-    $('.nav-bar4').uedCityPiker({
-            child:{state:'hidden'},
-            parent:{state:'hidden'}},
+            parent:{state:'hidden'},size:'min'},
         function (res) {
             console.log('res:',res);
             //   alert(12);
         });
     $('.nav-bar5').uedCityPiker({ child:{state:'hidden'},
-        grand:{region:'530000',state:'hidden'}},function (res) {
+        grand:{region:'530000',state:'hidden'},size:'max'},function (res) {
         console.log('result:',res);
         //  alert(34);
     });
@@ -112,13 +108,6 @@
         console.log('result:',res);
         //  alert(34);
     });
-/*    $('.nav-bar9').uedCityPiker({
-            grand:{name:'四川省',state:'hidden'},
-            parent:{name:'绵阳市',state:'disable'}}, //other.js
-        function (res) {
-            console.log('res:',res);
-            //   alert(12);
-        });*/
     new uedCityPiker('.nav-bar9',{
             grand:{name:'四川省',state:'hidden'},
             parent:{name:'绵阳市',state:'disable'}}, //other.js
@@ -126,6 +115,14 @@
             console.log('res:',res);
             //   alert(12);
         });
+
+    /*    $('.nav-bar9').uedCityPiker({
+                grand:{name:'四川省',state:'hidden'},
+                parent:{name:'绵阳市',state:'disable'}}, //other.js
+            function (res) {
+                console.log('res:',res);
+                //   alert(12);
+            });*/
 </script>
 </body>
 </html>

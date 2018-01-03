@@ -9,9 +9,10 @@ body, ul, li {
   background-color: #ffffff;
   font: normal 14px 'Microsoft YaHei'; }
   .ued-cityPicker-widget .picker-items {
+    box-sizing: border-box;
     position: relative;
     float: left;
-    min-width: 110px;
+    min-width: 130px;
     height: 34px;
     margin: 10px 10px;
     padding: 0 10px;
@@ -52,8 +53,7 @@ body, ul, li {
   margin-right: 16px;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
-  line-height: 32px; }
+  text-overflow: ellipsis; }
 
 .picker-items .triangle {
   position: absolute;
@@ -65,13 +65,14 @@ body, ul, li {
   border-style: solid;
   border-width: 10px 8px 0 8px;
   border-radius: 4px;
-  transition: all .3s; }
+  transition: all .1s; }
 
 .picker-items .drop-item {
   position: absolute;
   display: none;
-  top: 36px;
+  top: 100%;
   left: 0;
+  margin-top: 5px;
   border: 1px solid #d2d8e3;
   background-color: #ffffff;
   width: 100%;
@@ -83,7 +84,6 @@ body, ul, li {
   overflow-x: hidden;
   overflow-y: auto; }
   .picker-items .drop-item li {
-    line-height: 30px;
     padding-left: 5px;
     width: 100%;
     overflow: hidden;

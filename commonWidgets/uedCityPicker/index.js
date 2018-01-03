@@ -75,6 +75,8 @@
                 loadingState:'disable',  //disable：禁用  hidden:隐藏  后两种值必须在name 值指定时有效
                 addClass:''
             },
+            size:'normal', //max,normal,small,min  组件尺寸设置
+            assignClass:'',
             url:'',
             data:undefined
         };
@@ -272,23 +274,32 @@
          * 作用：设定选择框初始值和显示状态
          * */
         setDefault:function ($point,opt) {
-            var opt = this.option,append =[];
-            var str = '<div class="ued-cityPicker-widget">' +
-                '        <div class="picker-items item-grand '+opt.grand.addClass+'" data-level="grand">' +
+            var opt = this.option,
+                append =[],
+                fontSet={
+                    max:40,
+                    normal:36,
+                    small: 30,
+                    min:26
+                },font,top;
+            font = fontSet[opt.size]?fontSet[opt.size]:36;
+            top = font/2 -6;
+            var str = '<div class="ued-cityPicker-widget '+opt.assignClass+'" style="line-height:'+font+'px">' +
+                '        <div class="picker-items item-grand '+opt.grand.addClass+'" data-level="grand" style="height:'+font+'px">' +
                 '            <span class="selected-item">'+opt.grand.palaceHolder+'</span>' +
-                '            <i class="triangle"></i>' +
+                '            <i class="triangle" style="top:'+top+'px"></i>' +
                 '            <ul class="drop-item">' +
                 '            </ul>' +
                 '        </div>' +
-                '        <div class="picker-items item-parent '+opt.parent.addClass+'" data-level="parent">' +
+                '        <div class="picker-items item-parent '+opt.parent.addClass+'" data-level="parent" style="height:'+font+'px">' +
                 '            <span class="selected-item">'+opt.parent.palaceHolder+'</span>' +
-                '            <i class="triangle"></i>' +
+                '            <i class="triangle" style="top:'+top+'px"></i>' +
                 '            <ul  class="drop-item">' +
                 '            </ul>' +
                 '        </div>' +
-                '        <div class="picker-items item-child '+opt.child.addClass+'" data-level="child">' +
+                '        <div class="picker-items item-child '+opt.child.addClass+'" data-level="child" style="height:'+font+'px">' +
                 '            <span class="selected-item">'+opt.child.palaceHolder+'</span>' +
-                '            <i class="triangle"></i>' +
+                '            <i class="triangle" style="top:'+top+'px"></i>' +
                 '            <ul class="drop-item">' +
                 '            </ul>' +
                 '        </div>' +
@@ -412,8 +423,8 @@
                 };
                 if(level == 'child'){
                     res.child = {
-                        name:json.sub[this.state.parent].name,
-                        region:json.sub[this.state.parent].region
+                        name:json.sub[this.state.parent].sub[this.state.child].name,
+                        region:json.sub[this.state.parent].sub[this.state.child].region
                     };
                 }
             }
@@ -453,7 +464,7 @@
                 that.setState(level,index); //保存状态
                 that.setName(level,name,index);  //更新选择框中的字
                 that.triggerOption(level,index);
-                if(that.triggerLevel === level){
+                if(that.triggerLevel === level && index){
                     that.callBack(that.createRes(level));
                 }
             });

@@ -49,6 +49,9 @@ var path ={
         path:'test/',
         ZrenderTest:{
             path:'test/ZrenderTest/'
+        },
+        threeStart:{
+            path:'test/threeStart/'
         }
     }
 }
@@ -79,10 +82,10 @@ gulp.task('revCss', function () {
 });
 gulp.task('jsMin', function () {
     return gulp.src(editPath+'*.js')
-        .pipe(babel({       //es6语法编译
-            presets: [es]
-        }))
-        .pipe(uglify())//{compatibility: 'ie8'}
+   //     .pipe(babel({       //es6语法编译
+    //        presets: [es]
+      //  }))
+     //   .pipe(uglify())//{compatibility: 'ie8'}
         .pipe(rename('index.min.js'))
         .pipe(gulp.dest(editPath));
 });

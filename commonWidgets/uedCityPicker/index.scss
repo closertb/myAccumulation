@@ -6,9 +6,10 @@ body,ul,li{padding: 0;margin: 0;}
   background-color: $uiBg;
   font:normal 14px 'Microsoft YaHei';
   .picker-items{
+    box-sizing: border-box;
     position: relative;
     float:left;
-    min-width:110px;
+    min-width:130px;
     height:34px;
     margin:10px 10px;
     padding: 0 10px;
@@ -63,7 +64,6 @@ body,ul,li{padding: 0;margin: 0;}
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    line-height: 32px;
   }
   .triangle{
     position: absolute;
@@ -75,13 +75,14 @@ body,ul,li{padding: 0;margin: 0;}
     border-style: solid;
     border-width: 10px 8px 0 8px;
     border-radius: 4px;
-    transition: all .3s;
+    transition: all .1s;
   }
   .drop-item{
     position: absolute;
     display: none;
-    top:36px;
+    top:100%;
     left:0;
+    margin-top: 5px;
     border: 1px solid $bodColor;
     background-color: $uiBg;
     width:100%;
@@ -93,7 +94,6 @@ body,ul,li{padding: 0;margin: 0;}
     overflow-x: hidden;
     overflow-y: auto;
     li{
-      line-height: 30px;
       padding-left: 5px;
       width:100%;
       overflow: hidden;
