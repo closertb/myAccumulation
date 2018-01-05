@@ -1,16 +1,51 @@
-@import "color.scss";
+/*颜色配置相关*/
+$bodColor:        #d2d8e3; //边框颜色
+$bodHovColor:  #a2aebf; //边框hover颜色
+$bodDisColor:  #dee3ed; //禁用时边框颜色
+
+$uiBg:          #ffffff;  //组件背景色
+$uiFont:        #4f5a69;  //文字颜色
+
+$uiBodNor:      #d2d8e3 ;//组件未选择状态边框色
+$uiFonNor:      #b6c0cf;//组件未选择状态边框色
+
+$uiBodHov:      #a2aebf ;//组件hover状态边框色
+$uiFonHov:      #b6c0cf ;//组件未选择状态文字色
+
+$uiBodCur:      #d2d8e3 ;//组件选中状态边框色
+$uiFonCur:      #373e4b ;//组件未选择状态文字色
+
+$uiBodMix:      #20a0ff ;//组件有选中项hover状态边框色
+
+$uiBodDis:      #f2f4f8 ;//组件禁选择状态边框色
+$uiFonDis:      #b6c0cf ;//组件禁选择状态文字色
+$uiBgDis:       #f9fafc;//组件禁选择状态背景色
+
+$tagColor:        #b6c0cf;  //向下三角颜色
+$tagHovColor:     #8590a0;  //向下hover颜色
+
+$itemHovBg:       #eff2f7;  //下拉框组件被hover时的背景色
+$itemHovFont:     #4f5a69;  //下拉框组件被hover时的体色
+
+$itemCurrBg:       #20a0ff;  //下拉框组件被选中时的背景色
+$itemCurrFont:     #ffffff;  //下拉框组件被选中时的字体色
+
+$itemDisBg:       #f9fafc;  //下拉框组件被禁用时的背景色
+$itemDisFont:     #fff;  //下拉框组件被禁用时的体色
+
 body,ul,li{padding: 0;margin: 0;}
 
 .ued-cityPicker-widget{
   position: absolute;
   background-color: $uiBg;
   font:normal 14px 'Microsoft YaHei';
+  line-height: 34px;
   .picker-items{
     box-sizing: border-box;
     position: relative;
     float:left;
-    min-width:130px;
-    height:34px;
+    width:130px;
+    height:36px;
     margin:10px 10px;
     padding: 0 10px;
     border-radius: 4px;
@@ -55,6 +90,33 @@ body,ul,li{padding: 0;margin: 0;}
   }
   .item-hidden{
     display: none;
+  }
+  &.font-large{
+    line-height: 40px;
+    .picker-items{
+      height:40px;
+      .triangle{
+        top:14px;
+      }
+    }
+  }
+  &.font-small{
+    line-height: 30px;
+    .picker-items{
+      height:30px;
+      .triangle{
+        top:9px;
+      }
+    }
+  }
+  &.font-mini{
+    line-height: 26px;
+    .picker-items{
+      height:26px;
+      .triangle{
+        top:7px;
+      }
+    }
   }
 }
 .picker-items{

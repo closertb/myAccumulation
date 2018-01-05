@@ -100,6 +100,8 @@
         }};
         myChart = echarts.init(target);
         myChart.setOption(option);
+        console.log('val',myChart.convertToPixel({seriesIndex:0},[3,70]));
+/*
         RadarAutoTip.create(myChart,target, option, radarAutoInfo);
         document.querySelector('#reset').addEventListener('click',function (e) {
            console.log(e);
@@ -114,6 +116,7 @@
         document.querySelector('#rereset').addEventListener('click',function (e) {
             myChart.radarAutoTip.reset();
         });
+*/
 
     </script>
 </body>

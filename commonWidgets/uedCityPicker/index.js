@@ -75,7 +75,9 @@
                 loadingState:'disable',  //disable：禁用  hidden:隐藏  后两种值必须在name 值指定时有效
                 addClass:''
             },
-            size:'normal', //max,normal,small,min  组件尺寸设置
+            trigger:false,//回调触发时机，设置为true时,任一一级数据变化都触发回调，默认时，最小一级选定时触发
+            size:'normal', //large,normal,small,mini  组件尺寸设置
+            width:0, //设置选择框或下拉框的宽度；不推荐
             assignClass:'',
             url:'',
             data:undefined
@@ -275,36 +277,39 @@
          * */
         setDefault:function ($point,opt) {
             var opt = this.option,
+                numReg=/^\d+$/,
                 append =[],
                 fontSet={
                     max:40,
                     normal:36,
                     small: 30,
                     min:26
-                },font,top;
-            font = fontSet[opt.size]?fontSet[opt.size]:36;
-            top = font/2 -6;
-            var str = '<div class="ued-cityPicker-widget '+opt.assignClass+'" style="line-height:'+font+'px">' +
-                '        <div class="picker-items item-grand '+opt.grand.addClass+'" data-level="grand" style="height:'+font+'px">' +
+                },fontClass,top;
+            fontClass = 'font-'+opt.size;
+            var str = '<div class="ued-cityPicker-widget '+fontClass+' '+opt.assignClass+'">' +
+                '        <div class="picker-items item-grand '+opt.grand.addClass+'" data-level="grand">' +
                 '            <span class="selected-item">'+opt.grand.palaceHolder+'</span>' +
-                '            <i class="triangle" style="top:'+top+'px"></i>' +
+                '            <i class="triangle"></i>' +
                 '            <ul class="drop-item">' +
                 '            </ul>' +
                 '        </div>' +
-                '        <div class="picker-items item-parent '+opt.parent.addClass+'" data-level="parent" style="height:'+font+'px">' +
+                '        <div class="picker-items item-parent '+opt.parent.addClass+'" data-level="parent" >' +
                 '            <span class="selected-item">'+opt.parent.palaceHolder+'</span>' +
-                '            <i class="triangle" style="top:'+top+'px"></i>' +
+                '            <i class="triangle"></i>' +
                 '            <ul  class="drop-item">' +
                 '            </ul>' +
                 '        </div>' +
-                '        <div class="picker-items item-child '+opt.child.addClass+'" data-level="child" style="height:'+font+'px">' +
+                '        <div class="picker-items item-child '+opt.child.addClass+'" data-level="child" >' +
                 '            <span class="selected-item">'+opt.child.palaceHolder+'</span>' +
-                '            <i class="triangle" style="top:'+top+'px"></i>' +
+                '            <i class="triangle"></i>' +
                 '            <ul class="drop-item">' +
                 '            </ul>' +
                 '        </div>' +
                 '    </div>';
             $point.append(str).find('.ued-cityPicker-widget').css({display:'none'});
+            if(numReg.test(opt.width)&&opt.width){
+                $point.find('.picker-items').css({width:opt.width+'px'});
+            }
             var arr = this.data;
 
             this.appendList('grand',arr);
@@ -414,6 +419,14 @@
                 grand:{
                     name:json.name,
                     region:json.region
+                },
+                parent:{
+                    name:'',
+                    region:''
+                },
+                child:{
+                    name:'',
+                    region:''
                 }
             };
             if(level == 'parent' || level == 'child'){
@@ -464,7 +477,7 @@
                 that.setState(level,index); //保存状态
                 that.setName(level,name,index);  //更新选择框中的字
                 that.triggerOption(level,index);
-                if(that.triggerLevel === level && index){
+                if(index&&(that.triggerLevel === level || that.option.trigger)){
                     that.callBack(that.createRes(level));
                 }
             });
