@@ -60,13 +60,13 @@
 <script src="http://filealiyun.geeker.com.cn/ued/js/jquery-1.8.3.min.js"></script>
 <script src="index.min.js"></script>
 <script>
-    $('.nav-bar').uedCityPiker({},
+    $('.nav-bar').uedCityPiker({trigger:true},
         function (res) {
         console.log('res:',res);
          //   alert(12); .min
     });
     $('.nav-bar2').uedCityPiker({parent:{loadingState:'hidden'},
-        child:{loadingState:'hidden'}},function (res) {
+        child:{loadingState:'hidden'},width:100},function (res) {
         console.log('result:',res);
       //  alert(34);
     });
@@ -78,13 +78,13 @@
         });
     $('.nav-bar4').uedCityPiker({
             child:{state:'hidden'},
-            parent:{state:'hidden'},size:'min'},
+            parent:{state:'hidden'},size:'mini'},
         function (res) {
             console.log('res:',res);
             //   alert(12);
         });
     $('.nav-bar5').uedCityPiker({ child:{state:'hidden'},
-        grand:{region:'530000',state:'hidden'},size:'max'},function (res) {
+        grand:{region:'530000',state:'hidden'},size:'large'},function (res) {
         console.log('result:',res);
         //  alert(34);
     });

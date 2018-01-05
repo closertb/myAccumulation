@@ -7,13 +7,14 @@ body, ul, li {
 .ued-cityPicker-widget {
   position: absolute;
   background-color: #ffffff;
-  font: normal 14px 'Microsoft YaHei'; }
+  font: normal 14px 'Microsoft YaHei';
+  line-height: 34px; }
   .ued-cityPicker-widget .picker-items {
     box-sizing: border-box;
     position: relative;
     float: left;
-    min-width: 130px;
-    height: 34px;
+    width: 130px;
+    height: 36px;
     margin: 10px 10px;
     padding: 0 10px;
     border-radius: 4px;
@@ -47,6 +48,24 @@ body, ul, li {
     display: none !important; }
   .ued-cityPicker-widget .item-hidden {
     display: none; }
+  .ued-cityPicker-widget.font-large {
+    line-height: 40px; }
+    .ued-cityPicker-widget.font-large .picker-items {
+      height: 40px; }
+      .ued-cityPicker-widget.font-large .picker-items .triangle {
+        top: 14px; }
+  .ued-cityPicker-widget.font-small {
+    line-height: 30px; }
+    .ued-cityPicker-widget.font-small .picker-items {
+      height: 30px; }
+      .ued-cityPicker-widget.font-small .picker-items .triangle {
+        top: 9px; }
+  .ued-cityPicker-widget.font-mini {
+    line-height: 26px; }
+    .ued-cityPicker-widget.font-mini .picker-items {
+      height: 26px; }
+      .ued-cityPicker-widget.font-mini .picker-items .triangle {
+        top: 7px; }
 
 .picker-items .selected-item {
   display: inline-block;
