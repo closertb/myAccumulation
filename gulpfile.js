@@ -40,7 +40,10 @@ var path ={
         EchartsRadarAutoTip:{  //Echarts雷达图单轴hover组件
             path:'specialWidgets/EchartsRadarAutoTip/'
         },
-        path:'awesomeCanvas/'
+        questionaire:{  //Echarts雷达图单轴hover组件
+            path:'specialWidgets/questionaire/'
+        },
+        path:'specialWidgets/'
     },
     tempModule:{  //组件开发模板
         path:'tempModule/'
@@ -52,11 +55,14 @@ var path ={
         },
         threeStart:{
             path:'test/threeStart/'
+        },
+        threeWidget:{
+            path:'test/threeWidget/'
         }
     }
 }
 
-var editPath = path.commonWidgets.uedCityPicker.path;  //要使用服务的组件路径
+var editPath = path.test.ZrenderTest.path;  //要使用服务的组件路径
 /**
  * name:新建组件的文件夹名称
  * eg: 一级目录组件创建 gulp create --name dirName 依据指定的微件文件夹名称生成对应的微件
@@ -80,6 +86,14 @@ gulp.task('revCss', function () {
         .pipe(gulp.dest(editPath));
 
 });
+gulp.task('spCss', function () {
+    console.log('start');
+    return gulp.src(editPath+'css/extend.scss')
+        .pipe(sass())//{compatibility: 'ie8'}minifyCss()
+        .pipe(gulp.dest(editPath+'css/'));
+
+});
+
 gulp.task('jsMin', function () {
     return gulp.src(editPath+'index.js')
    //     .pipe(babel({       //es6语法编译
@@ -92,7 +106,7 @@ gulp.task('jsMin', function () {
 //启动热更新
 gulp.task('default', function () {
     runSequence(
-        "revCss","jsMin"
+        "revCss","jsMin"    //,"spCss"
     );
     browserSync.init({
         port: 80,
@@ -101,9 +115,12 @@ gulp.task('default', function () {
         }
     });
     //监控文件变化，自动更新
-    gulp.watch([editPath+'*.scss'], function () {
+   gulp.watch([editPath+'*.scss'], function () {
         runSequence('revCss',browserSync.reload);
     });
+/*    gulp.watch([editPath+'css/extend.scss'], function () {
+        runSequence('spCss',browserSync.reload);
+    });*/
     //监控文件变化，自动更新
     gulp.watch([editPath+'index.html'], function () {
         runSequence('revCss',browserSync.reload);
