@@ -15,13 +15,13 @@
     var config = {
         radius : 3,
         alpha : 10,
-        initCount : 100,
-        move_distance : 10,
+        initCount : 50,
+        move_distance : 15,
+        accer:0.5,
         wind_speed:0
     };
-    var initSingle = Math.PI/360;
+    var initSingle = Math.PI/360,random=Math.random;
     var SIN = Math.sin;
-    console.log(SIN(initSingle*20));
     //判断是否有requestAnimationFrame方法，如果有则使用，没有则大约一秒30帧
     window.requestAnimFrame =
         window.requestAnimationFrame ||
@@ -37,22 +37,9 @@
         ctx,
         WIDTH,
         HEIGHT;
-    function initCanvas() {
-        const canvas = document.createElement('canvas'); //创建一个canvas元素
-        /*根据挂载点的长宽，初始化画布的样式*/
-        WIDTH = document.documentElement.clientWidth;
-        HEIGHT = document.documentElement.clientHeight;
-        canvas.style.position = 'absolute';
-        canvas.style.left = 0;
-        canvas.style.top = 0;
 
-        canvas.width  = WIDTH;
-        canvas.height = HEIGHT;
-        ctx = canvas.getContext('2d');
-        document.body.appendChild(canvas);
-    }
     var WeatherDrop =function (option) {
-        initCanvas();
+        this.init();
         var typeId = 0;
         ctx.strokeStyle = "white";
         ctx.shadowColor = "white";
@@ -61,7 +48,7 @@
             config.move_distance = option.speed;
         }*/
         if(option.type==='snow'){
-            config.move_distance = 0.3;
+            config.move_distance = 1;
             for (var i = 0; i < config.initCount; i++) {
                 particles.push( new Particle(i, Math.floor(Math.random()*WIDTH+200), Math.floor(Math.random()*HEIGHT-30),true));
             }
@@ -71,9 +58,26 @@
                 particles.push( new Rain(i, Math.floor(Math.random()*WIDTH+200), Math.floor(Math.random()*HEIGHT),true));
             }
         }
-
+        console.log(particles);
         ctx.shadowBlur = 0;
+        document.body.appendChild(this.canvas);
         animate();
+    };
+    WeatherDrop.prototype={
+        init:function () {
+            this.canvas = document.createElement('canvas'); //创建一个canvas元素
+            /*根据挂载点的长宽，初始化画布的样式*/
+            WIDTH = document.documentElement.clientWidth;
+            HEIGHT = document.documentElement.clientHeight;
+            this.canvas.style.position = 'absolute';
+            this.canvas.style.left = 0;
+            this.canvas.style.top = 0;
+
+            this.canvas.width  = WIDTH;
+            this.canvas.height = HEIGHT;
+            ctx = this.canvas.getContext('2d');
+
+        }
     };
     function animate() {
         ctx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -90,8 +94,11 @@
         this.useCache = useCache;
         this.cacheCanvas = document.createElement("canvas");
         this.cacheCtx = this.cacheCanvas.getContext("2d");
-        this.speed_y = config.move_distance;
+
+        this.speed_y =this._speed_y=config.move_distance*(0.7+random());
         this.speed_x = config.wind_speed;
+        this.accer = this._accer = config.move_distance/5;
+
         this.init();
         if (useCache) {
             this.cache()
@@ -147,7 +154,8 @@
             }else{
                 this.x = WIDTH*Math.random()+50;
                 this.y =-30;
-                this.speed_y=config.move_distance;
+                this.speed_y=this._speed_y;
+                this.accer =this._accer;
             }
         },
         die : function () {
@@ -173,9 +181,9 @@
             this.cacheCtx.width = 10 * this.r;
             this.cacheCtx.height = 12 * this.r;
        //     var alpha = ( Math.floor(Math.random() * 10) + 1) / config.alpha;
-            var alpha =0.2;
+            var alpha =1;
             this.color = "rgba(255,255,255," + alpha + ")";
-    }
+    };
     Rain.prototype.cache = function () {
         this.cacheCtx.save();
         this.cacheCtx.fillStyle = this.color;
@@ -187,7 +195,13 @@
         this.cacheCtx.closePath();
         this.cacheCtx.fill();
         this.cacheCtx.restore();
-    }
+    };
+    Rain.prototype.setPosition=function () {
+        this.speed_y +=this.accer;
+        this.x -= this.speed_x;
+        this.y += this.speed_y;
+        this.accer = this.accer*0.85;
+    };
     /*雨滴的回弹效果*/
     var Bounce = function(x, y) {
         var dist = Math.random() * 7;
@@ -210,7 +224,6 @@
     };
 
     Bounce.prototype.draw = function() {
-
         ctx.beginPath();
         ctx.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2);
         ctx.fill();
@@ -221,8 +234,8 @@
         this.x = x || 0;
         this.y = y || 0;
     };
-//公有方法- add : 速度改变函数,根据参数对速度进行增加
-//由于业务需求，考虑的都是下落加速的情况，故没有减速的，后期可拓展
+    //公有方法- add : 速度改变函数,根据参数对速度进行增加
+    //由于业务需求，考虑的都是下落加速的情况，故没有减速的，后期可拓展
     /*
     * @param v  object || string
     */
@@ -236,7 +249,7 @@
         }
         return this;
     };
-//公有方法- copy : 复制一个vector，来用作保存之前速度节点的记录
+    //公有方法- copy : 复制一个vector，来用作保存之前速度节点的记录
     Vector.prototype.copy = function() {
         //返回一个同等速度属性的Vector实例
         return new Vector(this.x, this.y);
