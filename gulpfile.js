@@ -58,6 +58,9 @@ var path ={
         },
         threeWidget:{
             path:'test/threeWidget/'
+        },
+        esLearn:{
+            path:'test/esLearn/'
         }
     }
 }
