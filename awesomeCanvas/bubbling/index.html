@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="./index.css" rel="stylesheet" />
+</head>
+<body>
+<button id="up">
+    更新
+</button>
+<div class="bg">
+    <div id="chart">
+        <div class="ugg"></div>
+    </div>
+</div>
+<script src="Tween.js"></script>
+<script src="./index.js"></script>
+<script src="https://cdn.bootcss.com/stats.js/r16/Stats.js"></script>
+<script>
+    var container = document.querySelector('.ugg');
+    var count = 0 ;
+    var stats = new Stats();
+    stats.domElement.style.position = 'fixed';
+    stats.domElement.style.right = '0px';
+    stats.domElement.style.top = '0px';
+    document.body.appendChild(stats.domElement);
+    function moveAnimate() {
+        count++;
+        requestAnimationFrame( moveAnimate );
+        if(count>5){
+         //   parse.moveParticle();
+         //   count = 0;
+        }
+        stats.update();
+    };
+    var parse = new DrawInter(container,{
+        moveSpeed:5,
+        color:'rgba(225,150,32)',
+        partCount:200,
+        percent:0.6
+    });
+    moveAnimate();
+    document.querySelector('#up').addEventListener('click',function () {
+        console.log('cf');
+        parse.fillUpdate(0.3);
+    })
+</script>
+</body>
+</html>
