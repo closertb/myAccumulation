@@ -22,6 +22,9 @@ var path ={
         rotateBall:{  //3D旋转球组件
             path:'awesomeCanvas/rotateBall/'
         },
+        bubbling:{  //柱状冒泡组件
+            path:'awesomeCanvas/bubbling/'
+        },
         weatherDrop:{  //动态雨雪天气组件
             path:'awesomeCanvas/weatherDrop/'
         },
@@ -53,6 +56,9 @@ var path ={
         ZrenderTest:{
             path:'test/ZrenderTest/'
         },
+        g2Test:{
+            path:'test/g2Test/'
+        },
         threeStart:{
             path:'test/threeStart/'
         },
@@ -65,7 +71,7 @@ var path ={
     }
 }
 
-var editPath = path.test.ZrenderTest.path;  //要使用服务的组件路径
+var editPath = path.awesomeCanvas.bubbling.path;  //要使用服务的组件路径
 /**
  * name:新建组件的文件夹名称
  * eg: 一级目录组件创建 gulp create --name dirName 依据指定的微件文件夹名称生成对应的微件
@@ -102,7 +108,7 @@ gulp.task('jsMin', function () {
    //     .pipe(babel({       //es6语法编译
     //        presets: [es]
       //  }))
-        .pipe(uglify())//{compatibility: 'ie8'}
+    //    .pipe(uglify())//{compatibility: 'ie8'}
         .pipe(rename('index.min.js'))
         .pipe(gulp.dest(editPath));
 });
