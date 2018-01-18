@@ -36,14 +36,18 @@ function DrawInter(container,option) {
     this._height=container.offsetHeight;
     this._initShape();
     this.particles =[];
-
     this._initPart();
     this._calPoint();
+
+    this._initFill();
+    this.calFill(0.6);
+    this.drawFill();
+
     this._drawShape(this.shape);
-    this.myTween(0,this.percent,500,function (t) {
-        that.calFill(t);
-        that.drawFill(that.fillPoint,{fill:true});
-    });
+    /*  this.myTween(0,this.percent,500,function (t) {
+          that.calFill(t);
+          that.drawFill(that.fillPoint,{fill:true});
+      });*/
     this.percent&&this.drawParticle();
     container.append(this.canvas);
     container.append(this.partCanvas);
@@ -58,25 +62,115 @@ DrawInter.prototype={
         this.sr = Math.round((this._width-10)/4);
         this._fillHeight = this._height - 4*this.sr - 5;
         this.moveHeight = this._height - 5*this.sr;
-        this.ctx.save();
+    },
+    _calPoint:function () {
+        var that = this;
+        this.shape = {
+            zero:[0,0],
+            lt:[-1*that.lr,-1*that._height+that.sr*4],
+            lb:[-1*that.lr,0],
+            rt:[that.lr,-1*that._height+that.sr*4],
+            rb:[that.lr,0],
+        }
+    },
+    _drawShape:function (point) {
+        var ctx = this.ctx;
+        ctx.save();
         var linerColor = this.ctx.createLinearGradient(0,0,this._width,0);
         linerColor.addColorStop(0,'rgba('+this.colorStr+',.75)');
         linerColor.addColorStop(0.25,'rgba('+this.colorStr+',0)');
         linerColor.addColorStop(0.75,'rgba('+this.colorStr+',0)');
         linerColor.addColorStop(1,'rgba('+this.colorStr+',.8)');
-        this.ctx.fillStyle = linerColor;
-        this.ctx.fillRect(5,2*this.sr+5,this._width-10,this._height-4*this.sr);
-        this.ctx.restore();
-        this.ctx.translate(this.lr+5,this._height-this.sr-10);
+        ctx.fillStyle = linerColor;
+        ctx.fillRect(5,2*this.sr+5,this._width-10,this._height-4*this.sr);
+        ctx.restore();
+        ctx.translate(this.lr+5,this._height-this.sr-10);
+        ctx.save();
+        ctx.strokeStyle = 'rgb('+this.colorStr+')';
+        ctx.shadowBlur = 5;
+        ctx.shadowColor = 'rgba('+this.colorStr+',1)';
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(point.rb[0],point.rb[1]);
+        ctx.shadowOffsetY = -4;
+        ctx.bezierCurveTo(point.rb[0],point.rb[1]+this.sr,point.lb[0],point.lb[1]+this.sr,point.lb[0],point.lb[1]);
+        ctx.lineTo(point.lt[0],point.lt[1]);
+        ctx.bezierCurveTo(point.lt[0],point.lt[1]+this.sr,point.rt[0],point.rt[1]+this.sr,point.rt[0],point.rt[1]);
+        ctx.stroke();
+        ctx.restore();
+        ctx.save();
+        ctx.beginPath();
+        ctx.shadowOffsetY = 4;
+        ctx.moveTo(point.lt[0],point.lt[1]);
+        ctx.bezierCurveTo(point.lt[0],point.lt[1]-this.sr,point.rt[0],point.rt[1]-this.sr,point.rt[0],point.rt[1]);
+        ctx.lineTo(point.rb[0],point.rb[1]);
+        ctx.stroke();
+        ctx.restore();
     },
-    _initPart:function () {
-        this.partCanvas = document.createElement('canvas');
-        this.partCanvas.width = this._width -10;
-        this.partCanvas.height = this._height ;
-        this.partCanvas.style.cssText = "position:absolute;top:0px;left:0;";
-        this.partCtx =  this.partCanvas.getContext('2d');
-        this.partCtx.translate(this.lr+5,this._height-this.sr-10);
-        this.initParticle();
+    _initFill:function () {
+        this.fillCanvas = document.createElement('canvas');
+        this.fillCanvas.width = this.lr*2-10;
+        this.fillCanvas.height = this._height-2*this.sr;
+        this.fillCtx = this.fillCanvas.getContext('2d');
+        this.fillCtx.translate(this.lr,this._height-3*this.sr);
+    },
+    calFill:function (percent) {
+        var that = this;
+        this.fillPoint = {
+            zero:[0,0],
+            lt:[-1*that.lr+5,-1*this._fillHeight*percent-5],
+            lb:[-1*that.lr+5,-5],
+            rt:[that.lr-5,-1*this._fillHeight*percent-5],
+            rb:[that.lr-5,-5]
+        }
+    },
+    drawFill:function () {
+        var ctx = this.fillCtx;
+        ctx.fillStyle = 'red';
+        console.log(ctx);
+       // ctx.clearRect()
+      //  ctx.fillRect(this.fillPoint.lt[0],this.fillPoint.lt[1],2*this.lr-10,this._height-4*this.sr);
+     //   this.ctx.arc(0,0,5,0,2*PI);
+     //   this.ctx.fill();
+        this.ctx.drawImage(this.fillCanvas,5,this.sr);
+    //    ctx.clearRect(this.fillPoint.lt[0],this.fillPoint.lt[1],2*this.lr-10,this._height-4*this.sr);
+ /*       var linerColor = ctx.createLinearGradient(point.lt[0],0,point.rt[0],0);
+        linerColor.addColorStop(0,'rgba('+this.colorStr+',.8)');
+        linerColor.addColorStop(0.4,'rgba('+this.colorStr+',1)');
+        linerColor.addColorStop(0.7,'rgba(62,41,4,.6)');
+        linerColor.addColorStop(1,'rgba('+this.colorStr+',1)');
+
+        ctx.save();
+        ctx.strokeStyle = 'rgb('+this.colorStr+')';
+        ctx.fillStyle =linerColor;
+        ctx.save()
+
+        ctx.beginPath();
+        ctx.moveTo(point.rb[0],point.rb[1]);
+        ctx.bezierCurveTo(point.rb[0],point.rb[1]+this.sr,point.lb[0],point.lb[1]+this.sr,point.lb[0],point.lb[1]);
+        ctx.lineTo(point.lt[0],point.lt[1]);
+        ctx.bezierCurveTo(point.lt[0],point.lt[1]-this.sr,point.rt[0],point.rt[1]-this.sr,point.rt[0],point.rt[1]);
+        ctx.moveTo(point.lt[0],point.lt[1]);
+        ctx.bezierCurveTo(point.lt[0],point.lt[1]+this.sr,point.rt[0],point.rt[1]+this.sr,point.rt[0],point.rt[1]);
+        ctx.lineTo(point.rb[0],point.rb[1]);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle ='rgba('+this.colorStr+',.85)';
+        ctx.moveTo(point.lt[0],point.lt[1]);
+        ctx.bezierCurveTo(point.lt[0],point.lt[1]+this.sr,point.rt[0],point.rt[1]+this.sr,point.rt[0],point.rt[1]);
+        ctx.bezierCurveTo(point.rt[0],point.rt[1]-this.sr,point.lt[0],point.lt[1]-this.sr,point.lt[0],point.lt[1]);
+        ctx.stroke();
+        ctx.fill();
+        ctx.restore(); */
+    },
+    fillUpdate:function (percent) {
+        var old = this.percent,that=this;
+        this.percent = percent;
+        this.myTween(old,this.percent,500,function (t) {
+            that.calFill(t);
+            that.drawFill(that.fillPoint,{fill:true});
+        });
     },
     calPram:function () {
         var height=this._fillHeight,_height=this._height,width=this.lr-5;
@@ -92,6 +186,15 @@ DrawInter.prototype={
             alpha:k
         };
 
+    },
+    _initPart:function () {
+        this.partCanvas = document.createElement('canvas');
+        this.partCanvas.width = this._width -10;
+        this.partCanvas.height = this._height ;
+        this.partCanvas.style.cssText = "position:absolute;top:0px;left:0;";
+        this.partCtx =  this.partCanvas.getContext('2d');
+        this.partCtx.translate(this.lr+5,this._height-this.sr-10);
+        this.initParticle();
     },
     initParticle:function () {
         for(var i = 0; i<this.particlesLength ;i++){
@@ -128,93 +231,6 @@ DrawInter.prototype={
             that.partCtx.drawImage(t.canvas,t.position.x,t.position.y);
         });
         this.count = 0;
-    },
-    calFill:function (percent) {
-        var that = this;
-        this.fillPoint = {
-            zero:[0,0],
-            lt:[-1*that.lr+5,-1*this._fillHeight*percent-5],
-            lb:[-1*that.lr+5,-5],
-            rt:[that.lr-5,-1*this._fillHeight*percent-5],
-            rb:[that.lr-5,-5]
-        }
-    },
-    _calPoint:function () {
-        var that = this;
-        this.shape = {
-            zero:[0,0],
-            lt:[-1*that.lr,-1*that._height+that.sr*4],
-            lb:[-1*that.lr,0],
-            rt:[that.lr,-1*that._height+that.sr*4],
-            rb:[that.lr,0],
-        }
-    },
-    _drawShape:function (point) {
-        var ctx = this.ctx;
-
-        ctx.save();
-        ctx.strokeStyle = 'rgb('+this.colorStr+')';
-        ctx.shadowBlur = 5;
-        ctx.shadowColor = 'rgba('+this.colorStr+',1)';
-        ctx.save();
-        ctx.beginPath();
-        ctx.moveTo(point.rb[0],point.rb[1]);
-        ctx.shadowOffsetY = -4;
-        ctx.bezierCurveTo(point.rb[0],point.rb[1]+this.sr,point.lb[0],point.lb[1]+this.sr,point.lb[0],point.lb[1]);
-        ctx.lineTo(point.lt[0],point.lt[1]);
-        ctx.bezierCurveTo(point.lt[0],point.lt[1]+this.sr,point.rt[0],point.rt[1]+this.sr,point.rt[0],point.rt[1]);
-        ctx.stroke();
-        ctx.restore();
-        ctx.save();
-        ctx.beginPath();
-        ctx.shadowOffsetY = 4;
-        ctx.moveTo(point.lt[0],point.lt[1]);
-        ctx.bezierCurveTo(point.lt[0],point.lt[1]-this.sr,point.rt[0],point.rt[1]-this.sr,point.rt[0],point.rt[1]);
-        ctx.lineTo(point.rb[0],point.rb[1]);
-        ctx.stroke();
-        ctx.restore();
-        ctx.restore();
-    },
-    drawFill:function (point) {
-        var ctx = this.ctx;
-    //    ctx.clearRect(this.shape.lt[0],this.shape.lt[1],2*this.lr,this._fillHeight+5);
-        var linerColor = this.ctx.createLinearGradient(point.lt[0],0,point.rt[0],0);
-        linerColor.addColorStop(0,'rgba('+this.colorStr+',.8)');
-        linerColor.addColorStop(0.4,'rgba('+this.colorStr+',1)');
-        linerColor.addColorStop(0.7,'rgba(62,41,4,.6)');
-        linerColor.addColorStop(1,'rgba('+this.colorStr+',1)');
-
-        ctx.save();
-        ctx.strokeStyle = 'rgb('+this.colorStr+')';
-        ctx.fillStyle =linerColor;
-        ctx.save()
-
-        ctx.beginPath();
-        ctx.moveTo(point.rb[0],point.rb[1]);
-        ctx.bezierCurveTo(point.rb[0],point.rb[1]+this.sr,point.lb[0],point.lb[1]+this.sr,point.lb[0],point.lb[1]);
-        ctx.lineTo(point.lt[0],point.lt[1]);
-        ctx.bezierCurveTo(point.lt[0],point.lt[1]-this.sr,point.rt[0],point.rt[1]-this.sr,point.rt[0],point.rt[1]);
-        ctx.moveTo(point.lt[0],point.lt[1]);
-        ctx.bezierCurveTo(point.lt[0],point.lt[1]+this.sr,point.rt[0],point.rt[1]+this.sr,point.rt[0],point.rt[1]);
-        ctx.lineTo(point.rb[0],point.rb[1]);
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.fillStyle ='rgba('+this.colorStr+',.85)';
-        ctx.moveTo(point.lt[0],point.lt[1]);
-        ctx.bezierCurveTo(point.lt[0],point.lt[1]+this.sr,point.rt[0],point.rt[1]+this.sr,point.rt[0],point.rt[1]);
-        ctx.bezierCurveTo(point.rt[0],point.rt[1]-this.sr,point.lt[0],point.lt[1]-this.sr,point.lt[0],point.lt[1]);
-        ctx.stroke();
-        ctx.fill();
-        ctx.restore();
-    },
-    fillUpdate:function (percent) {
-        var old = this.percent,that=this;
-        this.percent = percent;
-        this.myTween(old,this.percent,500,function (t) {
-            that.calFill(t);
-            that.drawFill(that.fillPoint,{fill:true});
-        });
     },
     myTween:function(start,end,length,tweenFun) {
         var arr = [],count=0,arrLength = 50*length/1000,step = (end-start)/arrLength;
