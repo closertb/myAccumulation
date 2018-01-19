@@ -7,7 +7,10 @@
 </head>
 <body>
 <button id="up">
-    更新
+    增加
+</button>
+<button id="min">
+    减少
 </button>
 <div class="bg">
     <div id="chart">
@@ -38,11 +41,13 @@
         moveSpeed:5,
         color:'rgba(225,150,32)',
         partCount:200,
-        percent:0.9
+        percent:0.49
     });
     moveAnimate();
     document.querySelector('#up').addEventListener('click',function () {
-        console.log('cf');
+        parse.fillUpdate(0.8);
+    })
+    document.querySelector('#min').addEventListener('click',function () {
         parse.fillUpdate(0.3);
     })
 </script>

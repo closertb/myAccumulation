@@ -35,22 +35,24 @@ function DrawInter(container,option) {
     this._width=container.offsetWidth;
     this._height=container.offsetHeight;
     this.particles =[];
-    this._initShape();
+    this._init();
     this._initPart();
     this._calPoint();
     this._drawShape(this.shape);
     this._initFill();
+
     this.myTween(0,this.percent,500,function (t) {
           that.drawFill(t);
       });
 
-  //  that.drawFill(0.99);
+
+ //   that.drawFill(0.99);
     this.percent&&this.drawParticle();
     container.append(this.canvas);
     container.append(this.partCanvas);
 }
 DrawInter.prototype={
-    _initShape:function () {
+    _init:function () {
         this.canvas = document.createElement('canvas');
         this.canvas.width = this._width;
         this.canvas.height = this._height;
@@ -71,9 +73,12 @@ DrawInter.prototype={
         }
     },
     _drawShape:function (point) {
-        var ctx = this.ctx;
+        this.shapeCanvas = document.createElement('canvas');
+        this.shapeCanvas.width = this._width;
+        this.shapeCanvas.height = this._height;
+        var ctx = this.shapeCanvas.getContext('2d');
         ctx.save();
-        var linerColor = this.ctx.createLinearGradient(0,0,this._width,0);
+        var linerColor = ctx.createLinearGradient(0,0,this._width,0);
         linerColor.addColorStop(0,'rgba('+this.colorStr+',.75)');
         linerColor.addColorStop(0.25,'rgba('+this.colorStr+',0)');
         linerColor.addColorStop(0.75,'rgba('+this.colorStr+',0)');
@@ -104,6 +109,10 @@ DrawInter.prototype={
         ctx.stroke();
         ctx.restore();
     },
+    _drawBg:function () {
+        this.ctx.clearRect(0,0,this._width,this._height);
+        this.ctx.drawImage(this.shapeCanvas,0,0);
+    },
     _initFill:function () {
         this.fillCanvas = document.createElement('canvas');
         this.fillCanvas.width = this.lr*2-5;
@@ -124,13 +133,9 @@ DrawInter.prototype={
     drawFill:function (percent) {
         this.calFill(percent);
         var ctx = this.fillCtx,point=this.fillPoint;
-        this.ctx.clearRect(this.shape.lt[0],this.shape.lt[1],2*this.lr,this._height-4*this.sr);
-        ctx.fillStyle = 'red';
-        ctx.clearRect(this.shape.lt[0]+5,this.shape.lt[1],2*this.lr,this._height-3*this.sr);
-
-       // this.ctx.arc(this.shape.lt[0],this.shape.lt[1],5,0,2*PI);
-       // this.ctx.stroke();
-
+        this._drawBg();
+        ctx.strokeStyle = 'red';
+        ctx.clearRect(this.shape.lt[0],this.shape.lt[1]-this.sr,2*this.lr,this._height-2*this.sr);
 
         var linerColor = ctx.createLinearGradient(point.lt[0],0,point.rt[0],0);
         linerColor.addColorStop(0,'rgba('+this.colorStr+',.8)');
@@ -161,14 +166,14 @@ DrawInter.prototype={
         ctx.stroke();
         ctx.fill();
         ctx.restore();
-        this.ctx.drawImage(this.fillCanvas,this.shape.lt[0],this.shape.lt[1]-2*this.sr+10);
+        this.ctx.drawImage(this.fillCanvas,5,this.sr);
+
     },
     fillUpdate:function (percent) {
         var old = this.percent,that=this;
         this.percent = percent;
         this.myTween(old,this.percent,500,function (t) {
-            that.calFill(t);
-            that.drawFill(that.fillPoint,{fill:true});
+            that.drawFill(t);
         });
     },
     calPram:function () {
@@ -241,7 +246,6 @@ DrawInter.prototype={
             if(count>arrLength){
                 return ;
             }
-            console.log(count,arr[count]);
             tweenFun(arr[count]);
             count++;
             requestAnimationFrame(animate);
@@ -304,7 +308,3 @@ Particle.prototype = {
         this.draw();
     }
 };
-function animate( time ) {
-    requestAnimationFrame( animate );
-    TWEEN.update( time );
-}
