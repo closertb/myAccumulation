@@ -25,9 +25,8 @@ function DrawInter(container,option) {
         }
     }));
     this.count = 0;
-
+    this.keepAnimate = false;
     this.colorStr = this.opt.color;
-    console.log(this.colorStr);
     this.moveSpeed = this.opt.moveSpeed;
     this.particlesLength=this.opt.partCount;
     this.percent = this.opt.percent;
@@ -35,22 +34,24 @@ function DrawInter(container,option) {
     this._width=container.offsetWidth;
     this._height=container.offsetHeight;
     this.particles =[];
-    this._initShape();
+    this._init();
     this._initPart();
     this._calPoint();
     this._drawShape(this.shape);
     this._initFill();
+
     this.myTween(0,this.percent,500,function (t) {
           that.drawFill(t);
       });
 
-  //  that.drawFill(0.99);
+
+ //   that.drawFill(0.99);
     this.percent&&this.drawParticle();
     container.append(this.canvas);
     container.append(this.partCanvas);
 }
 DrawInter.prototype={
-    _initShape:function () {
+    _init:function () {
         this.canvas = document.createElement('canvas');
         this.canvas.width = this._width;
         this.canvas.height = this._height;
@@ -59,6 +60,8 @@ DrawInter.prototype={
         this.sr = Math.round((this._width-10)/4);
         this._fillHeight = this._height - 4*this.sr - 5;
         this.moveHeight = this._height - 5*this.sr;
+        this._bubHeight = this.percent>0.45?(this._fillHeight*0.45):(this._fillHeight*this.percent);
+        console.log(this._bubHeight)
     },
     _calPoint:function () {
         var that = this;
@@ -71,9 +74,12 @@ DrawInter.prototype={
         }
     },
     _drawShape:function (point) {
-        var ctx = this.ctx;
+        this.shapeCanvas = document.createElement('canvas');
+        this.shapeCanvas.width = this._width;
+        this.shapeCanvas.height = this._height;
+        var ctx = this.shapeCanvas.getContext('2d');
         ctx.save();
-        var linerColor = this.ctx.createLinearGradient(0,0,this._width,0);
+        var linerColor = ctx.createLinearGradient(0,0,this._width,0);
         linerColor.addColorStop(0,'rgba('+this.colorStr+',.75)');
         linerColor.addColorStop(0.25,'rgba('+this.colorStr+',0)');
         linerColor.addColorStop(0.75,'rgba('+this.colorStr+',0)');
@@ -104,6 +110,10 @@ DrawInter.prototype={
         ctx.stroke();
         ctx.restore();
     },
+    _drawBg:function () {
+        this.ctx.clearRect(0,0,this._width,this._height);
+        this.ctx.drawImage(this.shapeCanvas,0,0);
+    },
     _initFill:function () {
         this.fillCanvas = document.createElement('canvas');
         this.fillCanvas.width = this.lr*2-5;
@@ -119,18 +129,14 @@ DrawInter.prototype={
             lb:[-1*that.lr+5,-5],
             rt:[that.lr-5,-1*this._fillHeight*percent-5],
             rb:[that.lr-5,-5]
-        }
+        };
     },
     drawFill:function (percent) {
         this.calFill(percent);
         var ctx = this.fillCtx,point=this.fillPoint;
-        this.ctx.clearRect(this.shape.lt[0],this.shape.lt[1],2*this.lr,this._height-4*this.sr);
-        ctx.fillStyle = 'red';
-        ctx.clearRect(this.shape.lt[0]+5,this.shape.lt[1],2*this.lr,this._height-3*this.sr);
-
-       // this.ctx.arc(this.shape.lt[0],this.shape.lt[1],5,0,2*PI);
-       // this.ctx.stroke();
-
+        this._drawBg();
+        ctx.strokeStyle = 'red';
+        ctx.clearRect(this.shape.lt[0],this.shape.lt[1]-this.sr,2*this.lr,this._height-2*this.sr);
 
         var linerColor = ctx.createLinearGradient(point.lt[0],0,point.rt[0],0);
         linerColor.addColorStop(0,'rgba('+this.colorStr+',.8)');
@@ -161,30 +167,32 @@ DrawInter.prototype={
         ctx.stroke();
         ctx.fill();
         ctx.restore();
-        this.ctx.drawImage(this.fillCanvas,this.shape.lt[0],this.shape.lt[1]-2*this.sr+10);
+        this.ctx.drawImage(this.fillCanvas,5,this.sr);
+
     },
-    fillUpdate:function (percent) {
+    updateFill:function (percent) {
         var old = this.percent,that=this;
         this.percent = percent;
         this.myTween(old,this.percent,500,function (t) {
-            that.calFill(t);
-            that.drawFill(that.fillPoint,{fill:true});
+            that.drawFill(t);
         });
+        this.keepAnimate = false;
+        this.partCtx.clearRect(5-this.lr,4*this.sr-this._height,2*this.lr,this._height-2*this.sr);
+        this.percent&&this.drawParticle();
     },
     calPram:function () {
-        var height=this._fillHeight,_height=this._height,width=this.lr-5;
-        var y = (0.5+random())*height/2;
+        var _height=this._height,width=this.lr-5;
+        var y = _height*1-_height*random()+random()*this._bubHeight;  //(0.5+random())*height/2
         var x = (1 - 2*random())*width;
         var k = 1.5- y/_height;
         return {
             position:{
                 x:x,
-                y:-y
+                y:-y/2
             },
             r:2*k,
             alpha:k
         };
-
     },
     _initPart:function () {
         this.partCanvas = document.createElement('canvas');
@@ -205,20 +213,21 @@ DrawInter.prototype={
         this.particles.forEach(function (t) {
             that.partCtx.drawImage(t.canvas,t.position.x,t.position.y);
         });
-        this.moveParticle();
+        this.keepAnimate = true;
+        this._moveParticle();
     },
-    moveParticle:function () {
+    _moveParticle:function () {
         var that = this,height= this._height-4*this.sr;
         this.count++;
-        requestAnimationFrame(this.moveParticle.bind(this));
+        this.keepAnimate&&requestAnimationFrame(this._moveParticle.bind(this));
         if(this.count<this.moveSpeed){
             return ;
         }
-        this.partCtx.clearRect(5-this.lr,4*this.sr-this._height,2*this.lr,this._height-4*this.sr-5);
+        this.partCtx.clearRect(5-this.lr,4*this.sr-this._height,2*this.lr,this._height-2*this.sr);
         this.particles.forEach(function (t) {
             t.position.x = t.position.x*0.95;
             t.position.y = t.position.y - that.sr*0.3;
-            t.alpha = 1.2+t.position.y/height;//增加到最高之后，变为最低亮度，设为0时，是会消失一会的
+            t.alpha = 1.2+t.position.y/height;
             t.size = t.size*0.999;
             if(t.position.y <-that.moveHeight || t <0.1){
                 var option = that.calPram();
@@ -231,6 +240,24 @@ DrawInter.prototype={
         });
         this.count = 0;
     },
+/*    updateParticle:function () {  //动画统一控制,没啥显著的性能提升
+        var that = this,height= this._height-4*this.sr;
+        this.partCtx.clearRect(5-this.lr,4*this.sr-this._height,2*this.lr,this._height-2*this.sr);
+        this.keepAnimate&&this.particles.forEach(function (t) {
+            t.position.x = t.position.x*0.95;
+            t.position.y = t.position.y - that.sr*0.3;
+            t.alpha = 1.2+t.position.y/height;
+            t.size = t.size*0.999;
+            if(t.position.y <-that.moveHeight || t <0.1){
+                var option = that.calPram();
+                t.alpha = option.alpha;
+                t.size = option.r;
+                t.position=option.position
+            }
+            t.draw();
+            that.partCtx.drawImage(t.canvas,t.position.x,t.position.y);
+        });
+    },*/
     myTween:function(start,end,length,tweenFun) {
         var arr = [],count=0,arrLength = 50*length/1000,step = (end-start)/arrLength;
         for (var i=0;i<=arrLength;i++){
@@ -241,7 +268,6 @@ DrawInter.prototype={
             if(count>arrLength){
                 return ;
             }
-            console.log(count,arr[count]);
             tweenFun(arr[count]);
             count++;
             requestAnimationFrame(animate);
@@ -269,7 +295,7 @@ function Particle(option,color) {
     };
     this.size =option.r;  //设置星星半径大小，最小半径，最大半径，这里为3~6;
     this.domSize = Math.ceil(this.size * 3);
-    this.canvas = document.createElement('canvas')
+    this.canvas = document.createElement('canvas');
     this.canvas.width = this.domSize;
     this.canvas.height = this.domSize;
     this.alpha = option.alpha; //保证值在0.35 到 1 之间
@@ -304,7 +330,3 @@ Particle.prototype = {
         this.draw();
     }
 };
-function animate( time ) {
-    requestAnimationFrame( animate );
-    TWEEN.update( time );
-}

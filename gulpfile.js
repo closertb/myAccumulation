@@ -59,6 +59,9 @@ var path ={
         g2Test:{
             path:'test/g2Test/'
         },
+        mapTest:{
+            path:'test/mapTest/'
+        },
         threeStart:{
             path:'test/threeStart/'
         },

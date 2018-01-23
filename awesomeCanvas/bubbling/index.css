@@ -19,4 +19,6 @@ body, ul, li {
 .ugg {
   width: 70px;
   height: 400px;
+  display: inline-block;
+  margin-left: 20px;
   position: relative; }
