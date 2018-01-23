@@ -71,7 +71,7 @@ var path ={
     }
 }
 
-var editPath = path.awesomeCanvas.bubbling.path;  //要使用服务的组件路径
+var editPath = path.awesomeCanvas.weatherDrop.path;  //要使用服务的组件路径
 /**
  * name:新建组件的文件夹名称
  * eg: 一级目录组件创建 gulp create --name dirName 依据指定的微件文件夹名称生成对应的微件
