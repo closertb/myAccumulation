@@ -19,6 +19,9 @@
         <div class="ugg egg3"></div>
         <div class="ugg egg4"></div>
         <div class="ugg egg5"></div>
+        <div class="ugg egg6"></div>
+        <div class="ugg egg7"></div>
+        <div class="ugg egg8"></div>
     </div>
 </div>
 <script src="Tween.js"></script>
@@ -30,35 +33,55 @@
     var container3 = document.querySelector('.egg3');
     var container4 = document.querySelector('.egg4');
     var container5 = document.querySelector('.egg5');
+    var container6 = document.querySelector('.egg6');
+    var container7 = document.querySelector('.egg7');
+    var container8 = document.querySelector('.egg8');
     var count = 0 ;
 
-    var parse = new DrawInter(container1,{
-        moveSpeed:5,
-        color:'rgba(225,150,32)',
-        partCount:200,
-        percent:0.6
+    var parse = new Bubbling(container1,{
+        moveSpeed:5,  //粒子运动速度
+        color:'rgba(225,150,32)',  //组件基础色
+        partCount:200,  //扩散粒子个数
+        percent:0.6  //填充高度
     });
-    var parse2 = new DrawInter(container2,{
+    var parse2 = new Bubbling(container2,{
         moveSpeed:5,
         color:'rgba(225,250,132)',
         partCount:100,
         percent:0.3
     });
-    var parse3 = new DrawInter(container3,{
+    var parse3 = new Bubbling(container3,{
         moveSpeed:5,
         color:'rgba(155,250,232)',
         partCount:100,
         percent:0.7
     });
-   var parse4 = new DrawInter(container4,{
+   var parse4 = new Bubbling(container4,{
         moveSpeed:5,
         color:'rgba(225,20,132)',
         partCount:100,
         percent:0.3
     });
-    var parse5 = new DrawInter(container5,{
+    var parse5 = new Bubbling(container5,{
         moveSpeed:5,
         color:'rgba(5,250,232)',
+        partCount:200,
+        percent:0.7
+    });
+    var parse6 = new Bubbling(container6,{
+        moveSpeed:5,
+        color:'rgba(155,250,232)',
+        partCount:100,
+        percent:0.7
+    });
+    var parse7 = new Bubbling(container7,{
+        moveSpeed:3,
+        color:'rgba(225,20,132)',
+        partCount:100,
+        percent:0.3
+    });
+    var parse8 = new Bubbling(container8,{
+        moveSpeed:3,
         partCount:200,
         percent:0.7
     });

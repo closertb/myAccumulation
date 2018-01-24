@@ -1,0 +1,32 @@
+## 柱状填充粒子扩散插件 ##
+
+兼容：支持canvas的浏览器都支持；
+
+### 使用示例：###
+引入bubbling.js
+
+//加载组件
+    var container1 = document.querySelector('.egg1');
+    var parse = new DrawInter(container1,{
+    moveSpeed:5,  //粒子运动速度
+    color:'rgb(225,150,32)',  //组件基础色
+    partCount:200,  //扩散粒子个数
+    percent:0.6  //填充高度  值为小数，区间【0-1】;
+    });
+    //parse.updateFill(0.8); //更新组件填充高度，值为小数，区间【0-1】;
+
+### 参数说明：###
+
+/**
+* 作用：柱状体填充粒子扩散组件
+* 说明：1:组件的大小与被挂载的dom元素大小一致，组件无大小，采用默认大小 70*400.
+* @param  {[string]}   container                  [组件挂载dom节点]
+* @param  {[object]}   option                     [组件配置项]
+* @param  {[object]}   option.moveSpeed           [扩散粒子速度设置【1-10】，1最快，10最慢，默认5]
+* @param  {[string]}   option.color               [扩散整体基础色设置，字符串必须是以rgb或rgba格式的字符串]
+* @param  {[number]}   option.partCount           [扩散粒子个数设置，默认100]
+* @param  {[number]}   option.percent             [柱状体填充深度，值范围在【0-1】,默认0]
+* */
+
+
+**更多使用示例参看index.html**

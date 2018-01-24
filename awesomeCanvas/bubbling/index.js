@@ -6,8 +6,17 @@
  * Description:
  */
 var PI = Math.PI, sin = Math.sin, cos = Math.cos, random = Math.random;
-
-function DrawInter(container,option) {
+/**
+ * 作用：柱状体填充粒子扩散组件
+ * 说明：1:组件的大小与被挂载的dom元素大小一致，组件无大小，采用默认大小 70*400.
+ * @param  {[string]}   container                  [组件挂载dom节点]
+ * @param  {[object]}   option                     [组件配置项]
+ * @param  {[object]}   option.moveSpeed           [扩散粒子速度设置【1-10】，1最快，10最慢，默认5]
+ * @param  {[string]}   option.color               [扩散整体基础色设置，字符串必须是以rgb或rgba格式的字符串]
+ * @param  {[number]}   option.partCount           [扩散粒子个数设置，默认100]
+ * @param  {[number]}   option.percent             [柱状体填充深度，值范围在【0-1】,默认0]
+ * */
+function Bubbling(container,option) {
     var that = this;
     this.opt = {
         moveSpeed:5,
@@ -31,26 +40,25 @@ function DrawInter(container,option) {
     this.particlesLength=this.opt.partCount;
     this.percent = this.opt.percent;
 
-    this._width=container.offsetWidth;
-    this._height=container.offsetHeight;
+    this._width=container.offsetWidth||70;
+    this._height=container.offsetHeight||400;
     this.particles =[];
     this._init();
     this._initPart();
     this._calPoint();
     this._drawShape(this.shape);
     this._initFill();
-
     this.myTween(0,this.percent,500,function (t) {
           that.drawFill(t);
       });
-
-
- //   that.drawFill(0.99);
     this.percent&&this.drawParticle();
     container.append(this.canvas);
     container.append(this.partCanvas);
 }
-DrawInter.prototype={
+Bubbling.prototype={
+    /**
+     * 功能：初始化主画布
+     * */
     _init:function () {
         this.canvas = document.createElement('canvas');
         this.canvas.width = this._width;
@@ -63,6 +71,13 @@ DrawInter.prototype={
         this._bubHeight = this.percent>0.45?(this._fillHeight*0.45):(this._fillHeight*this.percent);
         console.log(this._bubHeight)
     },
+    /**
+     * 功能：计算容器四个位置的坐标点
+     *       lt*********rt
+     *         *       *
+     *         *       *
+     *       lb* *******tb
+     * */
     _calPoint:function () {
         var that = this;
         this.shape = {
@@ -73,6 +88,9 @@ DrawInter.prototype={
             rb:[that.lr,0],
         }
     },
+    /**
+     * 功能：画容器轮廓
+     * */
     _drawShape:function (point) {
         this.shapeCanvas = document.createElement('canvas');
         this.shapeCanvas.width = this._width;
@@ -110,10 +128,16 @@ DrawInter.prototype={
         ctx.stroke();
         ctx.restore();
     },
+    /**
+     * 功能：将容器轮廓勾画到画布上
+     * */
     _drawBg:function () {
         this.ctx.clearRect(0,0,this._width,this._height);
         this.ctx.drawImage(this.shapeCanvas,0,0);
     },
+    /**
+     * 功能：初始化填充物画布
+     * */
     _initFill:function () {
         this.fillCanvas = document.createElement('canvas');
         this.fillCanvas.width = this.lr*2-5;
@@ -121,6 +145,14 @@ DrawInter.prototype={
         this.fillCtx = this.fillCanvas.getContext('2d');
         this.fillCtx.translate(this.lr,this._height-2*this.sr-10);
     },
+    /**
+     * 功能：计算容器填充物的四个位置的坐标点
+     *       lt*********rt
+     *         *       *
+     *         *       *
+     *       lb* *******tb
+     * @params percent  需要填充的深度
+     * */
     calFill:function (percent) {
         var that = this;
         this.fillPoint = {
@@ -131,11 +163,14 @@ DrawInter.prototype={
             rb:[that.lr-5,-5]
         };
     },
+    /**
+     * 功能：画出容器和容器填充物
+     * @params percent  需要填充的深度
+     * */
     drawFill:function (percent) {
         this.calFill(percent);
         var ctx = this.fillCtx,point=this.fillPoint;
         this._drawBg();
-        ctx.strokeStyle = 'red';
         ctx.clearRect(this.shape.lt[0],this.shape.lt[1]-this.sr,2*this.lr,this._height-2*this.sr);
 
         var linerColor = ctx.createLinearGradient(point.lt[0],0,point.rt[0],0);
@@ -170,16 +205,23 @@ DrawInter.prototype={
         this.ctx.drawImage(this.fillCanvas,5,this.sr);
 
     },
+    /**
+     * 功能：更新容器填充深度
+     * @params percent  需要填充的深度
+     * */
     updateFill:function (percent) {
         var old = this.percent,that=this;
         this.percent = percent;
+        this.keepAnimate = false;
         this.myTween(old,this.percent,500,function (t) {
             that.drawFill(t);
         });
-        this.keepAnimate = false;
-        this.partCtx.clearRect(5-this.lr,4*this.sr-this._height,2*this.lr,this._height-2*this.sr);
         this.percent&&this.drawParticle();
+        this.partCtx.clearRect(5-this.lr,4*this.sr-this._height,2*this.lr,this._height-2*this.sr);
     },
+    /**
+     * 功能：计算每个粒子位置，大小，透明度
+     * */
     calPram:function () {
         var _height=this._height,width=this.lr-5;
         var y = _height*1-_height*random()+random()*this._bubHeight;  //(0.5+random())*height/2
@@ -203,11 +245,17 @@ DrawInter.prototype={
         this.partCtx.translate(this.lr+5,this._height-this.sr-10);
         this.initParticle();
     },
+    /**
+     * 功能：生成粒子
+     * */
     initParticle:function () {
         for(var i = 0; i<this.particlesLength ;i++){
             this.particles.push(new Particle(this.calPram(),this.colorStr));
         }
     },
+    /**
+     * 功能：粒子首次生成加载到画布
+     * */
     drawParticle:function () {
         var that=this;
         this.particles.forEach(function (t) {
@@ -216,11 +264,14 @@ DrawInter.prototype={
         this.keepAnimate = true;
         this._moveParticle();
     },
+    /**
+     * 功能：粒子位置更新动画
+     * */
     _moveParticle:function () {
         var that = this,height= this._height-4*this.sr;
         this.count++;
         this.keepAnimate&&requestAnimationFrame(this._moveParticle.bind(this));
-        if(this.count<this.moveSpeed){
+        if(!this.keepAnimate||this.count<this.moveSpeed ){
             return ;
         }
         this.partCtx.clearRect(5-this.lr,4*this.sr-this._height,2*this.lr,this._height-2*this.sr);
@@ -258,6 +309,13 @@ DrawInter.prototype={
             that.partCtx.drawImage(t.canvas,t.position.x,t.position.y);
         });
     },*/
+    /**
+     * 功能：加载动画
+     * @params start    加载其实位置
+     * @params end      加载终点位置
+     * @params length   动画加载时间
+     * @params tweenFun 更新回调函数
+     * */
     myTween:function(start,end,length,tweenFun) {
         var arr = [],count=0,arrLength = 50*length/1000,step = (end-start)/arrLength;
         for (var i=0;i<=arrLength;i++){
@@ -275,14 +333,11 @@ DrawInter.prototype={
     }
 };
 /**
- * 生成星星
- * size:星星大小
- * position:星星在页面中的位置
- *         this.starOption={
-            minSize:option.starMinSize,
-            maxSize:option.starMaxSize-option.starMinSize,
-            minLux:option.starMinLux,
-            maxLux:option.starMaxLux-option.starMinLux
+ * 功能：生成粒子
+ * @params option  星星的初始化配置参数
+ * @params option.position:{} 粒子在页面中的位置
+ * @params option.r: 粒子大小
+ * @params color: 粒子基础色
         };
  * */
 function Particle(option,color) {
@@ -305,6 +360,9 @@ function Particle(option,color) {
 }
 
 Particle.prototype = {
+    /**
+     * 功能：画粒子
+     * */
     draw: function () {
         this.color = 'rgba('+this.colorStr+',' + this.alpha + ')';
         this.ctx.shadowBlur = this.size * 0.8;
@@ -315,18 +373,5 @@ Particle.prototype = {
         this.ctx.arc(this.domSize / 2, this.domSize / 2, this.size * 0.5, 0, 2 * PI);
         this.ctx.closePath();
         this.ctx.fill();
-    },
-    update: function () {
-        var that = this;
-        this.ctx.clearRect(0, 0, this.domSize, this.domSize);
-        if(this.position.y <-320 || this.alpha<0.1 ||this.size<0.1){
-            this.alpha = this._alpha;
-            this.size = this._size;
-            this.position={
-                x:that._position.x,
-                y:that._position.y
-            }
-        }
-        this.draw();
     }
 };
