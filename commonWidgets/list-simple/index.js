@@ -18,7 +18,6 @@ function SimpleList(selector, data,option) {
        }
     });
     this.option = defaultOption;
-    console.log(this.option);
     this.$selector = $(selector);
     this.unit = data.unit;
     this.data = data.datas;
@@ -135,7 +134,7 @@ SimpleList.prototype = {
             appendClass = '';
         }
         var scrollSize = Math.floor((this.height-this.headHeight)/lineHeight/this.baseLength)*this.baseLength;
-        if(scrollSize !== this.scrollLength){
+        if(scrollSize !== this.scrollLength && scrollSize<this.data.length){
             this.lineHeight =lineHeight;
             this.scrollLength = scrollSize;
             this.appendClass = appendClass;

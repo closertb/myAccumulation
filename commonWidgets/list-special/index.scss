@@ -17,6 +17,8 @@ $oddBg: $moduleBgColor;
 $evenBg: $auxiliaryColor01;
 $percentBg: $auxiliaryColor02;
 $moduleBg: $moduleBgColor;
+$pageColor: $auxiliaryColor03;
+$pageHover: $auxiliaryColor04;
 
 $fir-level: #05B800;
 $sec-level: #7CB424;
@@ -27,36 +29,21 @@ table {
   border-spacing: 0;
 }
 
-.module {
-  display: inline-block;
-  background-color: $moduleBg;
-  margin: 20px;
-  vertical-align: top;
+@font-face {
+  font-family: 'UED-components';  /* project id 515310 */
+  src: url('//at.alicdn.com/t/font_515310_evxg13bsvx2h85mi.eot');
+  src: url('//at.alicdn.com/t/font_515310_evxg13bsvx2h85mi.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_515310_evxg13bsvx2h85mi.woff') format('woff'),
+  url('//at.alicdn.com/t/font_515310_evxg13bsvx2h85mi.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_515310_evxg13bsvx2h85mi.svg#UED-components') format('svg');
 }
 
-.module0 {
-  width: 670px;
-  height: 305px;
-}
-
-.module1 {
-  width: 469px;
-  height: 310px;
-}
-
-.module2 {
-  width: 469px;
-  height: 220px;
-}
-
-.module3 {
-  width: 400px;
-  height: 235px;
-}
-
-.module4 {
-  width: 600px;
-  height: 170px;
+.ued-components{
+  font-family:"ued-components" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /*主体样式*/
@@ -120,7 +107,7 @@ table {
     margin-top: 5px;
     color: $fonColor;
   }
-  .page_btn_prev,.page_btn_next{
+/*  .page_btn_prev,.page_btn_next{
     position: absolute;
     color:$fonColor;
     top:50%;
@@ -130,51 +117,98 @@ table {
     margin-top:-40px;
     z-index:10;
     background: url(./page_btn.png) no-repeat;
+  }*/
+  .page_btn_prev,.page_btn_next{
+    position: absolute;
+    color:$fonColor;
+    top:50%;
+    width:24px;
+    height:40px;
+    margin-top:-40px;
+    z-index:10;
+    font-size: 40px;
+    color:$pageColor;
+    &:hover{
+      color:$pageHover;
+    }
   }
   .page_btn_prev{
-    left:5px;
-    background-position: 0px 0px;
-    &:hover{
-      background-position: 0px -75px;
-    }
+    left:-5px;
+
   }
   .page_btn_next{
-    right:1px;
-    background-position: -47px 0px;
-    &:hover{
-      background-position: -47px -75px;
-    }
+    right:10px;
   }
 
 }
 
 .special-chart-bg {
-  td:first-child{
+  td:first-child {
     position: relative;
-    &:after{
+    &:after {
       content: '';
       position: absolute;
-      top:0;
-      left:4px;
-      width:1px;
-      height:100%;
+      top: 0;
+      left: 4px;
+      width: 1px;
+      height: 100%;
       border-left: 1px solid $borColor;
     }
   }
   tr:first-child td {
     border-top: 1px solid $borColor;
+    &:first-child:before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: 4px;
+      width: 1px;
+      height: 5px;
+      border-left: 1px solid $borColor;
+    }
+    &:last-child {
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 4px;
+        height: 1px;
+        border-top: 1px solid $borColor;
+      }
+      &::before {
+        content: '';
+        position: absolute;
+        top: -4px;
+        right: 4px;
+        width: 1px;
+        height: 4px;
+        border-right: 1px solid $borColor;
+      }
+    }
   }
-  tr:last-child td {
+  tr:last-child{
+    position: relative;
+    &:after{
+      content: '';
+      position: absolute;
+      bottom: 35px;
+      right: 0;
+      width: 4px;
+      height: 1px;
+      border-bottom: 1px solid $borColor;
+    }
+    td {
     position: relative;
     &:before {
       content: '';
       position: absolute;
       left: -1px;
       bottom: -5px;
-      width:2px;
+      width: 2px;
       border-left: 1px solid $borColor;
       height: 5px;
-   //   background-color: $borColor;
+      //   background-color: $borColor;
     }
     &:first-child {
       &:before {
@@ -182,22 +216,36 @@ table {
       }
 
     }
-    &:last-child {
-      &:before {
-        left: -1px;
+    &.red {
+      position: relative;
+      &:after {
+        content: '';
+        position: absolute;
+        right: -2px;
+        bottom: -5px;
+        width: 1px;
+        height: 5px;
         border-left: 1px solid #601510;
       }
+    }
+    &:last-child {
+      &:before {
+        content: '';
+        width: 0;
+        height: 0;
+      }
       &:after {
-      content: '';
-      position: absolute;
-      right: -1px;
-      bottom: -5px;
-      width: 1px;
-      height: 5px;
-      background-color: $borColor;
+        content: '';
+        position: absolute;
+        right: -1px;
+        bottom: -5px;
+        width: 1px;
+        height: 5px;
+        background-color: $borColor;
       }
     }
   }
+}
   td {
     box-sizing: border-box;
     border-bottom: 1px solid $borColor;
@@ -264,7 +312,7 @@ table {
 
   .progress-bar {
     top: 34px;
-    right: 10px;
+    right: 15px;
     height: 10px;
     background-color: $percentBg;
     border-radius: 5px;

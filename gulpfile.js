@@ -84,7 +84,7 @@ var path ={
 }
 
 
-var editPath = path.commonWidgets.listSimple.path;  //要使用服务的组件路径
+var editPath = path.commonWidgets.listSpecial.path;  //要使用服务的组件路径
 
 /**
  * name:新建组件的文件夹名称

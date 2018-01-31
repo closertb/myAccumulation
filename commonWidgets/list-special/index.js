@@ -72,8 +72,8 @@ SpecialScrollList.prototype = {
             '            <span >40%</span>\n' +
             '            <span >60%</span>\n' +
             '            <span class="split-red">80%</span>\n' +
-            '        </div>        <div class="page_btn_prev"></div>\n' +
-            '        <div class="page_btn_next"></div>' +
+            '        </div>        <div class="ued-components page_btn_prev">&#xe6bb;</div>\n' +
+            '        <div class="ued-components page_btn_next">&#xe6ba;</div>' +
             '    </div><ul class="special-list-body" style="height: '+(this.moduleHeight-this.headHeight)+'px"></ul></div></div>';
         this.$selector.empty().append(html);
       //  this.renderList();
