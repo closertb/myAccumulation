@@ -1,0 +1,136 @@
+@charset "UTF-8";
+/*
+* @Author: UEDHE
+* @Date:   2017-11-06 09:55:07
+* @Last Modified by:   UEDHE
+* @Last Modified time: 2018-01-11 16:48:00
+*/
+body, ul, li, div, td {
+  padding: 0;
+  margin: 0; }
+
+table {
+  border-spacing: 0; }
+
+.module {
+  display: inline-block;
+  background-color: #122e41;
+  margin: 20px;
+  padding: 30px;
+  vertical-align: top; }
+
+.module0 {
+  width: 600px;
+  height: 235px; }
+
+.module1 {
+  width: 400px;
+  height: 205px; }
+
+.module2 {
+  width: 600px;
+  height: 205px; }
+
+.module3 {
+  width: 400px;
+  height: 235px; }
+
+.module4 {
+  width: 600px;
+  height: 170px; }
+
+/*主体样式*/
+.scroll-list {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid #28495e;
+  border-right: 1px solid #28495e; }
+  .scroll-list .list-head {
+    position: relative;
+    table-layout: fixed;
+    width: 100%;
+    z-index: 5;
+    color: #8bb8eb;
+    background-color: #0f293b;
+    text-align: center;
+    font: bold 15px/52px 'Microsoft YaHei'; }
+  .scroll-list td {
+    border-top: 1px solid #28495e;
+    border-left: 1px solid #28495e; }
+  .scroll-list .list-body {
+    position: relative;
+    table-layout: fixed;
+    width: 100%;
+    z-index: 4;
+    color: #7fa3ca;
+    font: normal 14px/44px 'Microsoft YaHei'; }
+    .scroll-list .list-body tr td {
+      background-color: #0f293b; }
+    .scroll-list .list-body tr:nth-child(odd) td {
+      background-color: #122e41; }
+    .scroll-list .list-body td {
+      padding-left: 10px; }
+    .scroll-list .list-body tr td:first-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
+    .scroll-list .list-body .list-body-percent {
+      box-sizing: border-box;
+      padding: 0 20px;
+      text-align: center;
+      vertical-align: middle; }
+  .scroll-list .list-name {
+    width: 39%; }
+  .scroll-list .list-limit {
+    width: 35%; }
+  .scroll-list .list-percent {
+    width: 26%; }
+  .scroll-list.small-width .list-name {
+    width: 33%; }
+  .scroll-list.small-width .list-limit {
+    width: 33%; }
+  .scroll-list.small-width .list-percent {
+    width: 34%; }
+  .scroll-list.small-height .list-head {
+    line-height: 39px; }
+  .scroll-list.small-height .list-body {
+    line-height: 34px; }
+  .scroll-list.small-height .list-body-percent .progress-bar {
+    margin-top: 2px; }
+
+/*柱状条填充样式*/
+.list-body-percent .progress-number {
+  display: block;
+  font: normal 12px 'Microsoft YaHei';
+  color: #ffcf2a; }
+
+.list-body-percent .progress-bar, .list-body-percent .progress-percent {
+  display: block;
+  border-radius: 3px;
+  height: 6px; }
+
+.list-body-percent .progress-bar {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 20px;
+  margin: 5px auto 0;
+  background-color: #18384d; }
+
+.list-body-percent .progress-percent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  background-color: #05B800; }
+  .list-body-percent .progress-percent.level-1 {
+    background-color: #05B800; }
+  .list-body-percent .progress-percent.level-2 {
+    background-color: #7CB424; }
+  .list-body-percent .progress-percent.level-3 {
+    background-color: #FCC802; }
+  .list-body-percent .progress-percent.level-4 {
+    background-color: #FF8F35; }
+  .list-body-percent .progress-percent.level-5 {
+    background-color: #FC341E; }

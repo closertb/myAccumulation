@@ -9,7 +9,7 @@
     var config = {
         radius : 3,
         alpha : 10,
-        initCount : 50,
+        initCount : 100,
         move_distance : 15,
         accer:0.5,
         wind_speed:0

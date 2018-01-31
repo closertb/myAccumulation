@@ -1,0 +1,319 @@
+@import "./theme/index.scss";
+
+body, ul, li, div, td, h4 {
+  padding: 0;
+  margin: 0;
+}
+
+ul, li {
+  list-style: none;
+}
+
+$titColor: $lightBluefontColor;
+$fonColor: $defautFontColor;
+$fonPercent: $orangefontColor;
+$borColor: $segmentLine;
+$oddBg: $moduleBgColor;
+$evenBg: $auxiliaryColor01;
+$percentBg: $auxiliaryColor02;
+$moduleBg: $moduleBgColor;
+
+$fir-level: #05B800;
+$sec-level: #7CB424;
+$thr-level: #FCC802;
+$for-level: #FF8F35;
+$fiv-level: #FC341E;
+table {
+  border-spacing: 0;
+}
+
+.module {
+  display: inline-block;
+  background-color: $moduleBg;
+  margin: 20px;
+  vertical-align: top;
+}
+
+.module0 {
+  width: 670px;
+  height: 305px;
+}
+
+.module1 {
+  width: 469px;
+  height: 310px;
+}
+
+.module2 {
+  width: 469px;
+  height: 220px;
+}
+
+.module3 {
+  width: 400px;
+  height: 235px;
+}
+
+.module4 {
+  width: 600px;
+  height: 170px;
+}
+
+/*主体样式*/
+.special-list-module{
+  box-sizing: border-box;
+  height: 100%;
+  padding:15px 30px 20px 20px;
+  &.small-height {
+    .special-list-bg td{
+      height: 50px;
+    }
+    .special-list-body{
+      li{
+        height:50px;
+        line-height: 50px;
+      }
+      .special-scenic-name{
+        height: 50px;
+        line-height: 50px;
+      }
+      .special-scenic-info{
+        top:-5px;
+      }
+      .progress-bar,.progress-percent{
+        height:6px;
+      }
+    }
+  }
+}
+.scroll-list-special {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .special-list-bg {
+    position: absolute;
+    left: 85px;
+    right: 5px;
+    height: inherit;
+    .special-chart-bg {
+      width: 100%;
+      table-layout: fixed;
+      border-spacing: 0;
+      text-align: center;
+    }
+    .special-show-percent {
+      position: absolute;
+      box-sizing: border-box;
+      background-color: white;
+      font-size: 0;
+      left: 3px;
+      right: 0;
+      bottom: 0;
+      z-index: 5;
+    }
+  }
+  .special-list-body {
+    position: relative;
+    width: 100%;
+    z-index: 4;
+    overflow: hidden;
+    margin-top: 5px;
+    color: $fonColor;
+  }
+  .page_btn_prev,.page_btn_next{
+    position: absolute;
+    color:$fonColor;
+    top:50%;
+    width:26px;
+    height:46px;
+    font: bolder 20px/46px 'Microsoft YaHei';
+    margin-top:-40px;
+    z-index:10;
+    background: url(./page_btn.png) no-repeat;
+  }
+  .page_btn_prev{
+    left:5px;
+    background-position: 0px 0px;
+    &:hover{
+      background-position: 0px -75px;
+    }
+  }
+  .page_btn_next{
+    right:1px;
+    background-position: -47px 0px;
+    &:hover{
+      background-position: -47px -75px;
+    }
+  }
+
+}
+
+.special-chart-bg {
+  td:first-child{
+    position: relative;
+    &:after{
+      content: '';
+      position: absolute;
+      top:0;
+      left:4px;
+      width:1px;
+      height:100%;
+      border-left: 1px solid $borColor;
+    }
+  }
+  tr:first-child td {
+    border-top: 1px solid $borColor;
+  }
+  tr:last-child td {
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      left: -1px;
+      bottom: -5px;
+      width:2px;
+      border-left: 1px solid $borColor;
+      height: 5px;
+   //   background-color: $borColor;
+    }
+    &:first-child {
+      &:before {
+        left: 4px;
+      }
+
+    }
+    &:last-child {
+      &:before {
+        left: -1px;
+        border-left: 1px solid #601510;
+      }
+      &:after {
+      content: '';
+      position: absolute;
+      right: -1px;
+      bottom: -5px;
+      width: 1px;
+      height: 5px;
+      background-color: $borColor;
+      }
+    }
+  }
+  td {
+    box-sizing: border-box;
+    border-bottom: 1px solid $borColor;
+    border-right: 1px solid $borColor;
+    width: 20%;
+    height: 60px;
+  }
+  tr td:nth-child(4) {
+    border-right: 1px solid #601510;
+  }
+}
+
+.special-show-percent {
+  span {
+    display: inline-block;
+    width: 20%;
+    background-color: $moduleBg;
+    font: normal 14px/30px 'Microsoft YaHei';
+    color: $fonColor;
+    margin-left:-4px;
+    &.split-red {
+      color: red;
+      &:after {
+        content: '100%';
+        color: $fonColor;
+        height: inherit;
+        width: 40px;
+        position: absolute;
+        right: -20px;
+        background-color: $moduleBg;
+      }
+    }
+  }
+}
+
+.special-list-body {
+  li {
+    position: relative;
+    height: 60px;
+    line-height: 60px;
+    font: normal 14px 'Microsoft YaHei';
+  }
+  .special-scenic-name {
+    width: 90px;
+    box-sizing: border-box;
+    padding-right: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: right;
+    line-height: 60px;
+  }
+  .special-scenic-info, .progress-bar {
+    position: absolute;
+    box-sizing: border-box;
+    left: 100px;
+    right:12px;
+    top: 12px;
+    .special-scenic-fr{
+      position: absolute;
+      left:50%;
+    }
+  }
+
+  .progress-bar {
+    top: 34px;
+    right: 10px;
+    height: 10px;
+    background-color: $percentBg;
+    border-radius: 5px;
+    border: 1px solid $borColor;
+  }
+  .progress-percent {
+    display: block;
+    position: relative;
+    top: -1px;
+    z-index: 5;
+    border-radius: 5px;
+    height: 10px;
+  }
+
+  .progress-bar-bg {
+    position: absolute;
+    z-index: 0;
+    right: 5px;
+    left: 100px;
+    top: 0;
+  }
+}
+
+
+/*柱状条填充样式*/
+.special-list-body {
+  .progress-number {
+    display: block;
+    font: normal 12px 'Microsoft YaHei';
+    color: $fonPercent;
+  }
+  .progress-percent {
+    width: 0;
+    background-color: $fir-level;
+    &.level-1 {
+      background-color: $fir-level;
+    }
+    &.level-2 {
+      background-color: $sec-level;
+    }
+    &.level-3 {
+      background-color: $thr-level;
+    }
+    &.level-4 {
+      background-color: $for-level;
+    }
+    &.level-5 {
+      background-color: $fiv-level;
+    }
+  }
+
+}

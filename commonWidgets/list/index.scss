@@ -1,0 +1,172 @@
+@import "./theme/index.scss";
+body,ul,li,div,td{padding: 0;margin: 0;}
+
+$titColor:    $lightBluefontColor;
+$fonColor:    $defautFontColor;
+$fonPercent:  $orangefontColor;
+$borColor:    $segmentLine;
+$oddBg:       $moduleBgColor;
+$evenBg:      $auxiliaryColor01;
+$percentBg:   $auxiliaryColor02;
+
+$fir-level:   #05B800;
+$sec-level:   #7CB424;
+$thr-level:   #FCC802;
+$for-level:   #FF8F35;
+$fiv-level:   #FC341E;
+table{
+  border-spacing: 0;
+}
+.module{
+  display: inline-block;
+  background-color: $oddBg;
+  margin:20px;
+  padding:30px;
+  vertical-align: top;
+}
+.module0{
+  width:600px;
+  height:235px;
+}
+.module1{
+  width:400px;
+  height:205px;
+}
+.module2{
+  width:600px;
+  height:205px;
+}
+.module3{
+  width:400px;
+  height:235px;
+}
+.module4{
+  width:600px;
+  height:170px;
+}
+/*主体样式*/
+.scroll-list{
+  position: relative;
+  width:100%;
+  overflow: hidden;
+  border-bottom: 1px solid $borColor;
+  border-right: 1px solid $borColor;
+  .list-head{
+    position: relative;
+    table-layout: fixed;
+    width:100%;
+    z-index: 5;
+    color:$titColor;
+    background-color: $evenBg;
+    text-align: center;
+    font:bold 15px/52px 'Microsoft YaHei';
+  }
+  td{
+    border-top: 1px solid $borColor;
+    border-left: 1px solid $borColor;
+  }
+  .list-body{
+    position: relative;
+    table-layout: fixed;
+    width:100%;
+    z-index:4;
+    color: $fonColor;
+    font:normal 14px/44px 'Microsoft YaHei';
+    tr{
+      td { background-color: $evenBg;}
+      &:nth-child(odd) td{
+        background-color:$oddBg ;
+      }
+    }
+    td{
+      padding-left: 10px;
+    }
+    tr td:first-child{
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .list-body-percent{
+      box-sizing: border-box;
+      padding: 0 20px;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+  .list-name{
+    width:39%;
+  }
+  .list-limit{
+    width: 35%;
+  }
+  .list-percent{
+    width:26%;
+  }
+  &.small-width{
+    .list-name{
+      width:33%;
+    }
+    .list-limit{
+      width: 33%;
+    }
+    .list-percent{
+      width:34%;
+    }
+  }
+  &.small-height{
+    .list-head{
+      line-height: 39px;
+    }
+    .list-body{
+      line-height: 34px;
+    }
+    .list-body-percent .progress-bar{
+      margin-top:2px;
+    }
+  }
+}
+/*柱状条填充样式*/
+.list-body-percent{
+  .progress-number{
+    display: block;
+    font:normal 12px 'Microsoft YaHei';
+    color: $fonPercent;
+  }
+  .progress-bar,.progress-percent{
+    display: block;
+    border-radius: 3px;
+    height:6px;
+  }
+  .progress-bar{
+    position: relative;
+    width:100%;
+    box-sizing: border-box;
+    padding:0 20px;
+    margin:5px auto 0 ;
+    background-color: $percentBg;
+  }
+  .progress-percent{
+    position: absolute;
+
+    top:0;
+    left:0;
+    width: 0;
+    background-color: $fir-level;
+    &.level-1{
+      background-color: $fir-level;
+    }
+    &.level-2{
+      background-color: $sec-level;
+    }
+    &.level-3{
+      background-color: $thr-level;
+    }
+    &.level-4{
+      background-color: $for-level;
+    }
+    &.level-5{
+      background-color: $fiv-level;
+    }
+  }
+
+}

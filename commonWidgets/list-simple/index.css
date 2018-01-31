@@ -1,0 +1,97 @@
+@charset "UTF-8";
+/*
+* @Author: UEDHE
+* @Date:   2017-11-06 09:55:07
+* @Last Modified by:   UEDHE
+* @Last Modified time: 2018-01-11 16:48:00
+*/
+body, ul, li, div, td, h4 {
+  padding: 0;
+  margin: 0; }
+
+ul, li {
+  list-style: none; }
+
+.module {
+  display: inline-block;
+  background-color: #122e41;
+  margin: 20px;
+  vertical-align: top; }
+
+.module0 {
+  width: 670px;
+  height: 305px; }
+
+.module1 {
+  width: 469px;
+  height: 310px; }
+
+.module2 {
+  width: 469px;
+  height: 220px; }
+
+.simple-list-module {
+  position: relative;
+  box-sizing: border-box;
+  padding: 15px 20px 18px;
+  background-color: #122e41; }
+  .simple-list-module .simple-list-unit {
+    font: normal 14px/24px 'Microsoft YaHei';
+    color: #7fa3ca; }
+  .simple-list-module .simple-list-shadow {
+    position: relative;
+    z-index: 7;
+    overflow: hidden; }
+  .simple-list-module.small-height .simple-list-unit {
+    font: normal 14px/20px 'Microsoft YaHei'; }
+  .simple-list-module.small-height .simple-list-body li {
+    height: 41px;
+    padding: 5px 0 0; }
+  .simple-list-module.small-height .simple-list-body .simple-list-info {
+    height: 18px; }
+  .simple-list-module.small-height .simple-list-body .simple-list-rank {
+    height: 18px; }
+
+.simple-list-body {
+  width: 100%;
+  font: normal 14px/20px 'Microsoft YaHei';
+  color: #7fa3ca;
+  z-index: 6;
+  overflow: hidden; }
+  .simple-list-body li {
+    box-sizing: border-box;
+    height: 50px;
+    padding: 10px 0 0; }
+  .simple-list-body .simple-list-info {
+    height: 20px; }
+    .simple-list-body .simple-list-info .fl {
+      float: left; }
+    .simple-list-body .simple-list-info .fr {
+      float: right; }
+  .simple-list-body .simple-list-rank {
+    position: relative;
+    height: 20px; }
+    .simple-list-body .simple-list-rank .rank-num {
+      position: absolute;
+      left: 0;
+      color: #3e98ff; }
+      .simple-list-body .simple-list-rank .rank-num.high-rank {
+        color: #9364ff; }
+    .simple-list-body .simple-list-rank .progress-bar {
+      position: absolute;
+      left: 50px;
+      top: 5px;
+      right: 0;
+      height: 9px;
+      border-radius: 4px;
+      background-color: #18384d; }
+
+/*柱状条填充样式*/
+.simple-list-body .progress-percent {
+  display: block;
+  position: relative;
+  width: 0;
+  z-index: 5;
+  border-radius: 4px;
+  height: 9px;
+  background-image: linear-gradient(to right, #1f88ff, #a664ff); }

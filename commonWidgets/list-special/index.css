@@ -1,0 +1,246 @@
+@charset "UTF-8";
+/*
+* @Author: UEDHE
+* @Date:   2017-11-06 09:55:07
+* @Last Modified by:   UEDHE
+* @Last Modified time: 2018-01-11 16:48:00
+*/
+body, ul, li, div, td, h4 {
+  padding: 0;
+  margin: 0; }
+
+ul, li {
+  list-style: none; }
+
+table {
+  border-spacing: 0; }
+
+.module {
+  display: inline-block;
+  background-color: #122e41;
+  margin: 20px;
+  vertical-align: top; }
+
+.module0 {
+  width: 670px;
+  height: 305px; }
+
+.module1 {
+  width: 469px;
+  height: 310px; }
+
+.module2 {
+  width: 469px;
+  height: 220px; }
+
+.module3 {
+  width: 400px;
+  height: 235px; }
+
+.module4 {
+  width: 600px;
+  height: 170px; }
+
+/*主体样式*/
+.special-list-module {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 15px 30px 20px 20px; }
+  .special-list-module.small-height .special-list-bg td {
+    height: 50px; }
+  .special-list-module.small-height .special-list-body li {
+    height: 50px;
+    line-height: 50px; }
+  .special-list-module.small-height .special-list-body .special-scenic-name {
+    height: 50px;
+    line-height: 50px; }
+  .special-list-module.small-height .special-list-body .special-scenic-info {
+    top: -5px; }
+  .special-list-module.small-height .special-list-body .progress-bar, .special-list-module.small-height .special-list-body .progress-percent {
+    height: 6px; }
+
+.scroll-list-special {
+  position: relative;
+  width: 100%;
+  height: 100%; }
+  .scroll-list-special .special-list-bg {
+    position: absolute;
+    left: 85px;
+    right: 5px;
+    height: inherit; }
+    .scroll-list-special .special-list-bg .special-chart-bg {
+      width: 100%;
+      table-layout: fixed;
+      border-spacing: 0;
+      text-align: center; }
+    .scroll-list-special .special-list-bg .special-show-percent {
+      position: absolute;
+      box-sizing: border-box;
+      background-color: white;
+      font-size: 0;
+      left: 3px;
+      right: 0;
+      bottom: 0;
+      z-index: 5; }
+  .scroll-list-special .special-list-body {
+    position: relative;
+    width: 100%;
+    z-index: 4;
+    overflow: hidden;
+    margin-top: 5px;
+    color: #7fa3ca; }
+  .scroll-list-special .page_btn_prev, .scroll-list-special .page_btn_next {
+    position: absolute;
+    color: #7fa3ca;
+    top: 50%;
+    width: 26px;
+    height: 46px;
+    font: bolder 20px/46px 'Microsoft YaHei';
+    margin-top: -40px;
+    z-index: 10;
+    background: url(./page_btn.png) no-repeat; }
+  .scroll-list-special .page_btn_prev {
+    left: 5px;
+    background-position: 0px 0px; }
+    .scroll-list-special .page_btn_prev:hover {
+      background-position: 0px -75px; }
+  .scroll-list-special .page_btn_next {
+    right: 1px;
+    background-position: -47px 0px; }
+    .scroll-list-special .page_btn_next:hover {
+      background-position: -47px -75px; }
+
+.special-chart-bg td:first-child {
+  position: relative; }
+  .special-chart-bg td:first-child:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 4px;
+    width: 1px;
+    height: 100%;
+    border-left: 1px solid #28495e; }
+
+.special-chart-bg tr:first-child td {
+  border-top: 1px solid #28495e; }
+
+.special-chart-bg tr:last-child td {
+  position: relative; }
+  .special-chart-bg tr:last-child td:before {
+    content: '';
+    position: absolute;
+    left: -1px;
+    bottom: -5px;
+    width: 2px;
+    border-left: 1px solid #28495e;
+    height: 5px; }
+  .special-chart-bg tr:last-child td:first-child:before {
+    left: 4px; }
+  .special-chart-bg tr:last-child td:last-child:before {
+    left: -1px;
+    border-left: 1px solid rgba(255, 0, 0, 0.6); }
+  .special-chart-bg tr:last-child td:last-child:after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    bottom: -5px;
+    width: 1px;
+    height: 5px;
+    background-color: #28495e; }
+
+.special-chart-bg td {
+  box-sizing: border-box;
+  border-bottom: 1px solid #28495e;
+  border-right: 1px solid #28495e;
+  width: 20%;
+  height: 60px; }
+
+.special-chart-bg tr td:nth-child(4) {
+  border-right: 1px solid rgba(255, 0, 0, 0.6); }
+
+.special-show-percent span {
+  display: inline-block;
+  width: 20%;
+  background-color: #122e41;
+  font: normal 14px/30px 'Microsoft YaHei';
+  color: #7fa3ca;
+  margin-left: -4px; }
+  .special-show-percent span.split-red {
+    color: red; }
+    .special-show-percent span.split-red:after {
+      content: '100%';
+      color: #7fa3ca;
+      height: inherit;
+      width: 40px;
+      position: absolute;
+      right: -20px;
+      background-color: #122e41; }
+
+.special-list-body li {
+  position: relative;
+  height: 60px;
+  line-height: 60px;
+  font: normal 14px 'Microsoft YaHei'; }
+
+.special-list-body .special-scenic-name {
+  width: 90px;
+  box-sizing: border-box;
+  padding-right: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+  line-height: 60px; }
+
+.special-list-body .special-scenic-info, .special-list-body .progress-bar {
+  position: absolute;
+  box-sizing: border-box;
+  left: 100px;
+  right: 12px;
+  top: 12px; }
+  .special-list-body .special-scenic-info .special-scenic-fr, .special-list-body .progress-bar .special-scenic-fr {
+    position: absolute;
+    left: 50%; }
+
+.special-list-body .progress-bar {
+  top: 34px;
+  right: 10px;
+  height: 10px;
+  background-color: #18384d;
+  border-radius: 5px;
+  border: 1px solid #28495e; }
+
+.special-list-body .progress-percent {
+  display: block;
+  position: relative;
+  top: -1px;
+  z-index: 5;
+  border-radius: 5px;
+  height: 10px; }
+
+.special-list-body .progress-bar-bg {
+  position: absolute;
+  z-index: 0;
+  right: 5px;
+  left: 100px;
+  top: 0; }
+
+/*柱状条填充样式*/
+.special-list-body .progress-number {
+  display: block;
+  font: normal 12px 'Microsoft YaHei';
+  color: #ffcf2a; }
+
+.special-list-body .progress-percent {
+  width: 0;
+  background-color: #05B800; }
+  .special-list-body .progress-percent.level-1 {
+    background-color: #05B800; }
+  .special-list-body .progress-percent.level-2 {
+    background-color: #7CB424; }
+  .special-list-body .progress-percent.level-3 {
+    background-color: #FCC802; }
+  .special-list-body .progress-percent.level-4 {
+    background-color: #FF8F35; }
+  .special-list-body .progress-percent.level-5 {
+    background-color: #FC341E; }

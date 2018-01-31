@@ -37,6 +37,15 @@ var path ={
         taskFlow:{  //流程编辑器
             path:'commonWidgets/task-flow/'
         },
+        list:{  //流程编辑器
+            path:'commonWidgets/list/'
+        },
+        listSpecial:{  //流程编辑器
+            path:'commonWidgets/list-special/'
+        },
+        listSimple:{  //流程编辑器
+            path:'commonWidgets/list-simple/'
+        },
         path:'awesomeCanvas/'
     },
     specialWidgets:{  //订制类组件
@@ -75,7 +84,7 @@ var path ={
 }
 
 
-var editPath = path.awesomeCanvas.weatherDrop.path;  //要使用服务的组件路径
+var editPath = path.commonWidgets.listSimple.path;  //要使用服务的组件路径
 
 /**
  * name:新建组件的文件夹名称

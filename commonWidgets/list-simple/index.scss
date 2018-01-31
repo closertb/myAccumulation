@@ -1,0 +1,132 @@
+@import "./theme/index.scss";
+
+body, ul, li, div, td, h4 {
+  padding: 0;
+  margin: 0;
+}
+
+ul, li {
+  list-style: none;
+}
+
+$titColor: $lightBluefontColor;
+$fonColor: $defautFontColor;
+$fonPercent: $orangefontColor;
+$borColor: $segmentLine;
+$oddBg: $moduleBgColor;
+$evenBg: $auxiliaryColor01;
+$percentBg: $auxiliaryColor02;
+$moduleBg: $moduleBgColor;
+
+.module {
+  display: inline-block;
+  background-color: $moduleBg;
+  margin: 20px;
+  vertical-align: top;
+}
+
+.module0 {
+  width: 670px;
+  height: 305px;
+}
+
+.module1 {
+  width: 469px;
+  height: 310px;
+}
+
+.module2 {
+  width: 469px;
+  height: 220px;
+}
+
+
+
+.simple-list-module{
+  position: relative;
+  box-sizing: border-box;
+  padding:15px 20px 18px;
+  background-color: $moduleBg;
+  .simple-list-unit{
+    font: normal 14px/24px 'Microsoft YaHei';
+    color: $fonColor;
+  }
+  .simple-list-shadow{
+    position: relative;
+    z-index:7;
+    overflow: hidden;
+  }
+  &.small-height{
+    .simple-list-unit{
+      font: normal 14px/20px 'Microsoft YaHei';
+    }
+    .simple-list-body{
+      li{
+        height: 41px;
+        padding:5px 0 0;
+      }
+      .simple-list-info{
+        height:18px;
+      }
+      .simple-list-rank{
+        height:18px;
+      }
+    }
+  }
+}
+
+.simple-list-body{
+  width:100%;
+  font: normal 14px/20px 'Microsoft YaHei';
+  color: $fonColor;
+  z-index:6;
+  overflow: hidden;
+  li{
+    box-sizing: border-box;
+    height: 50px;
+    padding: 10px 0 0;
+  }
+  .simple-list-info{
+    height:20px;
+    .fl{
+      float: left;
+    }
+    .fr{
+      float: right;
+    }
+  }
+  .simple-list-rank{
+    position: relative;
+    height:20px;
+    .rank-num{
+      position: absolute;
+      left:0;
+      color:#3e98ff;
+      &.high-rank{
+        color: #9364ff;
+      }
+    }
+    .progress-bar{
+      position: absolute;
+      left:50px;
+      top:5px;
+      right:0;
+      height:9px;
+      border-radius: 4px;
+      background-color: $percentBg;
+    }
+  }
+}
+
+/*柱状条填充样式*/
+.simple-list-body {
+  .progress-percent {
+    display: block;
+    position: relative;
+    width:0;
+    z-index: 5;
+    border-radius: 4px;
+    height: 9px;
+    background-image: linear-gradient(to right,#1f88ff,#a664ff);
+  }
+}
