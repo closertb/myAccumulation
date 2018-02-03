@@ -1,0 +1,117 @@
+/*
+ * @Author: Denzel 
+ * @Date: 2018-02-03 16:44:52 
+ * @Last Modified by: Denzel
+ * @Last Modified time: 2018-02-03 21:07:16
+ */
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.select-widget {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top:0;
+  background-color: rgba(0,0, 0, .9);
+  font-size: 14px;
+  z-index:9999;
+  .widget-box{
+    position: absolute;
+    width:100%;
+    bottom: 0;
+  }
+}
+
+.widget-box{
+  .select-box {
+    position: relative;
+/*     display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    flex-wrap: nowrap;*/
+    background-color: white;
+    margin: 0 2px;
+    height: 10em;
+    text-align: center;
+    font:bold 1em/2em 'Microsoft YaHei';
+    border-radius: 5px;
+    border: 1px solid yellowgreen;
+    border-top:none; 
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    overflow-y: hidden;
+    .widget-block{
+      float:left;
+      position: relative;
+      width:33.33%;
+      height:100%;
+      box-sizing: border-box;
+      text-align: center;
+      + .widget-block{
+        border-left: 2px solid yellowgreen;
+      }
+    }
+  }
+  .select-scroll {
+    position: absolute;
+    width:100%;
+    text-align: center;
+    z-index: 5;
+    top: 0;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding: 0 10px;
+    margin: 0;
+    transition:all 0.5s ease-out;
+  }
+  .shadow-line {
+    position: relative;
+    z-index: 10;
+    li{
+      height: 2em;
+      box-sizing: border-box;
+      background-color: rgba(255, 255, 255, .6);
+    }
+    .select-line {
+      border: 1px solid rgba(0, 0, 0, .25);
+      border-width: 1px 0;
+      background-color: rgba(0, 0, 0, 0)
+    }
+  }
+
+  .select-event {
+    position: relative;
+    text-align: center;
+    margin:0 2px;
+    overflow: hidden;
+    font: normal 1.2em/2em 'Microsoft YaHei';
+    border-radius: 3px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: rgba(225,225,225,0.6);
+  }
+  .select-event span {
+    display: inline-block;
+    position: absolute;
+    vertical-align: middle;
+    border-radius: 5px;
+    font-size: 14px;
+    line-height: 2em;
+    color:rgba(255,0,0,.6);
+    &:hover{
+      cursor: pointer;
+    }
+  }
+  .select-sure {
+    left:20px;
+  }
+  .select-cancel {
+    right:20px;
+  }
+}

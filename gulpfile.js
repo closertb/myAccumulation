@@ -34,6 +34,9 @@ var path ={
         uedCityPicker:{  //省市区三级联动
             path:'./commonWidgets/uedCityPicker/'
         },
+        commonPicker:{  //Picker组件
+            path:'./commonWidgets/commonPicker/'
+        },
         taskFlow:{  //流程编辑器
             path:'commonWidgets/task-flow/'
         },
@@ -84,7 +87,7 @@ var path ={
 }
 
 
-var editPath = path.commonWidgets.listSpecial.path;  //要使用服务的组件路径
+var editPath = path.commonWidgets.commonPicker.path;  //要使用服务的组件路径
 
 /**
  * name:新建组件的文件夹名称
