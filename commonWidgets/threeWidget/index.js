@@ -239,23 +239,6 @@ DrawVessel.prototype = {
                     fill:'rgba(4,145,229,.8)',
                     stroke:'#159ff2'
                 }
-            },    //填充面顶面
-            {
-                type: 'image',
-                shape:{
-                    cx:pointX+halfWidth/3,
-                    cy:pointPercent,
-                    r:1
-                },
-                style: {
-                    image:'./star.png',
-                    x:pointX-halfWidth,
-                    y:pointPercent-halfWidth*1.5,
-                    width:3*halfWidth,
-                    height:halfWidth*2,
-                    shadowBlur:2,
-                    shadowColor:'red'
-                }
             },{  //近屏面
                 type: 'polygon',
                 shape:{
@@ -288,15 +271,21 @@ var option = {
         text: 'Error bar chart'
     },
     xAxis: {
-        data: categoryData
+        data: categoryData,
+        axisLine:{
+            lineStyle:{
+                color:'#f9fafc'
+            }
+        }
     },
     yAxis: {
+        color:'#f9fafc',
         splitLine:{
             show:false
         },
         axisLine:{
             lineStyle:{
-                color:'#1f252b'
+                color:'#f9fafc'
             }
         }
     },

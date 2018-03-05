@@ -11,17 +11,27 @@
             background-image:url(./back.jpg) ;
             text-align: center;
         }
+        .hello{
+            color: yellowgreen;
+        }
         .back{
             position: fixed;
             top: 0;
             bottom: 0;
             left: 0;
             right: 0;
+            overflow: hidden
+        }
+        .back canvas{
+            position: absolute;
+            top: 35%;
+            left: 0;
+            right: 0;
         }
     </style>
 </head>
 <body>
-<h5 class="hello">this is demo</h5>
+<h2 class="hello">3D 旋转球 demo</h2>
 <div class='back' id="back"></div>
 <script src="./RotateBall.js"></script>
 <script>

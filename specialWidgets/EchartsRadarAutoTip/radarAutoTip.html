@@ -5,18 +5,23 @@
     <title>雷达图自动轮播测试</title>
     <style>
         .analyse-echart{
-            height: 680px;
-            width:800px;
+            display: inline-block;
+            height: 480px;
+            width:600px;
         }
     </style>
 </head>
 <body>
     <div class="analyse-echart" id="highOpinionChart">
     </div>
-    <button id="reset">停止</button>
-    <button id="rereset">重置</button>
+    <button id="reset">开始</button>
+    <button id="rereset">停止</button>
+    <div class="analyse-echart" id="lineChart">
+    </div>
+
     <script src="https://cdn.bootcss.com/echarts/3.7.2/echarts.js"></script>
-    <script src="RadarAutoTip.js"></script>
+<!--    <script src="RadarAutoTip.js"></script>-->
+    <script src="autoShowTip.js"></script>
     <script>
         var option= {
             tooltip: {
@@ -94,30 +99,91 @@
                 ]
             }]
         };
+        var optionA = {
+            title: {
+                text: '折线图堆叠'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['周一','周二','周三','周四','周五','周六','周日']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'邮件营销',
+                    type:'line',
+                    stack: '总量',
+                    data:[120, 132, 101, 134, 90, 230, 210]
+                },
+                {
+                    name:'联盟广告',
+                    type:'line',
+                    stack: '总量',
+                    data:[220, 182, 191, 234, 290, 330, 310]
+                },
+                {
+                    name:'视频广告',
+                    type:'line',
+                    stack: '总量',
+                    data:[150, 232, 201, 154, 190, 330, 410]
+                },
+                {
+                    name:'直接访问',
+                    type:'line',
+                    stack: '总量',
+                    data:[320, 332, 301, 334, 390, 330, 320]
+                },
+                {
+                    name:'搜索引擎',
+                    type:'line',
+                    stack: '总量',
+                    data:[820, 932, 901, 934, 1290, 1330, 1320]
+                }
+            ]
+        };
         var target = document.getElementById('highOpinionChart');
-        var radarAutoInfo = {hoverEnable: true, autoShow: true, time: 2000, formatter:function(v){
+        var targetA = document.getElementById('lineChart');
+        var radarAutoInfo = {hoverEnable: true, autoShow: true, formatter:function(v){
             return v.text + ':' + (v.value*100/v.max).toFixed(2)+'%';
         }};
         myChart = echarts.init(target);
         myChart.setOption(option);
-        console.log('val',myChart.convertToPixel({seriesIndex:0},[3,70]));
-/*
-        RadarAutoTip.create(myChart,target, option, radarAutoInfo);
-        document.querySelector('#reset').addEventListener('click',function (e) {
-           console.log(e);
-           if(e.target.innerText === '停止'){
-               e.target.innerText ='开始'
-               myChart.radarAutoTip.stop();
-           }else{
-               e.target.innerText  = '停止';
-               myChart.radarAutoTip.start();
-           }
-        });
-        document.querySelector('#rereset').addEventListener('click',function (e) {
-            myChart.radarAutoTip.reset();
-        });
-*/
 
+        myChartA = echarts.init(targetA);
+        myChartA.setOption(optionA);
+
+        new AutoShowTip(myChart,option,2000, radarAutoInfo);
+
+        new AutoShowTip(myChartA,optionA,2000);
+
+        document.querySelector('#reset').addEventListener('click',function (e) {
+            myChart.clearAutoShow();
+            myChart.setOption(option);
+            new AutoShowTip(myChart,option,2000, radarAutoInfo);
+             });
+             document.querySelector('#rereset').addEventListener('click',function (e) {
+                 myChart.clearAutoShow();
+             });
     </script>
 </body>
 </html>
