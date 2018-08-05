@@ -1,0 +1,43 @@
+body, ul, li, div, td {
+  padding: 0;
+  margin: 0; }
+
+.module {
+  width: 800px;
+  height: 800px; }
+
+.hInputSearch {
+  position: relative; }
+  .hInputSearch.show-icon .ant-select-combobox::before {
+    content: "\E670";
+    width: 20px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 3px;
+    z-index: 5;
+    text-align: center;
+    border-right: 1px solid #d9d9d9;
+    font-family: anticon !important; }
+  .hInputSearch.show-icon .ant-select-combobox .ant-select-selection__rendered {
+    margin-left: 27px; }
+  .hInputSearch .search-input {
+    position: absolute;
+    width: 100%;
+    top: 34px;
+    left: 0; }
+    .hInputSearch .search-input .ant-select-selection--single {
+      height: 30px; }
+    .hInputSearch .search-input .search-icon {
+      position: absolute;
+      z-index: 5;
+      top: 8px;
+      right: 6px;
+      font-size: 14px;
+      line-height: 1;
+      font-weight: bold;
+      font-family: anticon !important; }
+      .hInputSearch .search-input .search-icon::before {
+        content: "\E670";
+        display: block;
+        text-align: center; }

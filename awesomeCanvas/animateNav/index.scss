@@ -31,18 +31,21 @@ body {
   .logo-animate{
     position: relative;
     line-height: 0;
+    width:283px;
+    height:325px;
     transform:translate(55px,112px);
     animation: move-float 8s ease-in 0s infinite;
   }
   @keyframes move-float {
      0%{
-       transform:translate(55px,112px);
+       //transform:translate(55px,112px);
+       top:112px;
      }
     50%{
-      transform:translate(55px,100px);
+    //  transform:translate(55px,100px);
     }
     100%{
-      transform:translate(55px,112px);
+    //  transform:translate(55px,112px);
     }
   }
   #canvas {

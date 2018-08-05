@@ -63,6 +63,15 @@ var path ={
     tempModule:{  //组件开发模板
         path:'tempModule/'
     },
+    D3Render: {  //three.js学习相关
+      path: 'threed/',
+      threed: {
+        path: 'D3Render/threed/'
+      },
+      jd: {
+        path: 'D3Render/jd/'
+      }
+    },
     test:{  //测试类组件，不同步git
         path:'test/',
         ZrenderTest:{
@@ -87,7 +96,33 @@ var path ={
 }
 
 
-var editPath = path.commonWidgets.commonPicker.path;  //要使用服务的组件路径
+var editPath = path.D3Render.jd.path;  //要使用服务的组件路径
+function filterEmpty(arr){
+    return arr.filter((item) =>{
+        if(item.sub.length > 0){
+            item.sub = filterEmpty(item.sub);
+        }
+        return item.name.indexOf('——') === -1;
+    })
+}
+function createJs(){
+    return through2.obj(function(file, encoding, done){
+        let content =String(file.contents);
+        let json = JSON.parse(content);
+        json = filterEmpty(json);
+        file.contents = new Buffer(JSON.stringify(json));
+        this.push(file);
+        done();
+    })
+}
+gulp.task('made', function(){
+    console.log('start');
+    return gulp.src(editPath+'city.js')
+        .pipe(createJs())
+        .pipe(rename('newCity.js'))
+        .pipe(gulp.dest("test"));
+
+}); 
 
 /**
  * name:新建组件的文件夹名称
@@ -148,7 +183,7 @@ gulp.task('default', function () {
         runSequence('spCss',browserSync.reload);
     });*/
     //监控文件变化，自动更新
-    gulp.watch([editPath+'index.html'], function () {
+    gulp.watch([editPath+'*.html'], function () {
         runSequence('revCss',browserSync.reload);
     });
     //监控文件变化，自动更新

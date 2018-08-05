@@ -1,0 +1,53 @@
+body,ul,li,div,td{padding: 0;margin: 0;}
+
+.module {
+  width: 800px;
+  height: 800px;
+}
+
+  .hInputSearch {
+    position: relative; // 为combobox 添加搜索框标志
+    &.show-icon {
+      .ant-select-combobox {
+        &::before {
+          content: "\E670";
+          width: 20px;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 3px;
+          z-index: 5;
+          text-align: center;
+          border-right: 1px solid #d9d9d9;
+          font-family: anticon !important;
+        }
+        .ant-select-selection__rendered {
+          margin-left: 27px;
+        }
+      }
+    }
+    .search-input {
+      position: absolute;
+      width: 100%;
+      top: 34px;
+      left: 0; // 修复老版本antd 搜索框显示不全的bug
+      .ant-select-selection--single {
+        height: 30px;
+      }
+      .search-icon {
+        position: absolute;
+        z-index: 5;
+        top: 8px;
+        right: 6px;
+        font-size: 14px;
+        line-height: 1;
+        font-weight: bold;
+        font-family: anticon !important;
+        &::before {
+          content: "\E670";
+          display: block;
+          text-align: center;
+        }
+      }
+    }
+  }

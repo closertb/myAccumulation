@@ -292,11 +292,16 @@ table {
     width: 90px;
     box-sizing: border-box;
     padding-right: 10px;
-    overflow: hidden;
+/*    overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap;*/
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+
     text-align: right;
-    line-height: 60px;
+    line-height: 30px;
   }
   .special-scenic-info, .progress-bar {
     position: absolute;
