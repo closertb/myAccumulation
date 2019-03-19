@@ -10,7 +10,6 @@ var gulp = require('gulp'),
     clean = require('gulp-clean'),
     uglify = require('gulp-uglify'),
     runSequence = require('run-sequence'),
-    sass = require('gulp-sass'),
     minifyCss = require('gulp-minify-css');
 var browserSync = require("browser-sync").create();//创建服务
 
@@ -70,6 +69,9 @@ var path ={
       },
       jd: {
         path: 'D3Render/jd/'
+      },
+      baseGl: {
+        path: 'D3Render/baseGl/'
       }
     },
     test:{  //测试类组件，不同步git
@@ -91,12 +93,15 @@ var path ={
         },
         esLearn:{
             path:'test/esLearn/'
-        }
+      },
+      zepto: {
+        path: 'test/zepto/'
+      }
     }
 }
 
 
-var editPath = path.D3Render.jd.path;  //要使用服务的组件路径
+var editPath = path.D3Render.baseGl.path;  //要使用服务的组件路径
 function filterEmpty(arr){
     return arr.filter((item) =>{
         if(item.sub.length > 0){
@@ -116,7 +121,6 @@ function createJs(){
     })
 }
 gulp.task('made', function(){
-    console.log('start');
     return gulp.src(editPath+'city.js')
         .pipe(createJs())
         .pipe(rename('newCity.js'))
@@ -160,14 +164,12 @@ gulp.task('jsMin', function () {
    //     .pipe(babel({       //es6语法编译
     //        presets: [es]
       //  }))
-    //    .pipe(uglify())//{compatibility: 'ie8'}
-        .pipe(rename('index.min.js'))
         .pipe(gulp.dest(editPath));
 });
 //启动热更新
 gulp.task('default', function () {
     runSequence(
-        "revCss","jsMin"    //,"spCss"
+        "jsMin"    //,"spCss"
     );
     browserSync.init({
         port: 80,
@@ -176,16 +178,12 @@ gulp.task('default', function () {
         }
     });
     //监控文件变化，自动更新
-   gulp.watch([editPath+'*.scss'], function () {
-        runSequence('revCss',browserSync.reload);
+    gulp.watch([editPath+'*.html'], function () {
+        browserSync.reload();
     });
 /*    gulp.watch([editPath+'css/extend.scss'], function () {
         runSequence('spCss',browserSync.reload);
     });*/
-    //监控文件变化，自动更新
-    gulp.watch([editPath+'*.html'], function () {
-        runSequence('revCss',browserSync.reload);
-    });
     //监控文件变化，自动更新
     gulp.watch([editPath+'index.js'], function () {
         runSequence('jsMin',browserSync.reload);
