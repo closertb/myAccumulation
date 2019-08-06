@@ -76,7 +76,7 @@ Bubbling.prototype={
      *       lt*********rt
      *         *       *
      *         *       *
-     *       lb* *******tb
+     *       lb* *******rb
      * */
     _calPoint:function () {
         var that = this;

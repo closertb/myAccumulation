@@ -128,7 +128,7 @@ ScrollList.prototype = {
         var listStr ='',$self=this.$selector.find('.list-body');
         if (this.data.length) {
             this.data.forEach(function (t) {
-                listStr = listStr + '<tr><td class="list-name">' + t.name + '</td><td class="list-limit">' + t.formatNum + '</td><td class="list-percent list-body-percent">\n' +
+                listStr = listStr + '<tr><td class="list-name" alt='+ t.name +'>' + t.name + '</td><td class="list-limit">' + t.formatNum + '</td><td class="list-percent list-body-percent">\n' +
                     '                <span class="progress-number">' + t.formatPer + '</span>\n' +
                     '                <span class="progress-bar"><label  class="progress-percent '+t.level+'" data-percent="' + t.formatPer + '"></label></span>\n' +
                     '            </td>\n' +

@@ -1,16 +1,7 @@
 var gulp = require('gulp'),
-    babel = require('gulp-babel'),
-    es = require('babel-preset-es2015'),
-    reqOptimize = require('gulp-requirejs-optimize'),
     rename = require("gulp-rename"),
-    contact = require('gulp-concat'),
-    rev = require('gulp-rev'),
-    filter = require('gulp-filter'),
     through2 = require('through2'),
-    clean = require('gulp-clean'),
-    uglify = require('gulp-uglify'),
-    runSequence = require('run-sequence'),
-    minifyCss = require('gulp-minify-css');
+    runSequence = require('run-sequence');
 var browserSync = require("browser-sync").create();//创建服务
 
 var path ={
@@ -95,13 +86,19 @@ var path ={
             path:'test/esLearn/'
       },
       zepto: {
-        path: 'test/zepto/'
+        path: 'test/rotateNav/'
       }
+    },
+    source: {
+        promise: {
+            path: 'source/promise/'
+        }
     }
 }
 
 
-var editPath = path.D3Render.baseGl.path;  //要使用服务的组件路径
+var editPath = path.commonWidgets.list.path;  //要使用服务的组件路径
+
 function filterEmpty(arr){
     return arr.filter((item) =>{
         if(item.sub.length > 0){
