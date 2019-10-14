@@ -97,7 +97,7 @@ var path ={
 }
 
 
-var editPath = path.commonWidgets.list.path;  //要使用服务的组件路径
+var editPath = path.source.promise.path;  //要使用服务的组件路径
 
 function filterEmpty(arr){
     return arr.filter((item) =>{

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="./index.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="module">this is a test</div>
+    <button id="test">ceshi</button>
+<script>
+    const channelName = 'Test';
+    const bc = new BroadcastChannel(channelName);
+    
+    window.bc = bc;
+
+    bc.onmessage =  function(e) {
+        console.log('receive:', e.data);
+    };
+
+    // document.querySelector('#test').addEventListener('click', () => {
+    //     bc.postMessage('temp send message');
+    //     console.log('send');
+    // });
+    bc.onmessageerror = function(e) {
+        console.warn('error:', e);
+    };
+</script>
+<!-- <script>
+    /* 页面逻辑 */
+    navigator.serviceWorker.register('./worker.js').then(function () {
+        console.log('Service Worker 注册成功');
+    });
+    
+    navigator.serviceWorker.addEventListener('message', function (e) {
+        const data = e.data;
+        const text = '[temp receive] ' + data.msg + ' —— tab ' + data.from;
+        console.log('[Service Worker] receive message:', text);
+    });
+
+    document.querySelector('#test').addEventListener('click', () => {
+        // bc.postMessage('temp send message');
+        navigator.serviceWorker.controller.postMessage('temp send message');
+        console.log('send');
+    });
+</script> -->
+<script>
+  window.addEventListener('storage', (e) => {
+    console.log('localStroage receive', e);
+  })
+</script>
+<script>
+</script>
+<script src="./index.js"></script>
+</body>
+</html>

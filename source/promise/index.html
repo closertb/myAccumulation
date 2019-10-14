@@ -2,12 +2,85 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>index</title>
     <link href="./index.css" rel="stylesheet" />
 </head>
 <body>
     <div class="module">this is a test</div>
-<script src=""></script>
-<script src="./index.js"></script>
+    <div class="block">
+        <h3>BroadcastChannel</h3>
+        <button id="test1">ceshi</button>
+        <button id="close">close</button>
+    </div>
+    <div class="block">
+        <h3>serviceWorker</h3>
+        <button id="test2">ceshi</button>
+    </div>
+    <div class="block">
+        <h3>localStorage</h3>
+        <button id="test3">ceshi</button>
+        <button id="change">change</button>
+    </div>
+    <div class="block">
+        <h3>SharedWorker</h3>
+        <button id="test4">ceshi</button>
+    </div>
+<script>
+    const channelName = 'Test';
+    const bc = new BroadcastChannel(channelName);
+    
+    window.bc = bc;
+
+    document.querySelector('#test1').addEventListener('click', () => {
+        bc.postMessage('father send message');
+        console.log('send');
+    });
+
+    document.querySelector('#close').addEventListener('click', () => {
+        bc.close();
+        console.log('close');
+    });
+
+    bc.onmessage =  function(e) {
+        console.log('receive:', e.data);
+    };
+
+    bc.onmessageerror = function(e) {
+        console.warn('error:', e);
+    };
+</script>
+<!-- <script>
+    /* 页面逻辑 */
+    navigator.serviceWorker.register('./worker.js', {
+        name: 'index'
+    }).then(function () {
+        console.log('Service Worker 注册成功');
+    });
+    
+    navigator.serviceWorker.addEventListener('message', function (e) {
+        const data = e.data;
+        const text = '[father receive] ' + data.msg + ' —— tab ' + data.from;
+        console.log('[Service Worker] receive message:', text);
+    });
+
+    document.querySelector('#test2').addEventListener('click', () => {
+        // bc.postMessage('temp send message');
+        navigator.serviceWorker.controller.postMessage('father send message');
+        console.log('send');
+    });
+</script> -->
+<script>
+    document.querySelector('#test3').addEventListener('click', () => {
+    // click twice, you will find the immute do not trigger change event
+        localStorage.setItem('key', JSON.stringify({ timeStamp: Date.now() }));
+        localStorage.setItem('immute', JSON.stringify({ change: false }));
+    });
+
+    document.querySelector('#change').addEventListener('click', () => {
+        localStorage.setItem('immute', JSON.stringify({ change: false }));
+    });
+</script>
+<script src="./in.js"></script>
+
 </body>
 </html>
