@@ -49,12 +49,12 @@
         console.warn('error:', e);
     };
 </script>
-<!-- <script>
+<script>
     /* 页面逻辑 */
     navigator.serviceWorker.register('./worker.js', {
         name: 'index'
     }).then(function () {
-        console.log('Service Worker 注册成功');
+        // console.log('Service Worker 注册成功');
     });
     
     navigator.serviceWorker.addEventListener('message', function (e) {
@@ -68,7 +68,7 @@
         navigator.serviceWorker.controller.postMessage('father send message');
         console.log('send');
     });
-</script> -->
+</script>
 <script>
     document.querySelector('#test3').addEventListener('click', () => {
     // click twice, you will find the immute do not trigger change event
@@ -80,7 +80,23 @@
         localStorage.setItem('immute', JSON.stringify({ change: false }));
     });
 </script>
-<script src="./in.js"></script>
+<!-- <script src="./in.js"></script> -->
+<script>
+    
+    const sharedWorker = new SharedWorker('share.js', 'index');
+    sharedWorker.port.start();
 
+    document.querySelector('#test4').addEventListener('click', () => {
+        sharedWorker.port.postMessage({ post: true, data: { msg: 'hello', from: 'index' } });
+        console.log('send 4 data', sharedWorker.port);
+    });
+
+    // 监听 get 消息的返回数据
+    sharedWorker.port.onmessage = (e) => {
+        const data = e.data;
+        // const text = '[index receive] ' + data.msg + ' —— tab ' + data.from;
+        console.log('[Shared Worker] receive:', e, data);
+    };
+</script>
 </body>
 </html>

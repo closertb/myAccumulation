@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <link href="./index.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="module">leetcode run local</div>
+    <div class="block">
+        <h3><button id="test1">运行</button></h3>
+        <h3>结果：<span id="res"></span></h3>
+    </div>
+    <script src="./index.js"></script>
+    <script>
+
+        document.querySelector('#test1').addEventListener('click', () => {
+            const res = window.calculate();
+            console.log('res:', res);
+            document.querySelector('#res').innerHTML = JSON.stringify(res || {});
+        });
+
+    </script>
+</body>
+</html>

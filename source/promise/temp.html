@@ -26,7 +26,7 @@
         console.warn('error:', e);
     };
 </script>
-<!-- <script>
+<script>
     /* 页面逻辑 */
     navigator.serviceWorker.register('./worker.js').then(function () {
         console.log('Service Worker 注册成功');
@@ -43,14 +43,28 @@
         navigator.serviceWorker.controller.postMessage('temp send message');
         console.log('send');
     });
-</script> -->
+</script>
 <script>
   window.addEventListener('storage', (e) => {
     console.log('localStroage receive', e);
   })
 </script>
 <script>
+    const sharedWorker = new SharedWorker('share.js', 'index'); 
+
+    // 监听 get 消息的返回数据
+    sharedWorker.port.onmessage = (e) => {
+        const data = e.data;
+        // const text = '[index receive] ' + data.msg + ' —— tab ' + data.from;
+        console.log('[Shared Worker of temp] receive message:', data.from);
+    };
+
+    // 定时轮询，发送 get 指令的消息
+    setInterval(function () {
+        sharedWorker.port.postMessage({ get: true });
+    }, 2000); 
+
+    sharedWorker.port.start();
 </script>
-<script src="./index.js"></script>
 </body>
 </html>

@@ -92,12 +92,15 @@ var path ={
     source: {
         promise: {
             path: 'source/promise/'
+        },
+        leetcode: {
+            path: 'source/leetcode/'
         }
     }
 }
 
 
-var editPath = path.source.promise.path;  //要使用服务的组件路径
+var editPath = path.source.leetcode.path;  //要使用服务的组件路径
 
 function filterEmpty(arr){
     return arr.filter((item) =>{
@@ -157,7 +160,7 @@ gulp.task('spCss', function () {
 });
 
 gulp.task('jsMin', function () {
-    return gulp.src(editPath+'index.js')
+    return gulp.src(editPath+'*.js')
    //     .pipe(babel({       //es6语法编译
     //        presets: [es]
       //  }))
