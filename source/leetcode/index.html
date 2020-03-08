@@ -13,13 +13,9 @@
     </div>
     <script src="./index.js"></script>
     <script>
-
         document.querySelector('#test1').addEventListener('click', () => {
-            const res = window.calculate();
-            console.log('res:', res);
-            document.querySelector('#res').innerHTML = JSON.stringify(res || {});
+            window.calculate();
         });
-
     </script>
 </body>
 </html>

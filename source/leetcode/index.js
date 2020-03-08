@@ -1,31 +1,40 @@
 // console.log('yess');
-
+let first = true;
+first && setTimeout(() => {
+    first = false;
+    window.calculate();        
+}, 10)
 window.calculate = () => {
-    const input = [2,0,1,0,0,2,1,1,2,0];
-    return leetcode(input);
+    // [[1,3],[2,6],[8,10],[15,18]];
+    // [[1,4],[0,1]] 
+    // [[2,3],[4,5],[6,7],[8,9],[1,10]]
+    const input = [[2,3],[2,2],[3,3],[1,3],[5,7],[2,2],[4,6]];
+    const res =  leetcode(input);
+    console.log('res:', res);
+    document.querySelector('#res').innerHTML = typeof res === 'object' ? JSON.stringify(res || {}) : res;  
 }
 
-var leetcode = function(nums) {
-    const length = nums.length - 1;
-    let start = 0;
-    let end = length;
-    let sval;
-    let eval;
-    function swap(start, end) {
-        const temp = nums[start];
-        nums[start] = nums[end];
-        nums[end] = temp; 
-    }
-    while(start <= length && end >= 0) {
-        let [sval, eval] = start < end ? [nums[start], nums[end]] : [nums[end], nums[start]];
-        if (sval > 0 && sval <= eval) {
-            end--;
-        } else if(sval === 0) {
-            start++;
+var leetcode = function(intervals) {
+    let count = 0;
+    // 排序；
+    intervals.sort((a, b) => a[0] - b[0]);
+    console.log('inter', intervals);
+    function merge(arr) {
+        if (count > arr.length - 2) {
+            return intervals;
+        };
+        const [first, second] = arr.slice(count, count + 2);
+        const [a, b] = first;
+        const [c,d] = second;
+        if (c > b) {
+            count++;
         } else {
-            swap(start, end);
-            start++
+            second[0] = Math.min(a, c);
+            second[1] = Math.max(b,d);
+            arr.splice(count, 1);
         }
+        merge(arr);
     }
-    return nums;
+    merge(intervals);
+    return intervals;
 };
