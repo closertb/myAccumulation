@@ -166,11 +166,8 @@ gulp.task('jsMin', function () {
       //  }))
         .pipe(gulp.dest(editPath));
 });
-//启动热更新
-gulp.task('default', function () {
-    runSequence(
-        "jsMin"    //,"spCss"
-    );
+
+gulp.task('watch', function () {
     browserSync.init({
         port: 80,
         server: {
@@ -189,3 +186,5 @@ gulp.task('default', function () {
         runSequence('jsMin',browserSync.reload);
     });
 });
+//启动热更新
+gulp.task('default', gulp.parallel(['jsMin', 'watch']));
