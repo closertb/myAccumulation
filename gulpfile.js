@@ -175,15 +175,8 @@ gulp.task('watch', function () {
         }
     });
     //监控文件变化，自动更新
-    gulp.watch([editPath+'*.html'], function () {
+    gulp.watch([editPath+'*.html', editPath+'*.js', editPath+'*.ccs']).on('change', function () {
         browserSync.reload();
-    });
-/*    gulp.watch([editPath+'css/extend.scss'], function () {
-        runSequence('spCss',browserSync.reload);
-    });*/
-    //监控文件变化，自动更新
-    gulp.watch([editPath+'index.js'], function () {
-        runSequence('jsMin',browserSync.reload);
     });
 });
 //启动热更新
