@@ -166,11 +166,8 @@ gulp.task('jsMin', function () {
       //  }))
         .pipe(gulp.dest(editPath));
 });
-//启动热更新
-gulp.task('default', function () {
-    runSequence(
-        "jsMin"    //,"spCss"
-    );
+
+gulp.task('watch', function () {
     browserSync.init({
         port: 80,
         server: {
@@ -178,14 +175,9 @@ gulp.task('default', function () {
         }
     });
     //监控文件变化，自动更新
-    gulp.watch([editPath+'*.html'], function () {
+    gulp.watch([editPath+'*.html', editPath+'*.js', editPath+'*.ccs']).on('change', function () {
         browserSync.reload();
     });
-/*    gulp.watch([editPath+'css/extend.scss'], function () {
-        runSequence('spCss',browserSync.reload);
-    });*/
-    //监控文件变化，自动更新
-    gulp.watch([editPath+'index.js'], function () {
-        runSequence('jsMin',browserSync.reload);
-    });
 });
+//启动热更新
+gulp.task('default', gulp.parallel(['jsMin', 'watch']));
