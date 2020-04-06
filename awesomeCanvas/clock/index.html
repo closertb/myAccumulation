@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>canvas时钟</title>
+</head>
+<body>
+  <div>
+    <button id="clock">绘制时钟</button>
+    <button id="list">绘制Dom节点</button>
+  </div>
+  <ul id="list-with-big-data">
+
+  </ul>
+<script src="clock.js"></script>
+<script src="addList.js"></script>
+<script>
+  let count = 0;
+  function mockSetInterval(func, time = 16.666) {
+    let timeId;
+    function clear() {
+      clearTimeout(timeId);
+    }
+    function interval(func, t) {
+      timeId = setTimeout(() => {
+        count ++;
+        func();
+        interval(func, t);
+      }, t);
+    }
+    interval(func, time);
+    return clear;
+  }
+  document.querySelector('#clock').addEventListener('click', () => {
+    const time = 10;
+    var clock = new Clock(400);
+    document.body.appendChild(clock.canvas);
+
+
+    function animation()
+    {
+        clock.update();
+        // requestAnimationFrame(animation);
+
+    }
+    mockSetInterval(animation, time);
+    // animation();
+  });
+
+  document.querySelector('#list').addEventListener('click', () => {
+    addList();
+  });
+
+</script>
+</body>
+</html>
